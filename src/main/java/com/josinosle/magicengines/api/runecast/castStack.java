@@ -70,18 +70,15 @@ public class castStack{
         float dotProduct = (xProd+yProd+zProd)/(calcVector1.modulus() * calcVector2.modulus());
 
         //validity checker for range pi/2
-        if(0 > xProd+yProd+zProd){
-            return("inv");
-        }
         return characterOutput(dotProduct);
     }
 
     //return a string output
     private String characterOutput(float dotProduct){
-        String returnTemp = "A";
-        if (dotProduct>0.25) returnTemp = "B";
-        if (dotProduct>0.75) returnTemp = "C";
-        return returnTemp;
+        if (dotProduct>0.5) return "B";
+        if (dotProduct<-0.5) return "C";
+        if (dotProduct<0) return "D";
+        return "A";
     }
 
     private void spawnParticles(castVector vector1, castVector vector2, Level level, Player player, ParticleOptions particle) {
