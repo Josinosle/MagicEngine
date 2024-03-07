@@ -13,16 +13,16 @@ import java.util.Objects;
 
 public class castStack{
 
-    private ArrayList<castVector> vectorComboList;
-    private ArrayList<String> currentlyDrawnRune;
-    private ArrayList<String> castingStack;
+    private final ArrayList<castVector> vectorComboList;
+    private final ArrayList<String> currentlyDrawnRune;
+    private final ArrayList<String> castingStack;
     public static byte isCasting;
     private ParticleOptions particle;
 
     public castStack(){
-        vectorComboList = new ArrayList<castVector>();
-        currentlyDrawnRune = new ArrayList<String>();
-        castingStack = new ArrayList<String>();
+        vectorComboList = new ArrayList<>();
+        currentlyDrawnRune = new ArrayList<>();
+        castingStack = new ArrayList<>();
     }
 
     public void setVectorComboList(castVector vector,Level level, Player player){
