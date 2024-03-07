@@ -8,7 +8,6 @@ import com.mojang.logging.LogUtils;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.slf4j.Logger;
 
@@ -23,7 +22,6 @@ public class MagicEngines
     public MagicEngines() {
         final IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
-        modEventBus.addListener(this::setupLogger);
         ItemInit.ITEMS.register(modEventBus);
         BlockInit.BLOCKS.register(modEventBus);
         ParticleInit.PARTICLE_TYPES.register(modEventBus);
@@ -31,11 +29,4 @@ public class MagicEngines
 
         MinecraftForge.EVENT_BUS.register(this);
     }
-
-    private void setupLogger(final FMLCommonSetupEvent event)
-    {
-        // some preinit code
-        LOGGER.info("HELLO FROM PREINIT");
-    }
-
 }
