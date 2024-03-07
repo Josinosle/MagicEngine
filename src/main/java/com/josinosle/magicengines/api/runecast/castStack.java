@@ -8,7 +8,6 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import java.util.ArrayList;
-import java.util.Objects;
 
 
 public class castStack{
@@ -48,8 +47,6 @@ public class castStack{
         for(int i = 1; i < vectorComboList.size(); i++) {
             if(i>1){
                 currentlyDrawnRune.add(dotProduct(vectorComboList.get(i-2),vectorComboList.get(i),vectorComboList.get(i-1)));
-                    if(Objects.equals(currentlyDrawnRune.get(i-2), "inv")) {particle = ParticleTypes.FLAME;}
-                    else{particle = ParticleTypes.SOUL_FIRE_FLAME;}
             }
             spawnParticles(vectorComboList.get(i-1),vectorComboList.get(i),level, player, particle);
         }
@@ -75,9 +72,9 @@ public class castStack{
 
     //return a string output
     private String characterOutput(float dotProduct){
-        if (dotProduct>0.5) return "B";
-        if (dotProduct<-0.5) return "C";
-        if (dotProduct<0) return "D";
+        if (dotProduct<=-0.5) return "D";
+        if (dotProduct<=0) return "C";
+        if (dotProduct<=0.5) return "B";
         return "A";
     }
 
@@ -95,4 +92,5 @@ public class castStack{
         }
         level.playSound(player, player.getX(), player.getY(), player.getZ(), SoundEvents.EXPERIENCE_ORB_PICKUP, SoundSource.PLAYERS, 1.0F, 1.0F);
     }
+
 }

@@ -34,7 +34,7 @@ public class CastParticles extends TextureSheetParticle {
     }
 
     private void fade() {
-        this.alpha = isCasting;
+        this.alpha = isCasting*0.6F;
         this.lifetime = this.lifetime*isCasting;
     }
 

@@ -1,6 +1,5 @@
 package com.josinosle.magicengines.init;
 
-import com.josinosle.magicengines.init.MagicEngines;
 import net.minecraft.core.particles.ParticleType;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraftforge.eventbus.api.IEventBus;
