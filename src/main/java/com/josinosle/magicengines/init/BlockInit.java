@@ -1,5 +1,6 @@
 package com.josinosle.magicengines.init;
 
+import com.josinosle.magicengines.MagicEngines;
 import com.josinosle.magicengines.blocks.MagicEngine;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
@@ -13,7 +14,6 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
-import java.util.Objects;
 import java.util.function.Supplier;
 
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)

@@ -1,7 +1,7 @@
 package com.josinosle.magicengines.event;
 
 
-import com.josinosle.magicengines.init.MagicEngines;
+import com.josinosle.magicengines.MagicEngines;
 import com.josinosle.magicengines.init.ParticleInit;
 import net.minecraft.client.Minecraft;
 import net.minecraftforge.client.event.RegisterParticleProvidersEvent;

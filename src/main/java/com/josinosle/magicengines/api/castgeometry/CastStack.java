@@ -1,4 +1,4 @@
-package com.josinosle.magicengines.api.runecast;
+package com.josinosle.magicengines.api.castgeometry;
 
 import com.josinosle.magicengines.init.ParticleInit;
 import net.minecraft.core.particles.ParticleOptions;
@@ -10,21 +10,21 @@ import net.minecraft.world.level.Level;
 import java.util.ArrayList;
 
 
-public class castStack{
+public class CastStack {
 
-    private final ArrayList<castVector> vectorComboList;
+    private final ArrayList<CastVector> vectorComboList;
     private final ArrayList<String> currentlyDrawnRune;
     private final ArrayList<String> castingStack;
     public static byte isCasting;
     private ParticleOptions particle;
 
-    public castStack(){
+    public CastStack(){
         vectorComboList = new ArrayList<>();
         currentlyDrawnRune = new ArrayList<>();
         castingStack = new ArrayList<>();
     }
 
-    public void setVectorComboList(castVector vector,Level level, Player player){
+    public void setVectorComboList(CastVector vector, Level level, Player player){
         vectorComboList.add(vector);
         isCasting = 1;
         particle = ParticleInit.CAST_PARTICLES.get();
@@ -55,10 +55,10 @@ public class castStack{
         castingStack.forEach(System.out::println);
     }
 
-    private String dotProduct(castVector vector1, castVector vector2, castVector vectorOrigin){
+    private String dotProduct(CastVector vector1, CastVector vector2, CastVector vectorOrigin){
         // calculate 2 working vectors
-        castVector calcVector1 = vector1.vectorDifference(vectorOrigin);
-        castVector calcVector2 = vector2.vectorDifference(vectorOrigin);
+        CastVector calcVector1 = vector1.vectorDifference(vectorOrigin);
+        CastVector calcVector2 = vector2.vectorDifference(vectorOrigin);
 
         // calc dot product
         float xProd = (float) (calcVector1.getX()*calcVector2.getX());
@@ -78,8 +78,8 @@ public class castStack{
         return "A";
     }
 
-    private void spawnParticles(castVector vector1, castVector vector2, Level level, Player player, ParticleOptions particle) {
-        castVector tempVector2to1 = new castVector(vector1.getX()- vector2.getX(), vector1.getY()- vector2.getY(), vector1.getZ()- vector2.getZ());
+    private void spawnParticles(CastVector vector1, CastVector vector2, Level level, Player player, ParticleOptions particle) {
+        CastVector tempVector2to1 = new CastVector(vector1.getX()- vector2.getX(), vector1.getY()- vector2.getY(), vector1.getZ()- vector2.getZ());
 
         for(float i = 0; i < 1; i+= 0.01F){
             //Spawn Particle

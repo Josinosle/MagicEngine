@@ -1,21 +1,21 @@
-package com.josinosle.magicengines.api.runecast;
+package com.josinosle.magicengines.api.castgeometry;
 
-public class castVector {
+public class CastVector {
     private final int xPos;
     private final int yPos;
     private final int zPos;
 
-    public castVector(int x,int y,int z){
+    public CastVector(int x, int y, int z){
         xPos = x;
         yPos = y;
         zPos = z;
     }
 
-    public castVector vectorDifference(castVector origin){
+    public CastVector vectorDifference(CastVector origin){
         int xDiff = xPos - origin.getX();
         int yDiff = yPos - origin.getY();
         int zDiff = zPos - origin.getZ();
-        return new castVector(xDiff, yDiff, zDiff);
+        return new CastVector(xDiff, yDiff, zDiff);
     }
 
     public float modulus(){

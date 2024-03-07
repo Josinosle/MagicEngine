@@ -1,6 +1,6 @@
 package com.josinosle.magicengines.item;
 
-import com.josinosle.magicengines.api.runecast.castVector;
+import com.josinosle.magicengines.api.castgeometry.CastVector;
 import com.josinosle.magicengines.util.KeyboardHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
@@ -14,17 +14,17 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.NotNull;
-import com.josinosle.magicengines.api.runecast.castStack;
+import com.josinosle.magicengines.api.castgeometry.CastStack;
 
 import static com.josinosle.magicengines.util.RaycastHelper.rayTrace;
 
 public class MagicWand extends Item {
 
-    private final castStack currentCastStack;
+    private final CastStack currentCastStack;
 
     public MagicWand(Properties properties) {
         super(properties);
-        currentCastStack = new castStack();
+        currentCastStack = new CastStack();
     }
 
 
@@ -43,7 +43,7 @@ public class MagicWand extends Item {
                 player.getCooldowns().addCooldown(this, 5);
 
                 //add coordinate to stack
-                castVector workingVector = new castVector(lookPos.getX(), lookPos.getY(), lookPos.getZ());
+                CastVector workingVector = new CastVector(lookPos.getX(), lookPos.getY(), lookPos.getZ());
 
                 spawnParticles(workingVector, level, player);
                 currentCastStack.setVectorComboList(workingVector,level,player);
@@ -51,7 +51,7 @@ public class MagicWand extends Item {
         }
         return super.use(level, player, hand);
     }
-    private void spawnParticles(castVector vector, Level level, Player player) {
+    private void spawnParticles(CastVector vector, Level level, Player player) {
 
         for(float i = 0; i <= 360; i+= 72){
             //Spawn Particle

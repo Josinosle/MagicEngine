@@ -1,6 +1,9 @@
-package com.josinosle.magicengines.init;
+package com.josinosle.magicengines;
 
 
+import com.josinosle.magicengines.init.BlockInit;
+import com.josinosle.magicengines.init.ItemInit;
+import com.josinosle.magicengines.init.ParticleInit;
 import com.mojang.logging.LogUtils;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
