@@ -25,6 +25,7 @@ public class MagicEngines
         ItemInit.ITEMS.register(modEventBus);
         BlockInit.BLOCKS.register(modEventBus);
         ParticleInit.PARTICLE_TYPES.register(modEventBus);
+        SpellInit.
 
 
         MinecraftForge.EVENT_BUS.register(this);
