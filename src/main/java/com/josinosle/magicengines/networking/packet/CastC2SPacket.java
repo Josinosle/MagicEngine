@@ -13,9 +13,8 @@ import net.minecraft.world.level.Level;
 import net.minecraftforge.network.NetworkEvent;
 import org.checkerframework.checker.units.qual.C;
 
+import java.util.ArrayList;
 import java.util.function.Supplier;
-
-import static com.josinosle.magicengines.util.castgeometry.CastLogic.vectorComboList;
 
 public class CastC2SPacket {
 
@@ -50,6 +49,7 @@ public class CastC2SPacket {
 
             CastLogic.setVectorComboList(new CastVector(x,y,z),level,player);
 
+            ArrayList<CastVector> vectorComboList = CastLogic.getVectorList();
             if (!vectorComboList.isEmpty()) {
 
                 Messages.sendToPlayer(new SpawnDrawParticleS2CPacket(

@@ -18,11 +18,19 @@ import java.util.ArrayList;
 
 public class CastLogic {
     private static final ArrayList<String> castingStack = new ArrayList<>();
-    public static final ArrayList<CastVector> vectorComboList = new ArrayList<>();
+    private static final ArrayList<CastVector> vectorComboList = new ArrayList<>();
     private static final ArrayList<String> currentlyDrawnRune = new ArrayList<>();
     private static CastVector startVector;
 
     public CastLogic(){
+    }
+
+    public static ArrayList<CastVector> getVectorList(){
+        return vectorComboList;
+    }
+
+    public static ArrayList<String> getCastingStack(){
+        return castingStack;
     }
 
     public static void setVectorComboList(CastVector vector, Level level, ServerPlayer player){
@@ -37,11 +45,9 @@ public class CastLogic {
             currentlyDrawnRune.add(dotProduct(vectorComboList.get(vectorComboList.size()-3),vectorComboList.get(vectorComboList.size()-1),vectorComboList.get(vectorComboList.size()-2)));
         }
 
-        System.out.println(currentlyDrawnRune);
-
         if(String.join("", currentlyDrawnRune).equals("AD")){
+            calculateCast(level,player);
             CastHelper.castSpell(castingStack, startVector, level);
-            System.out.println("Cast");
         }
     }
 
@@ -52,7 +58,8 @@ public class CastLogic {
             return;
         }
         else if(vectorComboList.size()<3){
-            currentlyDrawnRune.clear(); vectorComboList.clear(); return;
+            currentlyDrawnRune.clear(); vectorComboList.clear();
+            return;
         }
 
         /*
@@ -62,7 +69,6 @@ public class CastLogic {
         */
 
         castingStack.add(String.join("",currentlyDrawnRune)); vectorComboList.clear();
-        castingStack.forEach(System.out::println);
         currentlyDrawnRune.clear();
     }
 

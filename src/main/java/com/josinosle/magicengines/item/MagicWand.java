@@ -60,11 +60,8 @@ public class MagicWand extends Item {
 
                 // spawn particle
                 if(previousVector != null) {
-                    System.out.println(previousVector.getX());
-                    System.out.println("test1");
                     CastVector tempVector2to1 = new CastVector(x - previousVector.getX(), y - previousVector.getY(), z - previousVector.getZ());
 
-                    System.out.println("test2");
                     for (float i = 0; i < 1; i += 0.01F) {
                         //Spawn Particle
                         level.addAlwaysVisibleParticle(ParticleInit.CAST_PARTICLES.get(),
