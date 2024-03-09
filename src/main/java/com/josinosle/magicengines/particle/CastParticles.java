@@ -7,7 +7,7 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.NotNull;
 
-import static com.josinosle.magicengines.util.castgeometry.CastLogic.isCasting;
+import static com.josinosle.magicengines.item.MagicWand.isCasting;
 
 public class CastParticles extends TextureSheetParticle {
     protected CastParticles(ClientLevel level, double x, double y, double z, SpriteSet spriteSet, double xd, double yd, double zd){
