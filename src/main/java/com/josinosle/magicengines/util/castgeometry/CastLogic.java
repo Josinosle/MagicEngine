@@ -1,33 +1,50 @@
-package com.josinosle.magicengines.api.castgeometry;
+package com.josinosle.magicengines.util.castgeometry;
 
 import com.josinosle.magicengines.init.ParticleInit;
+import com.josinosle.magicengines.util.CastHelper;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
+
 import java.util.ArrayList;
 
 
-public class CastStack {
-
-    private final ArrayList<CastVector> vectorComboList;
-    private final ArrayList<String> currentlyDrawnRune;
-    private final ArrayList<String> castingStack;
+public class CastLogic {
+    private final ArrayList<String> castingStack = new ArrayList<>();
+    private final ArrayList<CastVector> vectorComboList = new ArrayList<>();
+    private final ArrayList<String> currentlyDrawnRune = new ArrayList<>();
     public static byte isCasting;
     private ParticleOptions particle;
+    private CastVector startVector;
 
-    public CastStack(){
-        vectorComboList = new ArrayList<>();
-        currentlyDrawnRune = new ArrayList<>();
-        castingStack = new ArrayList<>();
+    public CastLogic(){
     }
 
     public void setVectorComboList(CastVector vector, Level level, Player player){
-        vectorComboList.add(vector);
         isCasting = 1;
+
+        if(vectorComboList.isEmpty()){
+            startVector = vector;
+        }
+
+        vectorComboList.add(vector);
+        if(vectorComboList.size()>2){
+            currentlyDrawnRune.add(dotProduct(vectorComboList.get(vectorComboList.size()-3),vectorComboList.get(vectorComboList.size()-1),vectorComboList.get(vectorComboList.size()-2)));
+        }
+
         particle = ParticleInit.CAST_PARTICLES.get();
+        System.out.println(currentlyDrawnRune);
+
+        if(String.join("", currentlyDrawnRune).equals("AD")){
+            CastHelper.castSpell(castingStack, startVector, level);
+        }
+
         if(vectorComboList.size()>1){
             spawnParticles(vectorComboList.get(vectorComboList.size()-2),vectorComboList.get(vectorComboList.size()-1),level, player,particle);
         }
@@ -45,14 +62,12 @@ public class CastStack {
         }
         particle = ParticleTypes.SOUL_FIRE_FLAME;
         for(int i = 1; i < vectorComboList.size(); i++) {
-            if(i>1){
-                currentlyDrawnRune.add(dotProduct(vectorComboList.get(i-2),vectorComboList.get(i),vectorComboList.get(i-1)));
-            }
             spawnParticles(vectorComboList.get(i-1),vectorComboList.get(i),level, player, particle);
         }
 
-        castingStack.add(String.join("",currentlyDrawnRune)); vectorComboList.clear(); currentlyDrawnRune.clear();
+        castingStack.add(String.join("",currentlyDrawnRune)); vectorComboList.clear();
         castingStack.forEach(System.out::println);
+        currentlyDrawnRune.clear();
     }
 
     private String dotProduct(CastVector vector1, CastVector vector2, CastVector vectorOrigin){
@@ -78,6 +93,7 @@ public class CastStack {
         return "A";
     }
 
+    @OnlyIn(Dist.CLIENT)
     private void spawnParticles(CastVector vector1, CastVector vector2, Level level, Player player, ParticleOptions particle) {
         CastVector tempVector2to1 = new CastVector(vector1.getX()- vector2.getX(), vector1.getY()- vector2.getY(), vector1.getZ()- vector2.getZ());
 
@@ -91,6 +107,10 @@ public class CastStack {
             );
         }
         level.playSound(player, player.getX(), player.getY(), player.getZ(), SoundEvents.EXPERIENCE_ORB_PICKUP, SoundSource.PLAYERS, 1.0F, 1.0F);
+    }
+
+    public void saveNBTData(CompoundTag nbt){
+        nbt.p
     }
 
 }

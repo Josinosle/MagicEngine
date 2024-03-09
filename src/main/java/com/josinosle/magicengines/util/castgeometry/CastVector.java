@@ -1,4 +1,4 @@
-package com.josinosle.magicengines.api.castgeometry;
+package com.josinosle.magicengines.util.castgeometry;
 
 public class CastVector {
     private final int xPos;

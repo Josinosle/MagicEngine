@@ -7,7 +7,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraftforge.client.event.RegisterParticleProvidersEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import com.josinosle.magicengines.Particle.CastParticles;
+import com.josinosle.magicengines.particle.CastParticles;
 
 
 @Mod.EventBusSubscriber(modid = MagicEngines.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
