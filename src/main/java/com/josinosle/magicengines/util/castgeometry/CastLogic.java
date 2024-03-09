@@ -43,6 +43,7 @@ public class CastLogic {
 
         if(String.join("", currentlyDrawnRune).equals("AD")){
             CastHelper.castSpell(castingStack, startVector, level);
+            System.out.println("Cast");
         }
 
         if(vectorComboList.size()>1){
@@ -107,10 +108,6 @@ public class CastLogic {
             );
         }
         level.playSound(player, player.getX(), player.getY(), player.getZ(), SoundEvents.EXPERIENCE_ORB_PICKUP, SoundSource.PLAYERS, 1.0F, 1.0F);
-    }
-
-    public void saveNBTData(CompoundTag nbt){
-        nbt.p
     }
 
 }

@@ -42,27 +42,6 @@ public class CastC2SPacket {
 
             ServerPlayer player = context.getSender();
             ServerLevel level = player.getLevel();
-
-            if (KeyboardHelper.isHoldingShift()) {
-                currentCastLogic.calculateCast(level, player);
-                System.out.println("Player cast stack cleared");
-                i++;
-                System.out.println(i);
-            } else {
-                // ray cast
-                BlockHitResult ray = rayTrace(level, player);
-                BlockPos lookPos = ray.getBlockPos().relative(ray.getDirection());
-
-
-                //add coordinate to stack
-                CastVector workingVector = new CastVector(lookPos.getX(), lookPos.getY(), lookPos.getZ());
-
-                //spawn Particles
-                spawnParticles(workingVector,level,player);
-
-                currentCastLogic.setVectorComboList(workingVector, level, player);
-            }
-
         });
         return true;
 

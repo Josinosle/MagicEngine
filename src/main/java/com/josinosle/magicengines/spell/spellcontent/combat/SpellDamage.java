@@ -25,13 +25,12 @@ public class SpellDamage extends Spell {
     }
 
     public static void castEffect(Level level, CastVector vector){
-        if(dist.isDedicatedServer()) {
-            AABB boundBox = new AABB(vector.getX() - 5, vector.getY() - 5, vector.getZ() - 5, vector.getX() + 5, vector.getY() + 5, vector.getZ() + 5);
-            List<Entity> entToDamage = level.getEntities(null, boundBox);
-            for (Entity i : entToDamage) {
-                i.hurt(DamageSource.MAGIC, effectModulus);
-                System.out.println("Entity Damaged!");
-            }
+        AABB boundBox = new AABB(vector.getX() - 5, vector.getY() - 5, vector.getZ() - 5, vector.getX() + 5, vector.getY() + 5, vector.getZ() + 5);
+        List<Entity> entToDamage = level.getEntities(null, boundBox);
+        for (Entity i : entToDamage) {
+            i.hurt(DamageSource.MAGIC, effectModulus);
+            System.out.println("Entity Damaged!");
+
         }
     }
 }

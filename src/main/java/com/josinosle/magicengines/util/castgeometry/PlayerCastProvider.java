@@ -16,13 +16,13 @@ public class PlayerCastProvider implements ICapabilityProvider, INBTSerializable
     public static Capability<CastLogic> PLAYER_CAST = CapabilityManager.get(new CapabilityToken<CastLogic>() {});
 
     private CastLogic playerCast = null;
-    private final LazyOptional<CastLogic> optional = LazyOptional.of(this::createPlayerCast);
+    //private final LazyOptional<CastLogic> optional = LazyOptional.of(this::createPlayerCast);
 
     private CastLogic createCastLogic(){
         if(this.playerCast == null){
             this.playerCast = new CastLogic();
         }
-        return this.playerCast
+        return this.playerCast;
     }
 
     @Override
@@ -33,9 +33,9 @@ public class PlayerCastProvider implements ICapabilityProvider, INBTSerializable
     @Override
     public CompoundTag serializeNBT() {
         CompoundTag nbt = new CompoundTag();
-        createCastLogic().saveNBTData(nbt);
+        //createCastLogic().saveNBTData(nbt);
         return nbt;
-        return null;
+        //return null;
     }
 
     @Override
