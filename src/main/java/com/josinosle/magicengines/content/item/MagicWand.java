@@ -25,6 +25,8 @@ import static com.josinosle.magicengines.util.RaycastHelper.rayTrace;
 public class MagicWand extends Item {
 
     public static byte isCasting;
+    public static boolean isCastingInAir;
+    private int range = 200;
 
     public MagicWand(Properties properties) {
         super(properties);
@@ -41,8 +43,15 @@ public class MagicWand extends Item {
                 isCasting = 0;
                 Messages.sendToServer(new CalculateCastC2SPacket());
             } else {
+                if (isCastingInAir){
+                    range = 10;
+                }
+                else{
+                    range = 200;
+                }
+
                 // ray cast
-                BlockHitResult ray = rayTrace(level, player);
+                BlockHitResult ray = rayTrace(level, player, range);
                 BlockPos lookPos = ray.getBlockPos().relative(ray.getDirection());
 
                 isCasting = 1;

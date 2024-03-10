@@ -8,8 +8,7 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 
 public class RaycastHelper {
-    public static BlockHitResult rayTrace(Level world, Player player) {
-        int range = 200;
+    public static BlockHitResult rayTrace(Level world, Player player,int range) {
         float f = player.getXRot();
         float f1 = player.getYRot();
         Vec3 vector3d = player.getEyePosition(1.0F);

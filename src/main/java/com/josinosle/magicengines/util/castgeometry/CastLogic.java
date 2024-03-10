@@ -15,10 +15,7 @@ public class CastLogic {
     private static final ArrayList<String> castingStack = new ArrayList<>();
     private static final ArrayList<CastVector> vectorComboList = new ArrayList<>();
     private static final ArrayList<String> currentlyDrawnRune = new ArrayList<>();
-    private static CastVector startVector;
-
-    public CastLogic(){
-    }
+    private static boolean spellCast;
 
     public static ArrayList<String> getCastingStack(){
         return castingStack;
@@ -26,55 +23,60 @@ public class CastLogic {
 
     public static void setVectorComboList(CastVector vector, Level level, ServerPlayer player){
 
-        if(vectorComboList.isEmpty()){
-            startVector = vector;
-        }
+        if(!spellCast) {
 
-        // add vector to the array
-        vectorComboList.add(vector);
+            // add vector to array
+            vectorComboList.add(vector);
 
-        //casting on block particles
-        player.getLevel().sendParticles(ParticleInit.CAST_PARTICLES.get(),
-                vectorComboList.get(vectorComboList.size()-1).getX() + 0.5,
-                vectorComboList.get(vectorComboList.size()-1).getY() + 0.5,
-                vectorComboList.get(vectorComboList.size()-1).getZ() + 0.5,
-                0, 0, 0, 0,0
-        );
-
-
-        // add rune type to currently drawn rune
-        if(vectorComboList.size()>2){
-            currentlyDrawnRune.add(dotProduct(vectorComboList.get(vectorComboList.size()-3),vectorComboList.get(vectorComboList.size()-1),vectorComboList.get(vectorComboList.size()-2)));
-        }
-
-        // create temp difference vector
-        CastVector tempVector2to1 = new CastVector(
-                vectorComboList.get(vectorComboList.size()-1).getX() - vectorComboList.get(vectorComboList.size()-2).getX(),
-                vectorComboList.get(vectorComboList.size()-1).getY() - vectorComboList.get(vectorComboList.size()-2).getY(),
-                vectorComboList.get(vectorComboList.size()-1).getZ() - vectorComboList.get(vectorComboList.size()-2).getZ()
-
-        );
-
-        // casting particle filler loop
-        for (float i = 0; i < 1; i += 0.01F) {
-            //Spawn Particle
+            // casting on block particles
             player.getLevel().sendParticles(ParticleInit.CAST_PARTICLES.get(),
-                    vectorComboList.get(vectorComboList.size()-2).getX() + tempVector2to1.getX() * i + 0.5,
-                    vectorComboList.get(vectorComboList.size()-2).getY() + tempVector2to1.getY() * i + 0.5,
-                    vectorComboList.get(vectorComboList.size()-2).getZ() + tempVector2to1.getZ() * i + 0.5,
-                    0, 0, 0, 0,0
+                    vectorComboList.get(vectorComboList.size() - 1).getX() + 0.5,
+                    vectorComboList.get(vectorComboList.size() - 1).getY() + 0.5,
+                    vectorComboList.get(vectorComboList.size() - 1).getZ() + 0.5,
+                    0, 0, 0, 0, 0
             );
-        }
 
-        // play casting sound to server
-        level.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.EXPERIENCE_ORB_PICKUP, SoundSource.PLAYERS, 1.0F, 0.2F);
-    }
+
+            // add rune type to currently drawn rune
+            if (vectorComboList.size() > 2) {
+                currentlyDrawnRune.add(dotProduct(vectorComboList.get(vectorComboList.size() - 3), vectorComboList.get(vectorComboList.size() - 1), vectorComboList.get(vectorComboList.size() - 2)));
+            }
+
+            // create temp difference vector
+            CastVector tempVector2to1 = new CastVector(
+                    vectorComboList.get(vectorComboList.size() - 1).getX() - vectorComboList.get(vectorComboList.size() - 2).getX(),
+                    vectorComboList.get(vectorComboList.size() - 1).getY() - vectorComboList.get(vectorComboList.size() - 2).getY(),
+                    vectorComboList.get(vectorComboList.size() - 1).getZ() - vectorComboList.get(vectorComboList.size() - 2).getZ()
+
+            );
+
+            // casting particle filler loop
+            for (float i = 0; i < 1; i += 0.01F) {
+                //Spawn Particle
+                player.getLevel().sendParticles(ParticleInit.CAST_PARTICLES.get(),
+                        vectorComboList.get(vectorComboList.size() - 2).getX() + tempVector2to1.getX() * i + 0.5,
+                        vectorComboList.get(vectorComboList.size() - 2).getY() + tempVector2to1.getY() * i + 0.5,
+                        vectorComboList.get(vectorComboList.size() - 2).getZ() + tempVector2to1.getZ() * i + 0.5,
+                        0, 0, 0, 0, 0
+                );
+            }
+
+            // play casting sound to server
+            level.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.EXPERIENCE_ORB_PICKUP, SoundSource.PLAYERS, 1.0F, 0.2F);
+        }
+        else{
+            System.out.println("Spell Cast at vector");
+            CastHelper.castSpell(castingStack, vector, (ServerLevel) level, player);
+
+        }
+        }
 
     public static void calculateCast(Level level, ServerPlayer player){
         // check vector list isn't empty
         if(vectorComboList.isEmpty()){
             currentlyDrawnRune.clear(); vectorComboList.clear(); castingStack.clear();
             level.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.FLINTANDSTEEL_USE, SoundSource.PLAYERS, 4.0F, 0.5F);
+            spellCast = false;
             return;
         }
 
@@ -84,18 +86,19 @@ public class CastLogic {
             return;
         }
 
-        // add current rune to casting stack
-        castingStack.add(String.join("",currentlyDrawnRune));
-
         // play rune condition
         if(String.join("", currentlyDrawnRune).equals("AB")){
-            CastHelper.castSpell(castingStack, startVector, (ServerLevel) level, player);
+            spellCast=true;
+        }
+
+        // add current rune to casting stack
+        if(!spellCast) {
+            castingStack.add(String.join("", currentlyDrawnRune));
+            System.out.println(currentlyDrawnRune);
         }
 
         // clear non-applicable lists
         vectorComboList.clear(); currentlyDrawnRune.clear();
-
-
     }
 
     private static String dotProduct(CastVector vector1, CastVector vector2, CastVector vectorOrigin){
@@ -110,9 +113,8 @@ public class CastLogic {
         float dotProduct = (xProd+yProd+zProd)/(calcVector1.modulus() * calcVector2.modulus());
 
         // return a character
-        if (dotProduct<=-0.5) return "D";
-        if (dotProduct<=0) return "C";
-        if (dotProduct<=0.5) return "B";
+        if (dotProduct<=-0.33) return "C";
+        if (dotProduct<=0.33) return "B";
         return "A";
     }
 }

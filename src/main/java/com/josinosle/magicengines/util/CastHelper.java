@@ -2,6 +2,7 @@ package com.josinosle.magicengines.util;
 
 import com.josinosle.magicengines.content.spell.spellcontent.combat.PlayerDefence;
 import com.josinosle.magicengines.content.spell.spellcontent.combat.SpellDamage;
+import com.josinosle.magicengines.content.spell.spellcontent.combat.TelekeneticSlam;
 import com.josinosle.magicengines.util.castgeometry.CastLogic;
 import com.josinosle.magicengines.util.castgeometry.CastVector;
 import net.minecraft.server.level.ServerLevel;
@@ -22,8 +23,13 @@ public class CastHelper {
             }
 
             // protection spell
-            if (Objects.equals(i, "BDA")){
+            if (Objects.equals(i, "BCA")){
                 new PlayerDefence(player);
+            }
+
+            // telekenetic slam
+            if (Objects.equals(i, "CAA")){
+                new TelekeneticSlam(player,position);
             }
         }
 
