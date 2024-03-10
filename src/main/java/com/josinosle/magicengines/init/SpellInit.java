@@ -2,10 +2,11 @@ package com.josinosle.magicengines.init;
 
 import com.josinosle.magicengines.MagicEngines;
 import com.josinosle.magicengines.content.spell.Spell;
-import com.josinosle.magicengines.content.spell.spellcontent.combat.SpellDamage;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.registries.*;
+import net.minecraftforge.registries.DeferredRegister;
+import net.minecraftforge.registries.IForgeRegistry;
+import net.minecraftforge.registries.RegistryBuilder;
 
 import java.util.function.Supplier;
 

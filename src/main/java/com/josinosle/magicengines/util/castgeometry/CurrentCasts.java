@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 public class CurrentCasts {
 
-    private static ArrayList<CastLogic> worldCasts = new ArrayList<>();
+    private static final ArrayList<CastLogic> worldCasts = new ArrayList<>();
 
     public static void handlePlayerSetVectorComboList(CastVector vector,Level level, ServerPlayer player){
 

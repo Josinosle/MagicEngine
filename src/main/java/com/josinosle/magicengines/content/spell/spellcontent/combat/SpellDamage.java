@@ -1,13 +1,13 @@
 package com.josinosle.magicengines.content.spell.spellcontent.combat;
 
 import com.josinosle.magicengines.content.spell.Spell;
-import com.josinosle.magicengines.init.ParticleInit;
 import com.josinosle.magicengines.util.castgeometry.CastVector;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.phys.AABB;
+
 import java.util.List;
 
 public class SpellDamage extends Spell {

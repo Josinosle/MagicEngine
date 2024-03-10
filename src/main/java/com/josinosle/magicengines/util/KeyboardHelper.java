@@ -19,6 +19,6 @@ public class KeyboardHelper {
     public static final String KEY_CATEGORY_MAGIC_ENGINE = "key.category.magicengine.magic";
     public static final String KEY_CAST_INAIR = "key.magicengine.cast_inair";
 
-    public static KeyMapping CAST_INAIR_KEY = new KeyMapping(KEY_CAST_INAIR, KeyConflictContext.IN_GAME,
+    public static final KeyMapping CAST_INAIR_KEY = new KeyMapping(KEY_CAST_INAIR, KeyConflictContext.IN_GAME,
             InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_LEFT_CONTROL, KEY_CATEGORY_MAGIC_ENGINE);
 }
