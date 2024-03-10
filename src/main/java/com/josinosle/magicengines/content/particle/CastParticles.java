@@ -1,4 +1,4 @@
-package com.josinosle.magicengines.particle;
+package com.josinosle.magicengines.content.particle;
 
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.*;
@@ -7,7 +7,7 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.NotNull;
 
-import static com.josinosle.magicengines.item.MagicWand.isCasting;
+import static com.josinosle.magicengines.content.item.MagicWand.isCasting;
 
 public class CastParticles extends TextureSheetParticle {
     protected CastParticles(ClientLevel level, double x, double y, double z, SpriteSet spriteSet, double xd, double yd, double zd){

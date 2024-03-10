@@ -48,15 +48,6 @@ public class CastC2SPacket {
             Level level = player.getLevel();
 
             CastLogic.setVectorComboList(new CastVector(x,y,z),level,player);
-
-            ArrayList<CastVector> vectorComboList = CastLogic.getVectorList();
-            if (!vectorComboList.isEmpty()) {
-
-                Messages.sendToPlayer(new SpawnDrawParticleS2CPacket(
-                        vectorComboList.get(vectorComboList.size() - 1).getX(),
-                        vectorComboList.get(vectorComboList.size() - 1).getY(),
-                        vectorComboList.get(vectorComboList.size() - 1).getZ()), player);
-            }
         });
         return true;
     }

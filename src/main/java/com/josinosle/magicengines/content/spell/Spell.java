@@ -1,4 +1,4 @@
-package com.josinosle.magicengines.spell;
+package com.josinosle.magicengines.content.spell;
 
 import com.josinosle.magicengines.util.castgeometry.CastVector;
 import net.minecraft.core.particles.ParticleType;

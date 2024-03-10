@@ -16,6 +16,11 @@ public class ParticleInit {
     public static final RegistryObject<SimpleParticleType> CAST_PARTICLES =
             PARTICLE_TYPES.register("cast_particles", () -> new SimpleParticleType(true));
 
+    public static final RegistryObject<SimpleParticleType> DEFENCE_PARTICLES =
+            PARTICLE_TYPES.register("defence_particles", () -> new SimpleParticleType(true));
+
+
+
     public static void register(IEventBus eventBus) {
         PARTICLE_TYPES.register(eventBus);
     }

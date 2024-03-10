@@ -3,7 +3,6 @@ package com.josinosle.magicengines.networking;
 import com.josinosle.magicengines.MagicEngines;
 import com.josinosle.magicengines.networking.packet.CalculateCastC2SPacket;
 import com.josinosle.magicengines.networking.packet.CastC2SPacket;
-import com.josinosle.magicengines.networking.packet.SpawnDrawParticleS2CPacket;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraftforge.network.NetworkDirection;
@@ -35,17 +34,12 @@ public class Messages {
                 .consumerMainThread(CastC2SPacket::handle)
                 .add();
 
-        net.messageBuilder(SpawnDrawParticleS2CPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
-                .decoder(SpawnDrawParticleS2CPacket::new)
-                .encoder(SpawnDrawParticleS2CPacket::toBytes)
-                .consumerMainThread(SpawnDrawParticleS2CPacket::handle)
-                .add();
-
         net.messageBuilder(CalculateCastC2SPacket.class, id(), NetworkDirection.PLAY_TO_SERVER)
                 .decoder(CalculateCastC2SPacket::new)
                 .encoder(CalculateCastC2SPacket::toBytes)
                 .consumerMainThread(CalculateCastC2SPacket::handle)
                 .add();
+
     }
 
     public static <MSG> void sendToServer(MSG message){

@@ -1,7 +1,7 @@
 package com.josinosle.magicengines.init;
 
 import com.josinosle.magicengines.MagicEngines;
-import com.josinosle.magicengines.blocks.MagicEngine;
+import com.josinosle.magicengines.content.blocks.MagicEngine;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.Material;
