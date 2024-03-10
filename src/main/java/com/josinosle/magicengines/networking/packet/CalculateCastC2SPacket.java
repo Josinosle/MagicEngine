@@ -2,6 +2,7 @@ package com.josinosle.magicengines.networking.packet;
 
 import com.josinosle.magicengines.util.castgeometry.CastLogic;
 import com.josinosle.magicengines.util.castgeometry.CastVector;
+import com.josinosle.magicengines.util.castgeometry.CurrentCasts;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.level.Level;
@@ -30,7 +31,8 @@ public class CalculateCastC2SPacket {
             //client action
             ServerPlayer player = context.getSender();
             Level level = player.getLevel();
-            CastLogic.calculateCast(level,player);
+
+            CurrentCasts.handlePlayerCalculateCast(level,player);
         });
         return true;
     }

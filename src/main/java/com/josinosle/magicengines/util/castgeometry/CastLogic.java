@@ -1,7 +1,6 @@
 package com.josinosle.magicengines.util.castgeometry;
 
 import com.josinosle.magicengines.init.ParticleInit;
-import com.josinosle.magicengines.util.CastHelper;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
@@ -12,16 +11,25 @@ import java.util.ArrayList;
 
 
 public class CastLogic {
-    private static final ArrayList<String> castingStack = new ArrayList<>();
-    private static final ArrayList<CastVector> vectorComboList = new ArrayList<>();
-    private static final ArrayList<String> currentlyDrawnRune = new ArrayList<>();
-    private static boolean spellCast;
+    private final ArrayList<String> castingStack = new ArrayList<>();
+    private final ArrayList<CastVector> vectorComboList = new ArrayList<>();
+    private final ArrayList<String> currentlyDrawnRune = new ArrayList<>();
+    private final ServerPlayer playerIdentifier;
+    private boolean spellCast;
 
-    public static ArrayList<String> getCastingStack(){
+    public CastLogic(ServerPlayer player){
+        this.playerIdentifier = player;
+    }
+
+    public ServerPlayer getPlayer(){
+        return playerIdentifier;
+    }
+
+    public ArrayList<String> getCastingStack(){
         return castingStack;
     }
 
-    public static void setVectorComboList(CastVector vector, Level level, ServerPlayer player){
+    public void setVectorComboList(CastVector vector, Level level, ServerPlayer player){
 
         if(!spellCast) {
 
@@ -46,8 +54,8 @@ public class CastLogic {
             CastVector tempVector2to1 = new CastVector(
                     vectorComboList.get(vectorComboList.size() - 1).getX() - vectorComboList.get(vectorComboList.size() - 2).getX(),
                     vectorComboList.get(vectorComboList.size() - 1).getY() - vectorComboList.get(vectorComboList.size() - 2).getY(),
-                    vectorComboList.get(vectorComboList.size() - 1).getZ() - vectorComboList.get(vectorComboList.size() - 2).getZ()
-
+                    vectorComboList.get(vectorComboList.size() - 1).getZ() - vectorComboList.get(vectorComboList.size() - 2).getZ(),
+                    player
             );
 
             // casting particle filler loop
@@ -71,7 +79,7 @@ public class CastLogic {
         }
         }
 
-    public static void calculateCast(Level level, ServerPlayer player){
+    public void calculateCast(Level level, ServerPlayer player){
         // check vector list isn't empty
         if(vectorComboList.isEmpty()){
             currentlyDrawnRune.clear(); vectorComboList.clear(); castingStack.clear();

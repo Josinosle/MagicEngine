@@ -18,7 +18,7 @@ public class CastParticles extends TextureSheetParticle {
         this.yd = yd;
         this.zd = zd;
         this.quadSize *= 0.85F;
-        this.lifetime = 2000;
+        this.lifetime = 200;
         this.setSpriteFromAge(spriteSet);
 
         this.rCol = 1f;
@@ -34,8 +34,7 @@ public class CastParticles extends TextureSheetParticle {
     }
 
     private void fade() {
-        this.alpha = isCasting*0.6F;
-        this.lifetime = this.lifetime*isCasting;
+        this.alpha = (-(1/(float) lifetime) * age + 1);
     }
 
     @Override

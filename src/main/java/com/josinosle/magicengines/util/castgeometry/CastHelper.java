@@ -1,4 +1,4 @@
-package com.josinosle.magicengines.util;
+package com.josinosle.magicengines.util.castgeometry;
 
 import com.josinosle.magicengines.content.spell.spellcontent.combat.PlayerDefence;
 import com.josinosle.magicengines.content.spell.spellcontent.combat.SpellDamage;
@@ -14,7 +14,7 @@ import java.util.Objects;
 public class CastHelper {
 
     public static void castSpell(ArrayList<String> castStack, CastVector position, ServerLevel level, ServerPlayer player){
-        for (String i : CastLogic.getCastingStack()){
+        for (String i : castStack){
             System.out.println(i);
 
             // unaspected damage spell

@@ -40,7 +40,6 @@ public class MagicWand extends Item {
             player.getCooldowns().addCooldown(this, 5);
 
             if (KeyboardHelper.isHoldingShift()) {
-                isCasting = 0;
                 Messages.sendToServer(new CalculateCastC2SPacket());
             } else {
                 if (isCastingInAir){
@@ -53,8 +52,6 @@ public class MagicWand extends Item {
                 // ray cast
                 BlockHitResult ray = rayTrace(level, player, range);
                 BlockPos lookPos = ray.getBlockPos().relative(ray.getDirection());
-
-                isCasting = 1;
 
                 //add coordinate to stack
                 int x = lookPos.getX();

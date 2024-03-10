@@ -4,6 +4,7 @@ import com.josinosle.magicengines.init.ParticleInit;
 import com.josinosle.magicengines.networking.Messages;
 import com.josinosle.magicengines.util.castgeometry.CastLogic;
 import com.josinosle.magicengines.util.castgeometry.CastVector;
+import com.josinosle.magicengines.util.castgeometry.CurrentCasts;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
@@ -47,7 +48,7 @@ public class CastC2SPacket {
             ServerPlayer player = context.getSender();
             Level level = player.getLevel();
 
-            CastLogic.setVectorComboList(new CastVector(x,y,z),level,player);
+            CurrentCasts.handlePlayerSetVectorComboList(new CastVector(x,y,z, player),level,player);
         });
         return true;
     }
