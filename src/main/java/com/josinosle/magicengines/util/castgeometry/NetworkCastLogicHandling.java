@@ -5,7 +5,7 @@ import net.minecraft.world.level.Level;
 
 import java.util.ArrayList;
 
-public class CurrentCasts {
+public class NetworkCastLogicHandling {
 
     private static final ArrayList<CastLogic> worldCasts = new ArrayList<>();
 

@@ -22,11 +22,11 @@ public class SpellDamage extends Spell {
                     i.getX(),
                     i.getY()+1,
                     i.getZ(),
-                    1,
+                    5,
                     0,
                     0.05,
                     0,
-                    0);
+                    0.5);
         }
     }
 }

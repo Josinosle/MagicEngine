@@ -1,7 +1,7 @@
 package com.josinosle.magicengines.networking.packet;
 
 import com.josinosle.magicengines.util.castgeometry.CastVector;
-import com.josinosle.magicengines.util.castgeometry.CurrentCasts;
+import com.josinosle.magicengines.util.castgeometry.NetworkCastLogicHandling;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.level.Level;
@@ -41,7 +41,7 @@ public class CastC2SPacket {
             assert player != null;
             Level level = player.getLevel();
 
-            CurrentCasts.handlePlayerSetVectorComboList(new CastVector(x,y,z, player),level,player);
+            NetworkCastLogicHandling.handlePlayerSetVectorComboList(new CastVector(x,y,z, player),level,player);
         });
     }
 }

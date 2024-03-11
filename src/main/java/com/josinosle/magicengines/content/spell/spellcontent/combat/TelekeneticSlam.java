@@ -4,6 +4,8 @@ import com.josinosle.magicengines.MagicEngines;
 import com.josinosle.magicengines.util.castgeometry.CastVector;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.phys.AABB;
 import net.minecraftforge.fml.common.Mod;
@@ -37,6 +39,9 @@ public class TelekeneticSlam {
                         0.05,
                         0,
                         0);
+
+                player.getLevel().playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.GENERIC_EXPLODE, SoundSource.PLAYERS, 1.0F, 2.0F);
+
             }
         }
     }

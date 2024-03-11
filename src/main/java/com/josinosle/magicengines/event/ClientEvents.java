@@ -2,6 +2,8 @@ package com.josinosle.magicengines.event;
 
 import com.josinosle.magicengines.MagicEngines;
 import com.josinosle.magicengines.content.item.MagicWand;
+import com.josinosle.magicengines.networking.Messages;
+import com.josinosle.magicengines.networking.packet.CalculateCastC2SPacket;
 import com.josinosle.magicengines.util.KeyboardHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
@@ -10,6 +12,7 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.InputEvent;
 import net.minecraftforge.client.event.RegisterKeyMappingsEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.common.Mod;
 
 public class ClientEvents {
@@ -30,6 +33,9 @@ public class ClientEvents {
 
                 }
             }
+            if(KeyboardHelper.CASTCALC_KEY.consumeClick() && Dist.CLIENT.isClient()){
+                Messages.sendToServer(new CalculateCastC2SPacket());
+            }
         }
 
         @Mod.EventBusSubscriber(modid = MagicEngines.MOD_ID, value = Dist.CLIENT, bus=Mod.EventBusSubscriber.Bus.MOD)
@@ -39,6 +45,7 @@ public class ClientEvents {
             @SubscribeEvent
             public static void onKeyRegister(RegisterKeyMappingsEvent event){
                 event.register(KeyboardHelper.CAST_INAIR_KEY);
+                event.register(KeyboardHelper.CASTCALC_KEY);
             }
         }
     }

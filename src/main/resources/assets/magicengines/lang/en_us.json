@@ -5,5 +5,6 @@
   "block.magicengines.mana_filter": "Mana Filter",
 
   "key.category.magicengine.magic": "Magic Engine",
-  "key.magicengine.cast_inair": "Toggle Inair Casting"
+  "key.magicengine.cast_inair": "Toggle Inair Casting",
+  "key.magicengine.cast_castcalc":"Calculate Cast"
 }
