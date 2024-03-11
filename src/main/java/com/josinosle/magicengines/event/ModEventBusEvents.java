@@ -5,13 +5,14 @@ import com.josinosle.magicengines.MagicEngines;
 import com.josinosle.magicengines.content.particle.DefenceParticles;
 import com.josinosle.magicengines.init.ParticleInit;
 import net.minecraft.client.Minecraft;
+import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.RegisterParticleProvidersEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import com.josinosle.magicengines.content.particle.CastParticles;
 
 
-@Mod.EventBusSubscriber(modid = MagicEngines.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
+@Mod.EventBusSubscriber(modid = MagicEngines.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
 public class ModEventBusEvents {
 
     @SubscribeEvent
