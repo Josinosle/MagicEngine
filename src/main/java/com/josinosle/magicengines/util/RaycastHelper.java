@@ -1,5 +1,6 @@
 package com.josinosle.magicengines.util;
 
+import net.minecraft.core.BlockPos;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.ClipContext;
@@ -8,7 +9,7 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 
 public class RaycastHelper {
-    public static BlockHitResult rayTrace(Level world, Player player,int range) {
+    public static Vec3 rayTrace(Level world, Player player,int range) {
         float f = player.getXRot();
         float f1 = player.getYRot();
         Vec3 vector3d = player.getEyePosition(1.0F);
@@ -19,6 +20,13 @@ public class RaycastHelper {
         float f6 = f3 * f4;
         float f7 = f2 * f4;
         Vec3 vector3d1 = vector3d.add((double)f6 * range, (double)f5 * range, (double)f7 * range);
-        return world.clip(new ClipContext(vector3d, vector3d1, ClipContext.Block.OUTLINE, ClipContext.Fluid.NONE, player));
+
+        BlockHitResult worldClip = world.clip(new ClipContext(vector3d, vector3d1, ClipContext.Block.OUTLINE, ClipContext.Fluid.NONE, player));
+        BlockPos lookPos = worldClip.getBlockPos().relative(worldClip.getDirection());
+
+        if(lookPos.getX()!=(int)vector3d1.x && lookPos.getY()!=(int)vector3d1.y && lookPos.getY()!=(int)vector3d1.y) {
+            vector3d1 = new Vec3(lookPos.getX()+0.5,lookPos.getY()+0.5,lookPos.getZ()+0.5);
+        }
+        return vector3d1;
     }
 }

@@ -11,26 +11,27 @@ import java.util.function.Supplier;
 
 public class CastC2SPacket {
 
-    private final int x;
-    private final int y;
-    private final int z;
+    private final double x;
+    private final double y;
+    private final double z;
 
-    public CastC2SPacket(int x, int y, int z){
+    public CastC2SPacket(double x, double y, double z){
         this.x = x;
         this.y = y;
         this.z = z;
     }
 
     public CastC2SPacket(FriendlyByteBuf buf) {
-        this.x = buf.readInt();
-        this.y = buf.readInt();
-        this.z = buf.readInt();
+        this.x = buf.readDouble();
+        this.y = buf.readDouble();
+        this.z = buf.readDouble();
+        
     }
 
     public void toBytes(FriendlyByteBuf buf){
-        buf.writeInt(x);
-        buf.writeInt(y);
-        buf.writeInt(z);
+        buf.writeDouble(x);
+        buf.writeDouble(y);
+        buf.writeDouble(z);
     }
 
     public void handle(Supplier<NetworkEvent.Context> supplier){

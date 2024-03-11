@@ -10,6 +10,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 
 import static com.josinosle.magicengines.util.RaycastHelper.rayTrace;
@@ -37,13 +38,12 @@ public class MagicWand extends Item {
             }
 
             // ray cast
-            BlockHitResult ray = rayTrace(level, player, range);
-            BlockPos lookPos = ray.getBlockPos().relative(ray.getDirection());
+            Vec3 ray = rayTrace(level, player, range);
 
             //add coordinate to stack
-            int x = lookPos.getX();
-            int y = lookPos.getY();
-            int z = lookPos.getZ();
+            double x = ray.x;
+            double y = ray.y;
+            double z = ray.z;
 
             // send packet to server
             Messages.sendToServer(new CastC2SPacket(x, y, z));

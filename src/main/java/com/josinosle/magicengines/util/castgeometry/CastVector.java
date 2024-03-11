@@ -3,12 +3,12 @@ package com.josinosle.magicengines.util.castgeometry;
 import net.minecraft.world.entity.player.Player;
 
 public class CastVector {
-    private final int xPos;
-    private final int yPos;
-    private final int zPos;
+    private final double xPos;
+    private final double yPos;
+    private final double zPos;
     private final Player castPlayer;
 
-    public CastVector(int x, int y, int z, Player player){
+    public CastVector(double x, double y, double z, Player player){
         xPos = x;
         yPos = y;
         zPos = z;
@@ -16,9 +16,9 @@ public class CastVector {
     }
 
     public CastVector vectorDifference(CastVector origin){
-        int xDiff = xPos - origin.getX();
-        int yDiff = yPos - origin.getY();
-        int zDiff = zPos - origin.getZ();
+        double xDiff = xPos - origin.getX();
+        double yDiff = yPos - origin.getY();
+        double zDiff = zPos - origin.getZ();
         return new CastVector(xDiff, yDiff, zDiff, castPlayer);
     }
 
@@ -26,13 +26,13 @@ public class CastVector {
         return (float) Math.sqrt(Math.pow(xPos,2)+Math.pow(yPos,2)+Math.pow(zPos,2));
     }
 
-    public int getX(){
+    public double getX(){
         return xPos;
     }
-    public int getY(){
+    public double getY(){
         return yPos;
     }
-    public int getZ(){
+    public double getZ(){
         return zPos;
     }
 }

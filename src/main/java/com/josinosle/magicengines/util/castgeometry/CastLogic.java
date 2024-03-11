@@ -38,9 +38,9 @@ public class CastLogic {
 
             // casting on block particles
             player.getLevel().sendParticles(ParticleInit.CAST_PARTICLES.get(),
-                    vectorComboList.get(vectorComboList.size() - 1).getX() + 0.5,
-                    vectorComboList.get(vectorComboList.size() - 1).getY() + 0.5,
-                    vectorComboList.get(vectorComboList.size() - 1).getZ() + 0.5,
+                    vectorComboList.get(vectorComboList.size() - 1).getX(),
+                    vectorComboList.get(vectorComboList.size() - 1).getY(),
+                    vectorComboList.get(vectorComboList.size() - 1).getZ(),
                     0, 0, 0, 0, 0
             );
 
@@ -62,9 +62,9 @@ public class CastLogic {
             for (float i = 0; i < 1; i += 0.01F) {
                 //Spawn Particle
                 player.getLevel().sendParticles(ParticleInit.CAST_PARTICLES.get(),
-                        vectorComboList.get(vectorComboList.size() - 2).getX() + tempVector2to1.getX() * i + 0.5,
-                        vectorComboList.get(vectorComboList.size() - 2).getY() + tempVector2to1.getY() * i + 0.5,
-                        vectorComboList.get(vectorComboList.size() - 2).getZ() + tempVector2to1.getZ() * i + 0.5,
+                        vectorComboList.get(vectorComboList.size() - 2).getX() + tempVector2to1.getX() * i,
+                        vectorComboList.get(vectorComboList.size() - 2).getY() + tempVector2to1.getY() * i,
+                        vectorComboList.get(vectorComboList.size() - 2).getZ() + tempVector2to1.getZ() * i,
                         0, 0, 0, 0, 0
                 );
             }
