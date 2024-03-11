@@ -33,7 +33,7 @@ public class ClientEvents {
 
                 }
             }
-            if(KeyboardHelper.CASTCALC_KEY.consumeClick() && Dist.CLIENT.isClient()){
+            if(KeyboardHelper.CASTCALC_KEY.consumeClick() && localPlayer != null){
                 Messages.sendToServer(new CalculateCastC2SPacket());
             }
         }
