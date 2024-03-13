@@ -1,10 +1,7 @@
 package com.josinosle.magicengines.util;
 
-import net.minecraft.client.KeyMapping;
-import net.minecraft.client.Minecraft;
 import com.mojang.blaze3d.platform.InputConstants;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraft.client.KeyMapping;
 import net.minecraftforge.client.settings.KeyConflictContext;
 import org.lwjgl.glfw.GLFW;
 

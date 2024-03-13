@@ -25,10 +25,6 @@ public class CastLogic {
         return playerIdentifier;
     }
 
-    public ArrayList<String> getCastingStack(){
-        return castingStack;
-    }
-
     public void setVectorComboList(CastVector vector, Level level, ServerPlayer player){
 
         if(!spellCast) {

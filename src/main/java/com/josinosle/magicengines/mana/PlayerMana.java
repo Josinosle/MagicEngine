@@ -4,14 +4,14 @@ import net.minecraft.nbt.CompoundTag;
 
 public class PlayerMana {
     private int mana;
-    private int maxMana = 10000;
 
     public int getMana(){
         return mana;
     }
 
     public void addMana(int add){
-        this.mana = (int) (mana + (maxMana-mana)*0.05*add)  ;
+        int maxMana = 10000;
+        this.mana = (int) (mana + (maxMana -mana)*0.05*add)  ;
 
     }
 
