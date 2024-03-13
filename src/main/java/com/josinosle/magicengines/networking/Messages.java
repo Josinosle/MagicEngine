@@ -40,6 +40,12 @@ public class Messages {
                 .consumerMainThread(CalculateCastC2SPacket::handle)
                 .add();
 
+        net.messageBuilder(ClientboundSyncMana.class, id(), NetworkDirection.PLAY_TO_CLIENT)
+                .decoder(ClientboundSyncMana::new)
+                .encoder(ClientboundSyncMana::toBytes)
+                .consumerMainThread(ClientboundSyncMana::handle)
+                .add();
+
     }
 
     public static <MSG> void sendToServer(MSG message){

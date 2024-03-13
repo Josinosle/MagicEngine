@@ -5,12 +5,13 @@ import net.minecraft.nbt.CompoundTag;
 public class PlayerMana {
     private int mana;
 
+    private int maxMana = 10000;
+
     public int getMana(){
         return mana;
     }
 
     public void addMana(int add){
-        int maxMana = 10000;
         this.mana = (int) (mana + (maxMana -mana)*0.05*add)  ;
 
     }
@@ -29,5 +30,17 @@ public class PlayerMana {
 
     public void loadNBTData(CompoundTag nbt){
         nbt.putInt("mana", mana);
+    }
+
+    public int getMaxMana() {
+        return maxMana;
+    }
+
+    public void setMaxMana(int maxMana) {
+        this.maxMana = maxMana;
+    }
+
+    public boolean isManaFull() {
+        return mana < maxMana;
     }
 }
