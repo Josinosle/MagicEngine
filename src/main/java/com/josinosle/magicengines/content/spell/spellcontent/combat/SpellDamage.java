@@ -1,9 +1,11 @@
 package com.josinosle.magicengines.content.spell.spellcontent.combat;
 
 import com.josinosle.magicengines.content.spell.Spell;
+import com.josinosle.magicengines.mana.PlayerManaProvider;
 import com.josinosle.magicengines.util.castgeometry.CastVector;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.phys.AABB;
@@ -11,7 +13,7 @@ import net.minecraft.world.phys.AABB;
 import java.util.List;
 
 public class SpellDamage extends Spell {
-    public SpellDamage(ServerLevel level, CastVector vector){
+    public SpellDamage(ServerLevel level, ServerPlayer player, CastVector vector){
         AABB boundBox = new AABB(vector.getX() - 5, vector.getY() - 5, vector.getZ() - 5, vector.getX() + 5, vector.getY() + 5, vector.getZ() + 5);
         List<Entity> entToDamage = level.getEntities(null, boundBox);
         for (Entity i : entToDamage) {
@@ -28,5 +30,7 @@ public class SpellDamage extends Spell {
                     0,
                     0.5);
         }
+        player.getCapability(PlayerManaProvider.PLAYER_MANA).ifPresent(mana ->
+                mana.subMana(1000));
     }
 }

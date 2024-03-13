@@ -17,7 +17,7 @@ public class CastHelper {
 
             // unaspected damage spell
             if (Objects.equals(i, "ABCC")){
-                new SpellDamage(level,position);
+                new SpellDamage(level, player, position);
             }
 
             // protection spell
@@ -27,7 +27,7 @@ public class CastHelper {
 
             // telekenetic slam
             if (Objects.equals(i, "CAA")){
-                new TelekeneticSlam(player,position);
+                new TelekeneticSlam(player, position);
             }
         }
 

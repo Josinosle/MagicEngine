@@ -2,6 +2,7 @@ package com.josinosle.magicengines.content.spell.spellcontent.combat;
 
 import com.josinosle.magicengines.MagicEngines;
 import com.josinosle.magicengines.init.ParticleInit;
+import com.josinosle.magicengines.mana.PlayerManaProvider;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -21,6 +22,8 @@ public class PlayerDefence {
         PlayerDefence.player = player;
         runEffect = true;
         i=0;
+        player.getCapability(PlayerManaProvider.PLAYER_MANA).ifPresent(mana ->
+                mana.subMana(5000));
     }
 
     @SubscribeEvent

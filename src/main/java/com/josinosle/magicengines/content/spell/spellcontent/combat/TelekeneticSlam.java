@@ -1,6 +1,7 @@
 package com.josinosle.magicengines.content.spell.spellcontent.combat;
 
 import com.josinosle.magicengines.MagicEngines;
+import com.josinosle.magicengines.mana.PlayerManaProvider;
 import com.josinosle.magicengines.util.castgeometry.CastVector;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerPlayer;
@@ -41,8 +42,9 @@ public class TelekeneticSlam {
                         0);
 
                 player.getLevel().playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.GENERIC_EXPLODE, SoundSource.PLAYERS, 1.0F, 2.0F);
-
             }
         }
+        player.getCapability(PlayerManaProvider.PLAYER_MANA).ifPresent(mana ->
+                mana.subMana(1000));
     }
 }
