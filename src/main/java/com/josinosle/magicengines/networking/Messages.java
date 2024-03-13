@@ -3,6 +3,7 @@ package com.josinosle.magicengines.networking;
 import com.josinosle.magicengines.MagicEngines;
 import com.josinosle.magicengines.networking.packet.CalculateCastC2SPacket;
 import com.josinosle.magicengines.networking.packet.CastC2SPacket;
+import com.josinosle.magicengines.networking.packet.SyncManaS2CPacket;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraftforge.network.NetworkDirection;
@@ -40,10 +41,10 @@ public class Messages {
                 .consumerMainThread(CalculateCastC2SPacket::handle)
                 .add();
 
-        net.messageBuilder(ClientboundSyncMana.class, id(), NetworkDirection.PLAY_TO_CLIENT)
-                .decoder(ClientboundSyncMana::new)
-                .encoder(ClientboundSyncMana::toBytes)
-                .consumerMainThread(ClientboundSyncMana::handle)
+        net.messageBuilder(SyncManaS2CPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
+                .decoder(SyncManaS2CPacket::new)
+                .encoder(SyncManaS2CPacket::toBytes)
+                .consumerMainThread(SyncManaS2CPacket::handle)
                 .add();
 
     }

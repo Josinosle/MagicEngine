@@ -4,8 +4,8 @@ package com.josinosle.magicengines.event;
 import com.josinosle.magicengines.MagicEngines;
 import com.josinosle.magicengines.mana.PlayerMana;
 import com.josinosle.magicengines.mana.PlayerManaProvider;
-import com.josinosle.magicengines.networking.ClientboundSyncMana;
 import com.josinosle.magicengines.networking.Messages;
+import com.josinosle.magicengines.networking.packet.SyncManaS2CPacket;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
@@ -52,7 +52,7 @@ public class ModEvents {
                     mana.addMana(1);
                     System.out.println(player.getName().getString() + "'s mana : " + mana.getMana());
 
-                    Messages.sendToPlayer(new ClientboundSyncMana(mana.getMana()), player);
+                    Messages.sendToPlayer(new SyncManaS2CPacket(mana.getMana()), player);
                 }
             });
         }

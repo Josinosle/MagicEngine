@@ -2,6 +2,7 @@ package com.josinosle.magicengines.content.spell.spellcontent.combat;
 
 import com.josinosle.magicengines.MagicEngines;
 import com.josinosle.magicengines.init.ParticleInit;
+import com.josinosle.magicengines.mana.PlayerMana;
 import com.josinosle.magicengines.mana.PlayerManaProvider;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;

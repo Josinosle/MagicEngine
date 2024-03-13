@@ -1,6 +1,7 @@
 package com.josinosle.magicengines.client.overlay;
 
 import com.josinosle.magicengines.MagicEngines;
+import com.josinosle.magicengines.client.clientdata.ClientManaData;
 import com.josinosle.magicengines.config.ClientConfigs;
 import com.josinosle.magicengines.content.item.MagicWand;
 import com.josinosle.magicengines.mana.PlayerMana;
@@ -73,9 +74,9 @@ public class ManaBarOverlay {
             gui.blit(poseStack, barX, barY, spriteX, spriteY + IMAGE_HEIGHT, (int) (imageWidth * Math.min((mana.getMana() / (double) mana.getMaxMana()), 1)), IMAGE_HEIGHT);
 
             int textX, textY;
-            String manaFraction = (mana.getMana()) + "/" + mana.getMaxMana();
+            String manaFraction = (ClientManaData.getPlayerMana()) + "/" + mana.getMaxMana();
 
-            textX = barX + imageWidth / 2 - (int) ((("" + mana.getMana()).length() + 0.5) * CHAR_WIDTH);
+            textX = barX + imageWidth / 2 - (int) ((("" + ClientManaData.getPlayerMana()).length() + 0.5) * CHAR_WIDTH);
             textY = barY + (anchor == Anchor.XP ? ICON_ROW_HEIGHT / 3 : ICON_ROW_HEIGHT);
 
             if (ClientConfigs.MANA_BAR_TEXT_VISIBLE.get()) {
