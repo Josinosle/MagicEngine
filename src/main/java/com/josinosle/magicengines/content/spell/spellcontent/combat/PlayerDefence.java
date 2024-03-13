@@ -27,20 +27,21 @@ public class PlayerDefence {
     public static void playerTakeDamage(LivingHurtEvent event) {
         if (runEffect && event.getEntity() instanceof Player && i<100) {
             i += (int) (event.getAmount());
-            for (int j = 0; j <= 360; j += 6) {
+            for (double j = 0.6; j <= 1.8; j+=0.6){
+                for (int k = 0; k <= 360; k += 60) {
+                    // send spawn particle
 
-                // send spawn particle
-
-                player.getLevel().sendParticles(
-                        ParticleInit.DEFENCE_PARTICLES.get(),
-                        player.getX(),
-                        player.getY()+1.1,
-                        player.getZ(),
-                        1,
-                        0.75*Math.cos(j),
-                        0.05,
-                        0.75*Math.sin(j),
-                        0);
+                    player.getLevel().sendParticles(
+                            ParticleInit.DEFENCE_PARTICLES.get(),
+                            player.getX(),
+                            player.getY() + 1.1,
+                            player.getZ(),
+                            1,
+                            0.75 * Math.cos(k),
+                            0.05,
+                            0.75 * Math.sin(k),
+                            0);
+                }
             }
 
             player.getLevel().playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.AMETHYST_CLUSTER_BREAK, SoundSource.PLAYERS, 5.0F, 0.5F);
