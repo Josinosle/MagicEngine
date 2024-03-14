@@ -20,16 +20,9 @@ public class PlayerDefence {
     private static boolean runEffect;
 
     public PlayerDefence(ServerPlayer player) {
-        SpellCastManaChanges logic = new SpellCastManaChanges();
-        if(logic.spellCastable(player,5000)){
             PlayerDefence.player = player;
             runEffect = true;
             i=0;
-            logic.subMana(player,5000);
-        }
-
-
-
     }
 
     @SubscribeEvent
@@ -39,36 +32,38 @@ public class PlayerDefence {
                 event.getSource() != DamageSource.STARVE ||
                 event.getSource() != DamageSource.LAVA)) {
 
-            // cancel damage
-            event.setCanceled(true);
+            SpellCastManaChanges logic = new SpellCastManaChanges();
+            if(logic.spellCastable(player,1000) && event.getAmount()<=20) {
+                // cancel damage
+                event.setCanceled(true);
 
-            // particle spawning
-            i += (int) (event.getAmount());
-            for (double j = 0.6; j <= 1.8; j+=0.6){
-                for (int k = 0; k <= 360; k += 60) {
-                    // send spawn particle
 
-                    player.getLevel().sendParticles(
-                            ParticleInit.DEFENCE_PARTICLES.get(),
-                            player.getX(),
-                            player.getY() + j,
-                            player.getZ(),
-                            1,
-                            0.75 * Math.cos(k),
-                            0.05,
-                            0.75 * Math.sin(k),
-                            0);
+
+                // particle spawning
+                for (double j = 0.6; j <= 1.8; j += 0.6) {
+                    for (int k = 0; k <= 360; k += 60) {
+                        // send spawn particle
+
+                        player.getLevel().sendParticles(
+                                ParticleInit.DEFENCE_PARTICLES.get(),
+                                player.getX(),
+                                player.getY() + j,
+                                player.getZ(),
+                                1,
+                                0.75 * Math.cos(k),
+                                0.05,
+                                0.75 * Math.sin(k),
+                                0);
+                    }
                 }
+
+                // sound effect
+                player.getLevel().playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.AMETHYST_CLUSTER_BREAK, SoundSource.PLAYERS, 5.0F, 0.5F);
+                logic.subMana(player,1000);
             }
-
-            // sound effect
-            player.getLevel().playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.AMETHYST_CLUSTER_BREAK, SoundSource.PLAYERS, 5.0F, 0.5F);
-
-        }
-        // cancel shield condition
-        if(i>=100){
-            i = 0;
-            runEffect = false;
+            if(event.getAmount()>20){
+                runEffect = false;
+            }
         }
     }
 }
