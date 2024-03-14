@@ -52,7 +52,7 @@ public class ClientEvents {
 
             @SubscribeEvent
             public static void onRegisterOverlays(RegisterGuiOverlaysEvent event){
-                event.registerBelow(VanillaGuiOverlay.EXPERIENCE_BAR.id(), "mana_overlay", ManaBarOverlay::render);
+                event.registerBelow(VanillaGuiOverlay.EXPERIENCE_BAR.id(), "mana_overlay", ManaBarOverlay::renderManaBar);
             }
 
         }
