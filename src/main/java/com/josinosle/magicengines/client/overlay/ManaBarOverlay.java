@@ -42,6 +42,8 @@ public class ManaBarOverlay {
     static final int HOTBAR_HEIGHT = 25;
     static final int ICON_ROW_HEIGHT = 11;
     static final int CHAR_WIDTH = 6;
+
+    // horizontal offset
     static final int HUNGER_BAR_OFFSET = 50;
     static final int SCREEN_BORDER_MARGIN = 20;
     static final int TEXT_COLOR = ChatFormatting.AQUA.getColor();
