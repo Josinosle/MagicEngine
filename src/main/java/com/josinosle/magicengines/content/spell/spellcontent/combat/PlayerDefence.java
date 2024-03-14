@@ -20,11 +20,17 @@ public class PlayerDefence {
     private static boolean runEffect;
 
     public PlayerDefence(ServerPlayer player) {
-        PlayerDefence.player = player;
-        runEffect = true;
-        i=0;
-        player.getCapability(PlayerManaProvider.PLAYER_MANA).ifPresent(mana ->
-                mana.subMana(5000));
+        player.getCapability(PlayerManaProvider.PLAYER_MANA).ifPresent(mana -> {
+            if(mana.getMana()>=5000){
+
+                PlayerDefence.player = player;
+                runEffect = true;
+                i=0;
+                mana.subMana(5000);
+            }
+        });
+
+
     }
 
     @SubscribeEvent
@@ -38,7 +44,7 @@ public class PlayerDefence {
                     player.getLevel().sendParticles(
                             ParticleInit.DEFENCE_PARTICLES.get(),
                             player.getX(),
-                            player.getY() + 1.1,
+                            player.getY() + j,
                             player.getZ(),
                             1,
                             0.75 * Math.cos(k),

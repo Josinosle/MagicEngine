@@ -21,7 +21,7 @@ public class CastHelper {
             }
 
             // protection spell
-            if (Objects.equals(i, "BCA")){
+            if (Objects.equals(i, "C")){
                 new PlayerDefence(player);
             }
 

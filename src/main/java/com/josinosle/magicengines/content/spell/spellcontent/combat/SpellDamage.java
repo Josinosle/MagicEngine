@@ -14,23 +14,30 @@ import java.util.List;
 
 public class SpellDamage extends Spell {
     public SpellDamage(ServerLevel level, ServerPlayer player, CastVector vector){
-        AABB boundBox = new AABB(vector.getX() - 5, vector.getY() - 5, vector.getZ() - 5, vector.getX() + 5, vector.getY() + 5, vector.getZ() + 5);
-        List<Entity> entToDamage = level.getEntities(null, boundBox);
-        for (Entity i : entToDamage) {
-            i.hurt(DamageSource.MAGIC, 10);
+        player.getCapability(PlayerManaProvider.PLAYER_MANA).ifPresent(mana -> {
 
-            level.getLevel().sendParticles(
-                    ParticleTypes.POOF,
-                    i.getX(),
-                    i.getY()+1,
-                    i.getZ(),
-                    5,
-                    0,
-                    0.05,
-                    0,
-                    0.5);
-        }
-        player.getCapability(PlayerManaProvider.PLAYER_MANA).ifPresent(mana ->
-                mana.subMana(1000));
+            if (mana.getMana() >= 1000) {
+
+                AABB boundBox = new AABB(vector.getX() - 5, vector.getY() - 5, vector.getZ() - 5, vector.getX() + 5, vector.getY() + 5, vector.getZ() + 5);
+                List<Entity> entToDamage = level.getEntities(null, boundBox);
+                for (Entity i : entToDamage) {
+                    i.hurt(DamageSource.MAGIC, 10);
+
+                    level.getLevel().sendParticles(
+                            ParticleTypes.POOF,
+                            i.getX(),
+                            i.getY() + 1,
+                            i.getZ(),
+                            5,
+                            0,
+                            0.05,
+                            0,
+                            0.5);
+                }
+
+                mana.subMana(1000);
+            }
+        });
     }
 }
+

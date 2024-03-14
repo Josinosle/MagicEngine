@@ -50,7 +50,6 @@ public class ModEvents {
             player.getCapability(PlayerManaProvider.PLAYER_MANA).ifPresent(mana -> {
                 if(player.getRandom().nextFloat() < 0.05f) {
                     mana.addMana(1);
-                    System.out.println(player.getName().getString() + "'s mana : " + mana.getMana());
 
                     Messages.sendToPlayer(new SyncManaS2CPacket(mana.getMana()), player);
                 }
