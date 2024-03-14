@@ -1,8 +1,8 @@
 package com.josinosle.magicengines.content.spell.spellcontent.combat;
 
 import com.josinosle.magicengines.MagicEngines;
+import com.josinosle.magicengines.content.spell.spellcontent.SpellCastManaChanges;
 import com.josinosle.magicengines.init.ParticleInit;
-import com.josinosle.magicengines.mana.PlayerManaProvider;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -19,15 +19,14 @@ public class PlayerDefence {
     private static boolean runEffect;
 
     public PlayerDefence(ServerPlayer player) {
-        player.getCapability(PlayerManaProvider.PLAYER_MANA).ifPresent(mana -> {
-            if(mana.getMana()>=5000){
+        SpellCastManaChanges logic = new SpellCastManaChanges();
+        if(logic.spellCastable(player,5000)){
+            PlayerDefence.player = player;
+            runEffect = true;
+            i=0;
+            logic.subMana(player,5000);
+        }
 
-                PlayerDefence.player = player;
-                runEffect = true;
-                i=0;
-                mana.subMana(5000);
-            }
-        });
 
 
     }

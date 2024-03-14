@@ -1,7 +1,7 @@
 package com.josinosle.magicengines.content.spell.spellcontent.combat;
 
 import com.josinosle.magicengines.content.spell.Spell;
-import com.josinosle.magicengines.mana.PlayerManaProvider;
+import com.josinosle.magicengines.content.spell.spellcontent.SpellCastManaChanges;
 import com.josinosle.magicengines.util.castgeometry.CastVector;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
@@ -14,30 +14,28 @@ import java.util.List;
 
 public class SpellDamage extends Spell {
     public SpellDamage(ServerLevel level, ServerPlayer player, CastVector vector){
-        player.getCapability(PlayerManaProvider.PLAYER_MANA).ifPresent(mana -> {
 
-            if (mana.getMana() >= 1000) {
+        SpellCastManaChanges logic = new SpellCastManaChanges();
+        if(logic.spellCastable(player,1500)) {
+            AABB boundBox = new AABB(vector.getX() - 5, vector.getY() - 5, vector.getZ() - 5, vector.getX() + 5, vector.getY() + 5, vector.getZ() + 5);
+            List<Entity> entToDamage = level.getEntities(null, boundBox);
+            for (Entity i : entToDamage) {
+                i.hurt(DamageSource.MAGIC, 10);
 
-                AABB boundBox = new AABB(vector.getX() - 5, vector.getY() - 5, vector.getZ() - 5, vector.getX() + 5, vector.getY() + 5, vector.getZ() + 5);
-                List<Entity> entToDamage = level.getEntities(null, boundBox);
-                for (Entity i : entToDamage) {
-                    i.hurt(DamageSource.MAGIC, 10);
-
-                    level.getLevel().sendParticles(
-                            ParticleTypes.POOF,
-                            i.getX(),
-                            i.getY() + 1,
-                            i.getZ(),
-                            5,
-                            0,
-                            0.05,
-                            0,
-                            0.5);
-                }
-
-                mana.subMana(1000);
+                level.getLevel().sendParticles(
+                        ParticleTypes.POOF,
+                        i.getX(),
+                        i.getY() + 1,
+                        i.getZ(),
+                        5,
+                        0,
+                        0.05,
+                        0,
+                        0.5);
             }
-        });
+            logic.subMana(player,1500);
+        }
     }
 }
+
 
