@@ -71,7 +71,7 @@ public class ManaBarOverlay {
             int spriteX = anchor == Anchor.XP ? 68 : 0;
             int spriteY = anchor == Anchor.XP ? 40 : 0;
             gui.blit(poseStack, barX, barY, spriteX, spriteY, imageWidth, IMAGE_HEIGHT, 256, 256);
-            gui.blit(poseStack, barX, barY, spriteX, spriteY + IMAGE_HEIGHT, (int) (imageWidth * Math.min((mana.getMana() / (double) mana.getMaxMana()), 1)), IMAGE_HEIGHT);
+            gui.blit(poseStack, barX, barY, spriteX, spriteY + IMAGE_HEIGHT, (int) (imageWidth * Math.min((ClientManaData.getPlayerMana() / (double) mana.getMaxMana()), 1)), IMAGE_HEIGHT);
 
             int textX, textY;
             String manaFraction = (ClientManaData.getPlayerMana()) + "/" + mana.getMaxMana();
