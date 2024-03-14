@@ -16,17 +16,17 @@ public class CastHelper {
             System.out.println(i);
 
             // unaspected damage spell
-            if (Objects.equals(i, "ABCC")){
+            if (Objects.equals(i, "BBA")){
                 new SpellDamage(level, player, position);
             }
 
             // protection spell
-            if (Objects.equals(i, "C")){
+            if (Objects.equals(i, "CA")){
                 new PlayerDefence(player);
             }
 
             // telekenetic slam
-            if (Objects.equals(i, "CAA")){
+            if (Objects.equals(i, "CAB")){
                 new TelekeneticSlam(player, position);
             }
         }

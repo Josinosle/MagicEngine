@@ -6,8 +6,9 @@ import com.josinosle.magicengines.init.ParticleInit;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.player.Player;
-import net.minecraftforge.event.entity.living.LivingHurtEvent;
+import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
@@ -32,8 +33,16 @@ public class PlayerDefence {
     }
 
     @SubscribeEvent
-    public static void playerTakeDamage(LivingHurtEvent event) {
-        if (runEffect && event.getEntity() instanceof Player && i<100) {
+    public static void playerTakeDamage(LivingAttackEvent event) {
+        if (runEffect && event.getEntity() instanceof Player && i<100 && (
+                event.getSource() != DamageSource.DROWN ||
+                event.getSource() != DamageSource.STARVE ||
+                event.getSource() != DamageSource.LAVA)) {
+
+            // cancel damage
+            event.setCanceled(true);
+
+            // particle spawning
             i += (int) (event.getAmount());
             for (double j = 0.6; j <= 1.8; j+=0.6){
                 for (int k = 0; k <= 360; k += 60) {
@@ -52,12 +61,11 @@ public class PlayerDefence {
                 }
             }
 
+            // sound effect
             player.getLevel().playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.AMETHYST_CLUSTER_BREAK, SoundSource.PLAYERS, 5.0F, 0.5F);
 
-            float tempAmount = event.getAmount();
-            event.setAmount(tempAmount/10);
-            System.out.println(i);
         }
+        // cancel shield condition
         if(i>=100){
             i = 0;
             runEffect = false;
