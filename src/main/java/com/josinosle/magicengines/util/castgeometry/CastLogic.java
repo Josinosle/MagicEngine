@@ -117,9 +117,10 @@ public class CastLogic {
         float dotProduct = (xProd+yProd+zProd)/(calcVector1.modulus() * calcVector2.modulus());
 
         // return a character
-        if (dotProduct<=-0.75) return "D";
-        if (dotProduct<=-0.25) return "C";
-        if (dotProduct<=0.25) return "B";
+        if (dotProduct<=-0.75) return "A";
+        if (dotProduct<=-0.25) return "D";
+        if (dotProduct<=0.25) return "C";
+        if (dotProduct<=0.75) return "B";
         return "A";
     }
 }
