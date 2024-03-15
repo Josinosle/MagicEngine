@@ -1,7 +1,6 @@
 package com.josinosle.magicengines.util.castgeometry;
 
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 
 import java.util.ArrayList;
@@ -44,7 +43,7 @@ public class NetworkCastLogicHandling {
     }
 
     public static ArrayList<ServerPlayer> getWorldPlayers(){
-        ArrayList<ServerPlayer> CurrentPlayers = new ArrayList<ServerPlayer>();
+        ArrayList<ServerPlayer> CurrentPlayers = new ArrayList<>();
         for(CastLogic i : worldCasts){
             CurrentPlayers.add(i.getPlayer());
         }
