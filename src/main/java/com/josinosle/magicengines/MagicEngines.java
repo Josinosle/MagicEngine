@@ -2,10 +2,7 @@ package com.josinosle.magicengines;
 
 
 import com.josinosle.magicengines.config.ClientConfigs;
-import com.josinosle.magicengines.init.BlockInit;
-import com.josinosle.magicengines.init.ItemInit;
-import com.josinosle.magicengines.init.ParticleInit;
-import com.josinosle.magicengines.init.SpellInit;
+import com.josinosle.magicengines.init.*;
 import com.josinosle.magicengines.networking.Messages;
 import com.mojang.logging.LogUtils;
 import net.minecraftforge.common.MinecraftForge;
@@ -32,6 +29,7 @@ public class MagicEngines
         BlockInit.BLOCKS.register(modEventBus);
         ParticleInit.PARTICLE_TYPES.register(modEventBus);
         SpellInit.MAGIC_ENGINE_SPELLS.register(modEventBus);
+        SoundInit.register(modEventBus);
         ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, ClientConfigs.SPEC, String.format("%s-client.toml", MOD_ID));
 
         MinecraftForge.EVENT_BUS.register(this);

@@ -3,6 +3,7 @@ package com.josinosle.magicengines.util.castgeometry;
 import com.josinosle.magicengines.content.spell.spellcontent.combat.PlayerDefence;
 import com.josinosle.magicengines.content.spell.spellcontent.combat.SpellDamage;
 import com.josinosle.magicengines.content.spell.spellcontent.combat.TelekeneticSlam;
+import com.josinosle.magicengines.content.spell.spellcontent.fun.SpellFart;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 
@@ -28,6 +29,10 @@ public class CastHelper {
             // telekenetic slam
             if (Objects.equals(i, "CAB")){
                 new TelekeneticSlam(player, position);
+            }
+
+            if(Objects.equals(i, "ACAB")) {
+                new SpellFart(player);
             }
         }
 
