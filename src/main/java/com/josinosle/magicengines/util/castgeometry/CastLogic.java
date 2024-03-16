@@ -17,17 +17,17 @@ public class CastLogic {
     private final ServerPlayer playerIdentifier;
     private boolean spellCast;
 
-    public CastLogic(ServerPlayer player){
+    public CastLogic(ServerPlayer player) {
         this.playerIdentifier = player;
     }
 
-    public ServerPlayer getPlayer(){
+    public ServerPlayer getPlayer() {
         return playerIdentifier;
     }
 
-    public void setVectorComboList(CastVector vector, Level level, ServerPlayer player){
+    public void setVectorComboList(CastVector vector, Level level, ServerPlayer player) {
 
-        if(!spellCast) {
+        if (!spellCast) {
 
             // add vector to array
             vectorComboList.add(vector);
@@ -67,60 +67,63 @@ public class CastLogic {
 
             // play casting sound to server
             level.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.EXPERIENCE_ORB_PICKUP, SoundSource.PLAYERS, 1.0F, 0.2F);
-        }
-        else{
+        } else {
             System.out.println("Spell Cast at vector");
             CastHelper.castSpell(castingStack, vector, (ServerLevel) level, player);
 
         }
-        }
+    }
 
-    public void calculateCast(Level level, ServerPlayer player){
+    public void calculateCast(Level level, ServerPlayer player) {
         // check vector list isn't empty
-        if(vectorComboList.isEmpty()){
-            currentlyDrawnRune.clear(); vectorComboList.clear(); castingStack.clear();
+        if (vectorComboList.isEmpty()) {
+            currentlyDrawnRune.clear();
+            vectorComboList.clear();
+            castingStack.clear();
             level.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.FLINTANDSTEEL_USE, SoundSource.PLAYERS, 4.0F, 0.5F);
             spellCast = false;
             return;
         }
 
         // check vector list validity
-        else if(vectorComboList.size()<3){
-            currentlyDrawnRune.clear(); vectorComboList.clear();
+        else if (vectorComboList.size() < 3) {
+            currentlyDrawnRune.clear();
+            vectorComboList.clear();
             return;
         }
 
         // play rune condition
-        if(String.join("", currentlyDrawnRune).equals("AB")){
-            spellCast=true;
+        if (String.join("", currentlyDrawnRune).equals("AB")) {
+            spellCast = true;
         }
 
         // add current rune to casting stack
-        if(!spellCast) {
+        if (!spellCast) {
             castingStack.add(String.join("", currentlyDrawnRune));
             System.out.println(currentlyDrawnRune);
         }
 
         // clear non-applicable lists
-        vectorComboList.clear(); currentlyDrawnRune.clear();
+        vectorComboList.clear();
+        currentlyDrawnRune.clear();
     }
 
-    private static String dotProduct(CastVector vector1, CastVector vector2, CastVector vectorOrigin){
+    private static String dotProduct(CastVector vector1, CastVector vector2, CastVector vectorOrigin) {
         // calculate 2 working vectors
         CastVector calcVector1 = vector1.vectorDifference(vectorOrigin);
         CastVector calcVector2 = vector2.vectorDifference(vectorOrigin);
 
         // calc dot product
-        float xProd = (float) (calcVector1.getX()*calcVector2.getX());
-        float yProd = (float) (calcVector1.getY()*calcVector2.getY());
-        float zProd = (float) (calcVector1.getZ()*calcVector2.getZ());
-        float dotProduct = (xProd+yProd+zProd)/(calcVector1.modulus() * calcVector2.modulus());
+        float xProd = (float) (calcVector1.getX() * calcVector2.getX());
+        float yProd = (float) (calcVector1.getY() * calcVector2.getY());
+        float zProd = (float) (calcVector1.getZ() * calcVector2.getZ());
+        float dotProduct = (xProd + yProd + zProd) / (calcVector1.modulus() * calcVector2.modulus());
 
         // return a character
-        if (dotProduct<=-0.75) return "A";
-        if (dotProduct<=-0.25) return "D";
-        if (dotProduct<=0.25) return "C";
-        if (dotProduct<=0.75) return "B";
+        if (dotProduct <= -0.75) return "A";
+        if (dotProduct <= -0.25) return "D";
+        if (dotProduct <= 0.25) return "C";
+        if (dotProduct <= 0.75) return "B";
         return "A";
     }
 }

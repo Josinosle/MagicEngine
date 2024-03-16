@@ -1,6 +1,7 @@
 package com.josinosle.magicengines.init;
 
 import com.josinosle.magicengines.MagicEngines;
+import com.josinosle.magicengines.content.item.BeanWand;
 import com.josinosle.magicengines.content.item.MagicWand;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
@@ -30,6 +31,11 @@ public class ItemInit{
 
     //magic wand init
     public static final RegistryObject<Item> MAGIC_WAND = ITEMS.register("magic_wand", () -> new MagicWand(new Item.Properties()
+            .stacksTo(1)
+            .tab(ModCreativeTab.instance)
+    ));
+
+    public static final RegistryObject<Item> BEAN_WAND = ITEMS.register("bean_wand", () -> new BeanWand(new Item.Properties()
             .stacksTo(1)
             .tab(ModCreativeTab.instance)
     ));
