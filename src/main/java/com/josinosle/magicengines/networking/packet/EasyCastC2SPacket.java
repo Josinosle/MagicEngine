@@ -1,11 +1,10 @@
 package com.josinosle.magicengines.networking.packet;
 
-import com.josinosle.magicengines.content.spell.spellcontent.fun.SpellFart;
+import com.josinosle.magicengines.spells.spellcontent.fun.SpellFart;
 import com.josinosle.magicengines.util.castgeometry.CastVector;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.level.Level;
 import net.minecraftforge.network.NetworkEvent;
 
 import java.util.function.Supplier;

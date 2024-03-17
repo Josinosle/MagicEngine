@@ -1,4 +1,4 @@
-package com.josinosle.magicengines.client.clientdata;
+package com.josinosle.magicengines.mana;
 
 public class ClientManaData {
 

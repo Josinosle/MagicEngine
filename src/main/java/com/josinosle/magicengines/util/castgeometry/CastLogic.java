@@ -1,6 +1,6 @@
 package com.josinosle.magicengines.util.castgeometry;
 
-import com.josinosle.magicengines.init.ParticleInit;
+import com.josinosle.magicengines.registry.ParticleRegistry;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
@@ -33,7 +33,7 @@ public class CastLogic {
             vectorComboList.add(vector);
 
             // casting on block particles
-            player.getLevel().sendParticles(ParticleInit.CAST_PARTICLES.get(),
+            player.getLevel().sendParticles(ParticleRegistry.CAST_PARTICLES.get(),
                     vectorComboList.get(vectorComboList.size() - 1).getX(),
                     vectorComboList.get(vectorComboList.size() - 1).getY(),
                     vectorComboList.get(vectorComboList.size() - 1).getZ(),
@@ -57,7 +57,7 @@ public class CastLogic {
             // casting particle filler loop
             for (float i = 0; i < 1; i += 0.01F) {
                 //Spawn Particle
-                player.getLevel().sendParticles(ParticleInit.CAST_PARTICLES.get(),
+                player.getLevel().sendParticles(ParticleRegistry.CAST_PARTICLES.get(),
                         vectorComboList.get(vectorComboList.size() - 2).getX() + tempVector2to1.getX() * i,
                         vectorComboList.get(vectorComboList.size() - 2).getY() + tempVector2to1.getY() * i,
                         vectorComboList.get(vectorComboList.size() - 2).getZ() + tempVector2to1.getZ() * i,

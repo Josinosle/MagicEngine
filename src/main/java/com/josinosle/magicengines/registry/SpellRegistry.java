@@ -1,7 +1,7 @@
-package com.josinosle.magicengines.init;
+package com.josinosle.magicengines.registry;
 
 import com.josinosle.magicengines.MagicEngines;
-import com.josinosle.magicengines.content.spell.Spell;
+import com.josinosle.magicengines.spells.Spell;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
@@ -10,7 +10,7 @@ import net.minecraftforge.registries.RegistryBuilder;
 
 import java.util.function.Supplier;
 
-public class SpellInit {
+public class SpellRegistry {
 
     public static final DeferredRegister<Spell> MAGIC_ENGINE_SPELLS = DeferredRegister.create(new ResourceLocation(MagicEngines.MOD_ID, "spells"),MagicEngines.MOD_ID);
 

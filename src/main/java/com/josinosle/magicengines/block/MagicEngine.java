@@ -1,4 +1,4 @@
-package com.josinosle.magicengines.content.blocks;
+package com.josinosle.magicengines.block;
 
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;

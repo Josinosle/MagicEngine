@@ -1,4 +1,4 @@
-package com.josinosle.magicengines.client.overlay;
+package com.josinosle.magicengines.gui.overlay;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.*;

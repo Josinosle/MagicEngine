@@ -1,6 +1,6 @@
 package com.josinosle.magicengines.config;
 
-import com.josinosle.magicengines.client.overlay.ManaBarOverlay;
+import com.josinosle.magicengines.gui.overlay.ManaBarOverlay;
 import net.minecraftforge.common.ForgeConfigSpec;
 
 public class ClientConfigs {

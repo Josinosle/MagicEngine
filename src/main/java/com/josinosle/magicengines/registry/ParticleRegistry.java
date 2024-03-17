@@ -1,4 +1,4 @@
-package com.josinosle.magicengines.init;
+package com.josinosle.magicengines.registry;
 
 import com.josinosle.magicengines.MagicEngines;
 import net.minecraft.core.particles.ParticleType;
@@ -8,7 +8,7 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
-public class ParticleInit {
+public class ParticleRegistry {
     public static final DeferredRegister<ParticleType<?>> PARTICLE_TYPES =
             DeferredRegister.create(ForgeRegistries.PARTICLE_TYPES, MagicEngines.MOD_ID);
 

@@ -1,8 +1,8 @@
-package com.josinosle.magicengines.init;
+package com.josinosle.magicengines.registry;
 
 import com.josinosle.magicengines.MagicEngines;
-import com.josinosle.magicengines.content.item.BeanWand;
-import com.josinosle.magicengines.content.item.MagicWand;
+import com.josinosle.magicengines.item.BeanWand;
+import com.josinosle.magicengines.item.MagicWand;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -11,7 +11,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import org.jetbrains.annotations.NotNull;
 
-public class ItemInit{
+public class ItemRegistry {
     public static final DeferredRegister<Item> ITEMS =
             DeferredRegister.create(ForgeRegistries.ITEMS, MagicEngines.MOD_ID);
 

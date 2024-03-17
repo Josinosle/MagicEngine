@@ -1,8 +1,8 @@
-package com.josinosle.magicengines.content.spell.spellcontent.combat;
+package com.josinosle.magicengines.spells.spellcontent.combat;
 
 import com.josinosle.magicengines.MagicEngines;
-import com.josinosle.magicengines.content.spell.spellcontent.SpellCastManaChanges;
-import com.josinosle.magicengines.init.ParticleInit;
+import com.josinosle.magicengines.spells.spellcontent.SpellCastManaChanges;
+import com.josinosle.magicengines.registry.ParticleRegistry;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -45,7 +45,7 @@ public class PlayerDefence {
                         // send spawn particle
 
                         player.getLevel().sendParticles(
-                                ParticleInit.DEFENCE_PARTICLES.get(),
+                                ParticleRegistry.DEFENCE_PARTICLES.get(),
                                 player.getX(),
                                 player.getY() + j,
                                 player.getZ(),

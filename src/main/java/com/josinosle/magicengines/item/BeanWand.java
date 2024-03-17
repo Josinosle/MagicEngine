@@ -1,4 +1,4 @@
-package com.josinosle.magicengines.content.item;
+package com.josinosle.magicengines.item;
 
 import com.josinosle.magicengines.networking.Messages;
 import com.josinosle.magicengines.networking.packet.EasyCastC2SPacket;

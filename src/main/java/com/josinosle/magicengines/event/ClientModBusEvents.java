@@ -1,7 +1,7 @@
 package com.josinosle.magicengines.event;
 
 import com.josinosle.magicengines.MagicEngines;
-import com.josinosle.magicengines.client.overlay.ManaBarOverlay;
+import com.josinosle.magicengines.gui.overlay.ManaBarOverlay;
 import com.josinosle.magicengines.util.KeyboardHelper;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.RegisterGuiOverlaysEvent;

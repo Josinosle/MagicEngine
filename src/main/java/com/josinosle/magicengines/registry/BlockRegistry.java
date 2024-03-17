@@ -1,7 +1,7 @@
-package com.josinosle.magicengines.init;
+package com.josinosle.magicengines.registry;
 
 import com.josinosle.magicengines.MagicEngines;
-import com.josinosle.magicengines.content.blocks.MagicEngine;
+import com.josinosle.magicengines.block.MagicEngine;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
@@ -17,7 +17,7 @@ import net.minecraftforge.registries.RegistryObject;
 import java.util.function.Supplier;
 
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
-public class BlockInit {
+public class BlockRegistry {
     public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, MagicEngines.MOD_ID);
 
     @SubscribeEvent
@@ -25,7 +25,7 @@ public class BlockInit {
         if (event.getRegistryKey().equals(ForgeRegistries.Keys.ITEMS)){
             BLOCKS.getEntries().forEach( (blockRegistryObject) -> {
                 Block block = blockRegistryObject.get();
-                Item.Properties properties = new Item.Properties().tab(ItemInit.ModCreativeTab.instance);
+                Item.Properties properties = new Item.Properties().tab(ItemRegistry.ModCreativeTab.instance);
                 Supplier<Item> blockItemFactory = () -> new BlockItem(block, properties);
                 event.register(ForgeRegistries.Keys.ITEMS, blockRegistryObject.getId(), blockItemFactory);
             });

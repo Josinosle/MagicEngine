@@ -1,11 +1,8 @@
 package com.josinosle.magicengines.networking.packet;
 
-import com.josinosle.magicengines.client.clientdata.ClientManaData;
-import com.josinosle.magicengines.util.castgeometry.CastVector;
-import com.josinosle.magicengines.util.castgeometry.NetworkCastLogicHandling;
+import com.josinosle.magicengines.mana.ClientManaData;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.level.Level;
 import net.minecraftforge.network.NetworkEvent;
 
 import java.util.function.Supplier;

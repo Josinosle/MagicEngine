@@ -1,7 +1,7 @@
 package com.josinosle.magicengines.event;
 
 import com.josinosle.magicengines.MagicEngines;
-import com.josinosle.magicengines.content.item.MagicWand;
+import com.josinosle.magicengines.item.MagicWand;
 import com.josinosle.magicengines.networking.Messages;
 import com.josinosle.magicengines.networking.packet.CalculateCastC2SPacket;
 import com.josinosle.magicengines.util.KeyboardHelper;

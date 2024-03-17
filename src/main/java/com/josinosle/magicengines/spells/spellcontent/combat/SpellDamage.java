@@ -1,7 +1,7 @@
-package com.josinosle.magicengines.content.spell.spellcontent.combat;
+package com.josinosle.magicengines.spells.spellcontent.combat;
 
-import com.josinosle.magicengines.content.spell.Spell;
-import com.josinosle.magicengines.content.spell.spellcontent.SpellCastManaChanges;
+import com.josinosle.magicengines.spells.Spell;
+import com.josinosle.magicengines.spells.spellcontent.SpellCastManaChanges;
 import com.josinosle.magicengines.util.castgeometry.CastVector;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;

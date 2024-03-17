@@ -1,4 +1,4 @@
-package com.josinosle.magicengines.content.particle;
+package com.josinosle.magicengines.particle;
 
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.*;

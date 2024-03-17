@@ -1,9 +1,9 @@
-package com.josinosle.magicengines.client.overlay;
+package com.josinosle.magicengines.gui.overlay;
 
 import com.josinosle.magicengines.MagicEngines;
-import com.josinosle.magicengines.client.clientdata.ClientManaData;
+import com.josinosle.magicengines.mana.ClientManaData;
 import com.josinosle.magicengines.config.ClientConfigs;
-import com.josinosle.magicengines.content.item.MagicWand;
+import com.josinosle.magicengines.item.MagicWand;
 import com.josinosle.magicengines.mana.PlayerMana;
 import com.josinosle.magicengines.mana.PlayerManaProvider;
 import com.mojang.blaze3d.systems.RenderSystem;

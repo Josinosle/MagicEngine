@@ -1,12 +1,11 @@
-package com.josinosle.magicengines.content.spell.spellcontent.fun;
+package com.josinosle.magicengines.spells.spellcontent.fun;
 
 import com.josinosle.magicengines.MagicEngines;
-import com.josinosle.magicengines.content.spell.Spell;
-import com.josinosle.magicengines.content.spell.spellcontent.SpellCastManaChanges;
-import com.josinosle.magicengines.init.ParticleInit;
-import com.josinosle.magicengines.init.SoundInit;
+import com.josinosle.magicengines.spells.Spell;
+import com.josinosle.magicengines.spells.spellcontent.SpellCastManaChanges;
+import com.josinosle.magicengines.registry.ParticleRegistry;
+import com.josinosle.magicengines.registry.SoundRegistry;
 import com.josinosle.magicengines.util.castgeometry.CastVector;
-import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
@@ -48,7 +47,7 @@ public class SpellFart extends Spell {
                 if(entity instanceof LivingEntity livingEntity) {
                     //play fart sound
                     entity.getLevel().playSound(null, entity.getX(), entity.getY(), entity.getZ(),
-                            SoundInit.REVERB_FART.get(), SoundSource.PLAYERS, Long.MAX_VALUE, Long.MIN_VALUE);
+                            SoundRegistry.REVERB_FART.get(), SoundSource.PLAYERS, Long.MAX_VALUE, Long.MIN_VALUE);
 
                     spawnStinkyParticles(level, entity);
 
@@ -78,7 +77,7 @@ public class SpellFart extends Spell {
                 final double speed = 0.75 * Math.sin(i);
 
                 level.getLevel().sendParticles(
-                        ParticleInit.STINKY_PARTICLES.get(),
+                        ParticleRegistry.STINKY_PARTICLES.get(),
                         entity.getX(),
                         entity.getY() + 0.25,
                         entity.getZ(),

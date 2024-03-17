@@ -2,8 +2,8 @@ package com.josinosle.magicengines;
 
 
 import com.josinosle.magicengines.config.ClientConfigs;
-import com.josinosle.magicengines.init.*;
 import com.josinosle.magicengines.networking.Messages;
+import com.josinosle.magicengines.registry.*;
 import com.mojang.logging.LogUtils;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -25,11 +25,11 @@ public class MagicEngines
     public MagicEngines() {
         final IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
-        ItemInit.ITEMS.register(modEventBus);
-        BlockInit.BLOCKS.register(modEventBus);
-        ParticleInit.PARTICLE_TYPES.register(modEventBus);
-        SpellInit.MAGIC_ENGINE_SPELLS.register(modEventBus);
-        SoundInit.register(modEventBus);
+        ItemRegistry.ITEMS.register(modEventBus);
+        BlockRegistry.BLOCKS.register(modEventBus);
+        ParticleRegistry.PARTICLE_TYPES.register(modEventBus);
+        SpellRegistry.MAGIC_ENGINE_SPELLS.register(modEventBus);
+        SoundRegistry.register(modEventBus);
         ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, ClientConfigs.SPEC, String.format("%s-client.toml", MOD_ID));
 
         MinecraftForge.EVENT_BUS.register(this);
