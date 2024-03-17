@@ -32,7 +32,7 @@ public class CastHelper {
             }
 
             if(Objects.equals(i, "ACAB")) {
-                new SpellFart(player, position);
+                new SpellFart(level, player, position);
             }
         }
 

@@ -3,6 +3,7 @@ package com.josinosle.magicengines.event;
 
 import com.josinosle.magicengines.MagicEngines;
 import com.josinosle.magicengines.content.particle.DefenceParticles;
+import com.josinosle.magicengines.content.particle.StinkyParticles;
 import com.josinosle.magicengines.init.ParticleInit;
 import net.minecraft.client.Minecraft;
 import net.minecraftforge.api.distmarker.Dist;
@@ -19,6 +20,7 @@ public class ModEventBusEvents {
     public static void registerParticleFactories(final RegisterParticleProvidersEvent event) {
         Minecraft.getInstance().particleEngine.register(ParticleInit.CAST_PARTICLES.get(),CastParticles.Provider::new);
         Minecraft.getInstance().particleEngine.register(ParticleInit.DEFENCE_PARTICLES.get(),DefenceParticles.Provider::new);
+        Minecraft.getInstance().particleEngine.register(ParticleInit.STINKY_PARTICLES.get(), StinkyParticles.Provider::new);
     }
 
 }

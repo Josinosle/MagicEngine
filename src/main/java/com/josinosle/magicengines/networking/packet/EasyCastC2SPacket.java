@@ -3,7 +3,9 @@ package com.josinosle.magicengines.networking.packet;
 import com.josinosle.magicengines.content.spell.spellcontent.fun.SpellFart;
 import com.josinosle.magicengines.util.castgeometry.CastVector;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.level.Level;
 import net.minecraftforge.network.NetworkEvent;
 
 import java.util.function.Supplier;
@@ -34,7 +36,9 @@ public class EasyCastC2SPacket {
             ServerPlayer player = context.getSender();
             assert player != null;
 
-            new SpellFart(player, new CastVector(x,y,z, player));
+            ServerLevel level = player.getLevel();
+
+            new SpellFart(level, player, new CastVector(x,y,z, player));
         });
     }
 
