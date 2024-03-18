@@ -48,7 +48,7 @@ public class ManaBarOverlay {
     /**
      * Default height of the image in pixels
      */
-    static final int IMAGE_HEIGHT = 21;
+    static final int IMAGE_HEIGHT = 9;
     /**
      * Default height of the icon row in pixels
      */
@@ -93,10 +93,10 @@ public class ManaBarOverlay {
                 RenderSystem.setShaderColor(1f, 1f, 1f, 1f);
                 RenderSystem.setShaderTexture(0, MANA_BAR_TEXTURE);
 
-                int spriteX = 68;
-                int spriteY = 40;
+                int spriteX = 0;
+                int spriteY = calculateSpriteY(ClientManaData.getPlayerMana(), mana.getMaxMana());
                 GuiComponent.blit(poseStack, barX, barY, spriteX, spriteY, BAR_WIDTH, IMAGE_HEIGHT, 256, 256);
-                forgeGui.blit(poseStack, barX, barY, spriteX, spriteY + IMAGE_HEIGHT, (int) (BAR_WIDTH * Math.min((ClientManaData.getPlayerMana() / (double) mana.getMaxMana()), 1)), IMAGE_HEIGHT);
+                forgeGui.blit(poseStack, barX, barY, spriteX, spriteY + IMAGE_HEIGHT - 1, (int) (BAR_WIDTH * Math.min((ClientManaData.getPlayerMana() / (double) mana.getMaxMana()), 1)), IMAGE_HEIGHT);
 
                 // Text Drawing Renderer
                 if (ClientConfigs.MANA_BAR_TEXT_VISIBLE.get()) {
@@ -152,5 +152,27 @@ public class ManaBarOverlay {
      */
     private static int calculateBarY(int screenHeight) {
         return screenHeight - 32 - 24; //Vanilla's Pos - 24
+    }
+
+    /**
+     * Method used to calculate the Y coordinate of the used sprite inside the texture file
+     *
+     * @param currentManaValue the player's current mana value
+     * @param maxManaValue the player's max mana value
+     * @return the Y coordinate in pixels
+     */
+    private static int calculateSpriteY(int currentManaValue, int maxManaValue) {
+        double percentage = (double) currentManaValue / maxManaValue * 100;
+        int spriteYCoordinate = 0;
+
+        if(percentage >= 25 && percentage < 50) {
+            spriteYCoordinate = 16;
+        } else if (percentage >= 50 && percentage < 75) {
+            spriteYCoordinate = 32;
+        } else if (percentage >= 75) {
+            spriteYCoordinate = 48;
+        }
+
+        return spriteYCoordinate;
     }
 }
