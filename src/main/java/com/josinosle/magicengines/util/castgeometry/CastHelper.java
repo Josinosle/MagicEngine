@@ -4,6 +4,7 @@ import com.josinosle.magicengines.spells.spellcontent.combat.PlayerDefence;
 import com.josinosle.magicengines.spells.spellcontent.combat.SpellDamage;
 import com.josinosle.magicengines.spells.spellcontent.combat.TelekeneticSlam;
 import com.josinosle.magicengines.spells.spellcontent.fun.SpellFart;
+import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -14,7 +15,7 @@ import java.util.Objects;
 public class CastHelper {
 
     public static void castSpell(ArrayList<String> castStack, CastVector position, ServerLevel level, ServerPlayer player){
-        player.sendSystemMessage(Component.literal("Cast Stack"));
+        player.sendSystemMessage(Component.literal("Cast Stack").withStyle(ChatFormatting.GOLD));
         for (String i : castStack){
             System.out.println(i);
 
