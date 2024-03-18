@@ -93,7 +93,7 @@ public class CastLogic {
         }
 
         // play rune condition
-        if (String.join("", currentlyDrawnRune).equals("AB")) {
+        if (String.join("", currentlyDrawnRune).equals("C")) {
             spellCast = true;
         }
 

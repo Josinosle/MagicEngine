@@ -90,7 +90,7 @@ public class ManaBarOverlay {
      * Default text color
      * Please check {@link net.minecraft.ChatFormatting} for more color options
      */
-    static final int TEXT_COLOR = ChatFormatting.AQUA.getColor();
+    static final int TEXT_COLOR = ChatFormatting.WHITE.getColor();
 
     /**
      * Method used to render the mana bar
@@ -129,6 +129,10 @@ public class ManaBarOverlay {
                 GuiComponent.blit(poseStack, barX, barY, spriteX, spriteY, barWidth, IMAGE_HEIGHT, 256, 256);
                 forgeGui.blit(poseStack, barX, barY, spriteX, spriteY + IMAGE_HEIGHT, (int) (barWidth * Math.min((ClientManaData.getPlayerMana() / (double) mana.getMaxMana()), 1)), IMAGE_HEIGHT);
 
+                /*
+
+                Text Drawing Renderer
+
                 int textX, textY;
                 String manaFraction = (ClientManaData.getPlayerMana()) + "/" + mana.getMaxMana();
 
@@ -138,6 +142,8 @@ public class ManaBarOverlay {
                 if (ClientConfigs.MANA_BAR_TEXT_VISIBLE.get()) {
                     forgeGui.getFont().drawShadow(poseStack, manaFraction, textX, textY, TEXT_COLOR);
                 }
+
+                */
             });
         }
     }
