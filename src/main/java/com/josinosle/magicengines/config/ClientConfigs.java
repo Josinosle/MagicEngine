@@ -11,7 +11,6 @@ public class ClientConfigs {
     public static final ForgeConfigSpec.ConfigValue<Integer> MANA_BAR_Y_OFFSET;
     public static final ForgeConfigSpec.ConfigValue<Integer> MANA_BAR_X_OFFSET;
     public static final ForgeConfigSpec.ConfigValue<Boolean> MANA_BAR_TEXT_VISIBLE;
-    public static final ForgeConfigSpec.ConfigValue<ManaBarOverlay.Anchor> MANA_BAR_ANCHOR;
 
     public static final ForgeConfigSpec SPEC;
 
@@ -23,8 +22,7 @@ public class ClientConfigs {
         BUILDER.comment("Used to adjust mana bar's position (11 is one full hunger bar up).");
         MANA_BAR_Y_OFFSET = BUILDER.define("manaBarYOffset", 0);
         MANA_BAR_X_OFFSET = BUILDER.define("manaBarXOffset", 0);
-        MANA_BAR_TEXT_VISIBLE = BUILDER.define("manaBarTextVisible", false);
-        MANA_BAR_ANCHOR = BUILDER.defineEnum("manaBarAnchor", ManaBarOverlay.Anchor.HUNGER);
+        MANA_BAR_TEXT_VISIBLE = BUILDER.define("manaBarTextVisible", true);
         BUILDER.pop();
 
         SPEC = BUILDER.build();
