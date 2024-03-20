@@ -1,10 +1,7 @@
 package com.josinosle.magicengines.networking;
 
 import com.josinosle.magicengines.MagicEngines;
-import com.josinosle.magicengines.networking.packet.CalculateCastC2SPacket;
-import com.josinosle.magicengines.networking.packet.CastC2SPacket;
-import com.josinosle.magicengines.networking.packet.EasyCastC2SPacket;
-import com.josinosle.magicengines.networking.packet.SyncManaS2CPacket;
+import com.josinosle.magicengines.networking.packet.*;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraftforge.network.NetworkDirection;
@@ -52,6 +49,12 @@ public class Messages {
                 .decoder(EasyCastC2SPacket::new)
                 .encoder(EasyCastC2SPacket::toBytes)
                 .consumerMainThread(EasyCastC2SPacket::handle)
+                .add();
+
+        net.messageBuilder(SetDeltaMovementPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
+                .decoder(SetDeltaMovementPacket::new)
+                .encoder(SetDeltaMovementPacket::toBytes)
+                .consumerMainThread(SetDeltaMovementPacket::handle)
                 .add();
 
     }

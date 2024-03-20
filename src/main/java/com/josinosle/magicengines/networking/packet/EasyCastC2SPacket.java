@@ -31,13 +31,12 @@ public class EasyCastC2SPacket {
         System.out.println("Bean wand handle server side");
         NetworkEvent.Context context = supplier.get();
         context.enqueueWork(() -> {
-            //client action
-            ServerPlayer player = context.getSender();
-            assert player != null;
+           final ServerPlayer player = context.getSender();
+           if( player != null) {
+               ServerLevel level = player.getLevel();
 
-            ServerLevel level = player.getLevel();
-
-            new SpellFart(level, player, new CastVector(x,y,z, player));
+               new SpellFart(level, player, new CastVector(x,y,z, player));
+           }
         });
     }
 
