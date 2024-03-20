@@ -1,6 +1,9 @@
 package com.josinosle.magicengines.spells.spellcontent.fun;
 
 import com.josinosle.magicengines.MagicEngines;
+import com.josinosle.magicengines.networking.Messages;
+import com.josinosle.magicengines.networking.packet.SetDeltaMovementPacket;
+import com.josinosle.magicengines.networking.packet.SyncManaS2CPacket;
 import com.josinosle.magicengines.spells.Spell;
 import com.josinosle.magicengines.spells.spellcontent.SpellCastManaChanges;
 import com.josinosle.magicengines.registry.ParticleRegistry;
@@ -13,6 +16,7 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.phys.AABB;
 import net.minecraftforge.fml.common.Mod;
 
@@ -56,8 +60,15 @@ public class SpellFart extends Spell {
                     final MobEffectInstance mobEffectInstance = new MobEffectInstance(MobEffects.CONFUSION, duration);
                     livingEntity.addEffect(mobEffectInstance);
 
+
+
                     //add jump effect
-                    livingEntity.setDeltaMovement(livingEntity.getDeltaMovement().add(0, 1, 0));
+                    if(livingEntity instanceof Player playerInAreaOfSpell) {
+                        Messages.sendToPlayer(new SetDeltaMovementPacket(), (ServerPlayer) level.getPlayerByUUID(playerInAreaOfSpell.getUUID()));
+                    } else {
+                        livingEntity.setDeltaMovement(livingEntity.getDeltaMovement().add(0, 1, 0));
+                    }
+
 
                 }
 
