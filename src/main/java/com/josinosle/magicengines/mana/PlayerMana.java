@@ -41,6 +41,6 @@ public class PlayerMana {
     }
 
     public boolean isManaFull() {
-        return mana < maxMana;
+        return mana == maxMana;
     }
 }

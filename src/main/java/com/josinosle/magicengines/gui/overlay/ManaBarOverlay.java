@@ -33,19 +33,6 @@ public class ManaBarOverlay {
     public final static ResourceLocation MANA_BAR_TEXTURE = new ResourceLocation(MagicEngines.MOD_ID, "textures/gui/icons.png");
 
     /**
-     * Enum with the possible UI Anchor positions
-     */
-    public enum Anchor {
-        HUNGER,
-        XP,
-        CENTER,
-        TOP_LEFT,
-        TOP_RIGHT,
-        BOTTOM_LEFT,
-        BOTTOM_RIGHT
-    }
-
-    /**
      * Enum with the possible mana bar display options
      */
     public enum Display {
@@ -55,21 +42,13 @@ public class ManaBarOverlay {
     }
 
     /**
-     * Default width of the mana bar in pixels
-     */
-    static final int DEFAULT_BAR_WIDTH = 98;
-    /**
      * Default width of the xp bar in pixels
      */
-    static final int XP_BAR_WIDTH = 188;
+    static final int BAR_WIDTH = 188;
     /**
      * Default height of the image in pixels
      */
-    static final int IMAGE_HEIGHT = 21;
-    /**
-     * Default height of the hotbar in pixels
-     */
-    static final int HOTBAR_HEIGHT = 25;
+    static final int IMAGE_HEIGHT = 9;
     /**
      * Default height of the icon row in pixels
      */
@@ -78,14 +57,6 @@ public class ManaBarOverlay {
      * Default width of each character to display the mana value in pixels
      */
     static final int CHAR_WIDTH = 6;
-    /**
-     * Horizontal offset in pixels to align the mana bar
-     */
-    static final int HUNGER_BAR_OFFSET = 50;
-    /**
-     * Default screen border margin in pixels used when the mana bar is at the corner of the screen
-     */
-    static final int SCREEN_BORDER_MARGIN = 20;
     /**
      * Default text color
      * Please check {@link net.minecraft.ChatFormatting} for more color options
@@ -113,37 +84,32 @@ public class ManaBarOverlay {
                 int barX, barY;
                 int configOffsetY = ClientConfigs.MANA_BAR_Y_OFFSET.get();
                 int configOffsetX = ClientConfigs.MANA_BAR_X_OFFSET.get();
-                Anchor anchor = ClientConfigs.MANA_BAR_ANCHOR.get();
-                if (anchor == Anchor.XP && player.getJumpRidingScale() > 0) //Hide XP styled Mana bar when actively jumping on a horse
+                if (player.getJumpRidingScale() > 0) //Hide XP styled Mana bar when actively jumping on a horse
                     return;
-                barX = calculateBarX(anchor, screenWidth) + configOffsetX;
-                barY = calculateBarY(anchor, screenHeight, forgeGui) - configOffsetY;
+                barX = calculateBarX(screenWidth) + configOffsetX;
+                barY = calculateBarY(screenHeight) - configOffsetY;
 
                 RenderSystem.setShader(GameRenderer::getPositionTexShader);
                 RenderSystem.setShaderColor(1f, 1f, 1f, 1f);
                 RenderSystem.setShaderTexture(0, MANA_BAR_TEXTURE);
 
-                int barWidth = anchor == Anchor.XP ? XP_BAR_WIDTH : DEFAULT_BAR_WIDTH;
-                int spriteX = anchor == Anchor.XP ? 68 : 0;
-                int spriteY = anchor == Anchor.XP ? 40 : 0;
-                GuiComponent.blit(poseStack, barX, barY, spriteX, spriteY, barWidth, IMAGE_HEIGHT, 256, 256);
-                forgeGui.blit(poseStack, barX, barY, spriteX, spriteY + IMAGE_HEIGHT, (int) (barWidth * Math.min((ClientManaData.getPlayerMana() / (double) mana.getMaxMana()), 1)), IMAGE_HEIGHT);
+                int spriteX = 0;
+                int spriteY = calculateSpriteY(ClientManaData.getPlayerMana(), mana.getMaxMana());
+                GuiComponent.blit(poseStack, barX, barY, spriteX, spriteY, BAR_WIDTH, IMAGE_HEIGHT, 256, 256);
+                forgeGui.blit(poseStack, barX, barY, spriteX, spriteY + IMAGE_HEIGHT - 1, (int) (BAR_WIDTH * Math.min((ClientManaData.getPlayerMana() / (double) mana.getMaxMana()), 1)), IMAGE_HEIGHT);
 
-                /*
-
-                Text Drawing Renderer
-
-                int textX, textY;
-                String manaFraction = (ClientManaData.getPlayerMana()) + "/" + mana.getMaxMana();
-
-                textX = barX + barWidth / 2 - (int) ((("" + ClientManaData.getPlayerMana()).length() + 0.5) * CHAR_WIDTH);
-                textY = barY + (anchor == Anchor.XP ? ICON_ROW_HEIGHT / 3 : ICON_ROW_HEIGHT);
-
+                // Text Drawing Renderer
                 if (ClientConfigs.MANA_BAR_TEXT_VISIBLE.get()) {
+                    int textX, textY;
+                    String manaFraction = (ClientManaData.getPlayerMana()) + "/" + mana.getMaxMana();
+
+                    textX = barX + BAR_WIDTH / 2 - (int) ((("" + ClientManaData.getPlayerMana()).length() + 0.5) * CHAR_WIDTH);
+                    textY = barY + ICON_ROW_HEIGHT / 3 - 10;
+
                     forgeGui.getFont().drawShadow(poseStack, manaFraction, textX, textY, TEXT_COLOR);
                 }
 
-                */
+
             });
         }
     }
@@ -161,7 +127,7 @@ public class ManaBarOverlay {
         if (playerMana.isPresent()) {
             final boolean isManaFull = playerMana.get().isManaFull();
 
-            return !player.isSpectator() && display != Display.NEVER &&
+            return !player.isSpectator()  && !player.isCreative() && display != Display.NEVER &&
                     (display == Display.ALWAYS || player.isHolding(itemStack -> itemStack.getItem() instanceof MagicWand || isManaFull));
         } else {
             return false;
@@ -171,49 +137,42 @@ public class ManaBarOverlay {
     /**
      * Method used to calculate the X coordinate of the mana bar
      *
-     * @param anchor      an enum value telling where the mana bar is
      * @param screenWidth the width of the screen in pixels
      * @return the X coordinate in pixels
      */
-    private static int calculateBarX(Anchor anchor, int screenWidth) {
-        if (anchor == Anchor.XP)
-            return screenWidth / 2 - 91 - 3; //Vanilla's Pos - 3
-        if (anchor == Anchor.HUNGER || anchor == Anchor.CENTER)
-            return screenWidth / 2 - DEFAULT_BAR_WIDTH / 2 + (anchor == Anchor.CENTER ? 0 : HUNGER_BAR_OFFSET);
-        else if (anchor == Anchor.TOP_LEFT || anchor == Anchor.BOTTOM_LEFT)
-            return SCREEN_BORDER_MARGIN;
-        else return screenWidth - SCREEN_BORDER_MARGIN - DEFAULT_BAR_WIDTH;
-
+    private static int calculateBarX(int screenWidth) {
+        return screenWidth / 2 - 94; //Vanilla's Pos - 3
     }
 
     /**
      * Method used to calculate the Y coordinate of the mana bar
      *
-     * @param anchor       an enum value telling where the mana bar is
      * @param screenHeight the height of the screen in pixels
-     * @param forgeGui     a forge wrapper around {@link Gui} to be able to render {@link IGuiOverlay HUD overlays} used to get the height of the food bar to render the mana bar on top of it
      * @return the Y coordinate in pixels
      */
-    private static int calculateBarY(Anchor anchor, int screenHeight, ForgeGui forgeGui) {
-        if (anchor == Anchor.XP)
-            return screenHeight - 32 + 3 - 8; //Vanilla's Pos - 8
-        if (anchor == Anchor.HUNGER)
-            return screenHeight - (getAndIncrementFoodBarHeight(forgeGui) - 2) - IMAGE_HEIGHT / 2;
-        if (anchor == Anchor.CENTER)
-            return screenHeight - HOTBAR_HEIGHT - (int) (ICON_ROW_HEIGHT * 2.5f) - IMAGE_HEIGHT / 2;
-        if (anchor == Anchor.TOP_LEFT || anchor == Anchor.TOP_RIGHT)
-            return SCREEN_BORDER_MARGIN;
-        return screenHeight - SCREEN_BORDER_MARGIN - IMAGE_HEIGHT;
-
+    private static int calculateBarY(int screenHeight) {
+        return screenHeight - 32 - 18; //Vanilla's Pos - 18
     }
 
     /**
-     * Method used to calculate the Y offset of the mana bar compared to the food bar
+     * Method used to calculate the Y coordinate of the used sprite inside the texture file
      *
-     * @param forgeGui a forge wrapper around {@link Gui} to be able to render {@link IGuiOverlay HUD overlays} used to get the height of the food bar to render the mana bar on top of it
-     * @return the Y offset in pixels
+     * @param currentManaValue the player's current mana value
+     * @param maxManaValue the player's max mana value
+     * @return the Y coordinate in pixels
      */
-    private static int getAndIncrementFoodBarHeight(ForgeGui forgeGui) {
-        return forgeGui.rightHeight + 5;
+    private static int calculateSpriteY(int currentManaValue, int maxManaValue) {
+        double percentage = (double) currentManaValue / maxManaValue * 100;
+        int spriteYCoordinate = 0;
+
+        if(percentage >= 25 && percentage < 50) {
+            spriteYCoordinate = 16;
+        } else if (percentage >= 50 && percentage < 75) {
+            spriteYCoordinate = 32;
+        } else if (percentage >= 75) {
+            spriteYCoordinate = 48;
+        }
+
+        return spriteYCoordinate;
     }
 }
