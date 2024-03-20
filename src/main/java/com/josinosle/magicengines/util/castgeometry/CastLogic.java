@@ -1,6 +1,8 @@
 package com.josinosle.magicengines.util.castgeometry;
 
 import com.josinosle.magicengines.registry.ParticleRegistry;
+import net.minecraft.ChatFormatting;
+import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
@@ -17,14 +19,30 @@ public class CastLogic {
     private final ServerPlayer playerIdentifier;
     private boolean spellCast;
 
+
+    /**
+     *
+     * @param player    the player on which the cast logic is applicable
+     */
     public CastLogic(ServerPlayer player) {
         this.playerIdentifier = player;
     }
 
+    /**
+     *
+     * @return the server player
+     */
     public ServerPlayer getPlayer() {
         return playerIdentifier;
     }
 
+    /**
+     * Method used to add a new vector to a vector combo list
+     *
+     * @param vector    the vector input to add a casting geometry point to
+     * @param level     the level to cast effects upon
+     * @param player    the player entity
+     */
     public void setVectorComboList(CastVector vector, Level level, ServerPlayer player) {
 
         if (!spellCast) {
@@ -68,12 +86,18 @@ public class CastLogic {
             // play casting sound to server
             level.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.EXPERIENCE_ORB_PICKUP, SoundSource.PLAYERS, 1.0F, 0.2F);
         } else {
-            System.out.println("Spell Cast at vector");
-            CastHelper.castSpell(castingStack, vector, (ServerLevel) level, player);
 
+            // cast spell
+            CastHelper.castSpell(castingStack, vector, (ServerLevel) level, player);
+            spellCast = false;
         }
     }
 
+    /**
+     *
+     * @param level     the level on which the casting effect occurs
+     * @param player    the player which the casting logic is based on
+     */
     public void calculateCast(Level level, ServerPlayer player) {
         // check vector list isn't empty
         if (vectorComboList.isEmpty()) {
@@ -82,6 +106,7 @@ public class CastLogic {
             castingStack.clear();
             level.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.FLINTANDSTEEL_USE, SoundSource.PLAYERS, 4.0F, 0.5F);
             spellCast = false;
+            player.sendSystemMessage(Component.literal("Current cast cleared").withStyle(ChatFormatting.WHITE));
             return;
         }
 
@@ -108,7 +133,16 @@ public class CastLogic {
         currentlyDrawnRune.clear();
     }
 
+    /**
+     * Method to calculate the dot product of two vectors relative to an origin point
+     *
+     * @param vector1   the first logical vector
+     * @param vector2   the second logical vector
+     * @param vectorOrigin  the origin point for the logical vectors
+     * @return a string variable containing the alphabetic character represented by the dot product
+     */
     private static String dotProduct(CastVector vector1, CastVector vector2, CastVector vectorOrigin) {
+
         // calculate 2 working vectors
         CastVector calcVector1 = vector1.vectorDifference(vectorOrigin);
         CastVector calcVector2 = vector2.vectorDifference(vectorOrigin);

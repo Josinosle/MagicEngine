@@ -17,6 +17,14 @@ import java.util.Objects;
 
 public class CastHelper {
 
+    /**
+     * Method to convert a cast stack into logical inputs to trigger a spell action in the spell utility classes
+     *
+     * @param castStack     the casting stack containing all runes in the current cast
+     * @param position      the position vector of the current spell logic
+     * @param level         the level upon which casting effects occur
+     * @param player        the player responsible for the casting logic
+     */
     public static void castSpell(ArrayList<String> castStack, CastVector position, ServerLevel level, ServerPlayer player){
         player.sendSystemMessage(Component.literal("Cast Stack").withStyle(ChatFormatting.GOLD));
 
@@ -71,7 +79,14 @@ public class CastHelper {
         }
     }
 
-    // cast targeting method
+    /**
+     * Method to search a casting stack to find a rune indicating a casting target
+     *
+     * @param castStack     the casting stack containing all runes in the current cast
+     * @param player        the player responsible for the cast logic
+     * @param vector        the vector on which logic acts upon
+     * @return  an array list containing the entities targeted
+     */
     private static ArrayList<Entity> castTarget(ArrayList<String> castStack, ServerPlayer player, CastVector vector){
 
         // define temp entity list
@@ -92,7 +107,7 @@ public class CastHelper {
                 target = "Target";
 
                 // define a bounding box for a single block radius
-                AABB boundBox = new AABB(vector.getX() - 0.5, vector.getY() - 0.5, vector.getZ() - 0.5, vector.getX() + 0.5, vector.getY() + 0.5, vector.getZ() + 0.5);
+                AABB boundBox = new AABB(vector.getX() - 1, vector.getY() - 1, vector.getZ() - 1, vector.getX() + 1, vector.getY() + 1, vector.getZ() + 1);
 
                 // add entities in a bounding box to working list
                 List<Entity> entToDamage = player.getLevel().getEntities(null, boundBox);

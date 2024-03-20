@@ -9,6 +9,13 @@ public class NetworkCastLogicHandling {
 
     private static final ArrayList<CastLogic> worldCasts = new ArrayList<>();
 
+    /**
+     * Method for handling a vector combo list addition request packet
+     *
+     * @param vector        the vector to pass on to the logical handling for casting
+     * @param level         the level on which the cast effect occurs
+     * @param player        the player responsible for the casting logic
+     */
     public static void handlePlayerSetVectorComboList(CastVector vector,Level level, ServerPlayer player){
 
         // check current cast logics for player match
@@ -23,6 +30,12 @@ public class NetworkCastLogicHandling {
         handlePlayerSetVectorComboList(vector, level, player);
     }
 
+    /**
+     * Method for handling a cast calculation request packet
+     *
+     * @param level         the level on which the casting logic occurs
+     * @param player        the player responsible for the casting logic
+     */
     public static void handlePlayerCalculateCast(Level level,ServerPlayer player){
 
         // check current cast logics for player match
@@ -37,17 +50,14 @@ public class NetworkCastLogicHandling {
         handlePlayerCalculateCast(level, player);
     }
 
+    /**
+     * Method for creating new player cast logic
+     *
+     * @param player        the player to create a new cast logic handler for
+     */
     private static void addNewCastLogic(ServerPlayer player){
         System.out.println("New player cast logic created");
         worldCasts.add(new CastLogic(player));
-    }
-
-    public static ArrayList<ServerPlayer> getWorldPlayers(){
-        ArrayList<ServerPlayer> CurrentPlayers = new ArrayList<>();
-        for(CastLogic i : worldCasts){
-            CurrentPlayers.add(i.getPlayer());
-        }
-        return CurrentPlayers;
     }
 }
 
