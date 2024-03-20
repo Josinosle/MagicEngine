@@ -15,38 +15,34 @@ import java.util.List;
 
 @Mod.EventBusSubscriber(modid = MagicEngines.MOD_ID)
 public class TelekeneticSlam {
-    public TelekeneticSlam(ServerPlayer player, CastVector vector) {
+    public TelekeneticSlam(Entity entity,ServerPlayer player) {
 
         SpellCastManaChanges logic = new SpellCastManaChanges();
         if (logic.spellCastable(player,1000)) {
-            AABB boundBox = new AABB(vector.getX() - 5, vector.getY() - 5, vector.getZ() - 5, vector.getX() + 5, vector.getY() + 5, vector.getZ() + 5);
-            List<Entity> entToDamage = player.getLevel().getEntities(null, boundBox);
-            for (Entity i : entToDamage) {
-                if (i.getId() != player.getId()) {
 
-                    // change entity delta movement
-                    i.setDeltaMovement(
-                            i.getX() - player.getX(),
-                            i.getY() - player.getY() + 0.2,
-                            i.getZ() - player.getZ());
+            // change entity delta movement
+            entity.setDeltaMovement(
+                    entity.getX() - player.getX(),
+                    entity.getY() - player.getY() + 0.2,
+                    entity.getZ() - player.getZ());
 
+            // send spawn particle
+            player.getLevel().sendParticles(
+                    ParticleTypes.EXPLOSION,
+                    entity.getX(),
+                    entity.getY() + 1,
+                    entity.getZ(),
+                    1,
+                    0,
+                    0.05,
+                    0,
+                    0);
 
-                    // send spawn particle
-                    player.getLevel().sendParticles(
-                            ParticleTypes.EXPLOSION,
-                            i.getX(),
-                            i.getY() + 1,
-                            i.getZ(),
-                            1,
-                            0,
-                            0.05,
-                            0,
-                            0);
-
-                    player.getLevel().playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.GENERIC_EXPLODE, SoundSource.PLAYERS, 1.0F, 2.0F);
-                }
-            }
-            logic.subMana(player, 1000);
+            entity.getLevel().playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.GENERIC_EXPLODE, SoundSource.PLAYERS, 1.0F, 2.0F);
         }
+
+        //sub mana
+        logic.subMana(player, 1000);
+
     }
 }

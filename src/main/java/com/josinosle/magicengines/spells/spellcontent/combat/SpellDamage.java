@@ -13,26 +13,11 @@ import net.minecraft.world.phys.AABB;
 import java.util.List;
 
 public class SpellDamage extends Spell {
-    public SpellDamage(ServerLevel level, ServerPlayer player, CastVector vector){
+    public SpellDamage(Entity entity, ServerPlayer player){
 
         SpellCastManaChanges logic = new SpellCastManaChanges();
         if(logic.spellCastable(player,1500)) {
-            AABB boundBox = new AABB(vector.getX() - 5, vector.getY() - 5, vector.getZ() - 5, vector.getX() + 5, vector.getY() + 5, vector.getZ() + 5);
-            List<Entity> entToDamage = level.getEntities(null, boundBox);
-            for (Entity i : entToDamage) {
-                i.hurt(DamageSource.MAGIC, 10);
-
-                level.getLevel().sendParticles(
-                        ParticleTypes.POOF,
-                        i.getX(),
-                        i.getY() + 1,
-                        i.getZ(),
-                        5,
-                        0,
-                        0.05,
-                        0,
-                        0.5);
-            }
+            entity.hurt(DamageSource.MAGIC,10);
             logic.subMana(player,1500);
         }
     }

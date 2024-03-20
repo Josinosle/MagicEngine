@@ -93,7 +93,7 @@ public class CastLogic {
         }
 
         // play rune condition
-        if (String.join("", currentlyDrawnRune).equals("C")) {
+        if (String.join("", currentlyDrawnRune).equals("A")) {
             spellCast = true;
         }
 
@@ -120,10 +120,10 @@ public class CastLogic {
         float dotProduct = (xProd + yProd + zProd) / (calcVector1.modulus() * calcVector2.modulus());
 
         // return a character
-        if (dotProduct <= -0.75) return "A";
-        if (dotProduct <= -0.25) return "D";
-        if (dotProduct <= 0.25) return "C";
-        if (dotProduct <= 0.75) return "B";
+        if (dotProduct <= -0.85) return "A";
+        if (dotProduct <= -0.15) return "D";
+        if (dotProduct <= 0.15) return "C";
+        if (dotProduct <= 0.85) return "B";
         return "A";
     }
 }
