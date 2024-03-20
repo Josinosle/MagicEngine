@@ -104,7 +104,7 @@ public class ManaBarOverlay {
                     String manaFraction = (ClientManaData.getPlayerMana()) + "/" + mana.getMaxMana();
 
                     textX = barX + BAR_WIDTH / 2 - (int) ((("" + ClientManaData.getPlayerMana()).length() + 0.5) * CHAR_WIDTH);
-                    textY = barY + ICON_ROW_HEIGHT / 3 ;
+                    textY = barY + ICON_ROW_HEIGHT / 3 - 10;
 
                     forgeGui.getFont().drawShadow(poseStack, manaFraction, textX, textY, TEXT_COLOR);
                 }
@@ -151,7 +151,7 @@ public class ManaBarOverlay {
      * @return the Y coordinate in pixels
      */
     private static int calculateBarY(int screenHeight) {
-        return screenHeight - 32 - 24; //Vanilla's Pos - 24
+        return screenHeight - 32 - 18; //Vanilla's Pos - 18
     }
 
     /**
