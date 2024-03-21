@@ -16,10 +16,11 @@ public class CastRune {
 
     private void calculateCastMagnitude(){
         double sum = 0;
+        CastVector previousVector = vectorComposition.get(0);
         for (CastVector i : vectorComposition){
-            sum = i.modulus();
+            sum += (i.vectorDifference(previousVector).modulus());
         }
-        sum = (sum / vectorComposition.size());
+        sum = (sum / (vectorComposition.size()-1));
 
         castMagnitude = (int)sum;
     }

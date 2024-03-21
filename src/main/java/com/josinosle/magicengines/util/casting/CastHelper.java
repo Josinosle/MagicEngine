@@ -128,7 +128,7 @@ public class CastHelper {
             if (castStackIteration.getRune() == 4){
 
                 // find rune's magnitude
-                int runeMag = castStackIteration.getCastMagnitude()*2;
+                int runeMag = castStackIteration.getCastMagnitude();
                 System.out.println(runeMag);
 
                 // define a bounding box
@@ -142,7 +142,7 @@ public class CastHelper {
                     }
                 }
 
-                target = "Area (cast radius:"+runeMag+")";
+                target = "Area (radius: "+runeMag+")";
                 break;
             }
         }
