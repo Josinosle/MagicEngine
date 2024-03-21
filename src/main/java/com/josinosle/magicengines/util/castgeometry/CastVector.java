@@ -2,10 +2,20 @@ package com.josinosle.magicengines.util.castgeometry;
 
 import net.minecraft.world.entity.player.Player;
 
+/**
+ * Position vector class for spell casting inputs
+ *
+ * @author josinosle
+ */
 public class CastVector {
-    private final double xPos;
-    private final double yPos;
-    private final double zPos;
+    /**
+     * Cartesian coordinates of position vector
+     */
+    private final double xPos; private final double yPos; private final double zPos;
+
+    /**
+     * Casting player for the vector coordinates
+     */
     private final Player castPlayer;
 
     /**

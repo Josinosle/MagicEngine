@@ -5,6 +5,11 @@ import net.minecraft.world.level.Level;
 
 import java.util.ArrayList;
 
+/**
+ * Utility class for handling the networking for players for casting logic
+ *
+ * @author josinosle
+ */
 public class NetworkCastLogicHandling {
 
     private static final ArrayList<CastLogic> worldCasts = new ArrayList<>();

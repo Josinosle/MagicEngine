@@ -15,6 +15,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * A class to turn a casting list array into an effect output
+ * @author josinosle
+ */
 public class CastHelper {
 
     /**

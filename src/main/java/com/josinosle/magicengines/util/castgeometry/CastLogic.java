@@ -11,8 +11,13 @@ import net.minecraft.world.level.Level;
 
 import java.util.ArrayList;
 
-
+/**
+ * A class to process vector inputs and output a list of rune codes
+ *
+ * @author josinosle
+ */
 public class CastLogic {
+
     private final ArrayList<String> castingStack = new ArrayList<>();
     private final ArrayList<CastVector> vectorComboList = new ArrayList<>();
     private final ArrayList<String> currentlyDrawnRune = new ArrayList<>();
