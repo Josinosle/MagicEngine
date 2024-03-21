@@ -4,5 +4,6 @@ Mod Loader: Forge
 Minecraft versions supported : 1.19.2 
 
 Description:
+- Physics based magic
 - ✨Magic✨
 
