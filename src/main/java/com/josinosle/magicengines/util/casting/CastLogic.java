@@ -54,7 +54,7 @@ public class CastLogic {
             rune.addVectorToRune(vector);
 
             // play initiating rune noise
-            if(rune.isRuneEmpty()){
+            if(rune.isRuneEmpty() && castingStack.isEmpty()){
                 level.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.BLAZE_SHOOT, SoundSource.PLAYERS, 1.0F, 0.2F);
             }
 
