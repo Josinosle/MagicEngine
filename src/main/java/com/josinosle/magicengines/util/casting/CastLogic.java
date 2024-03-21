@@ -78,12 +78,13 @@ public class CastLogic {
             );
 
             // casting particle filler loop
-            for (float i = 0; i < 1; i += 0.01F) {
+            for (float i = 0; i < tempVector2to1.modulus(); i += 0.1F) {
                 //Spawn Particle
+
                 player.getLevel().sendParticles(ParticleRegistry.CAST_PARTICLES.get(),
-                        vectorComboList.get(vectorComboList.size() - 2).getX() + tempVector2to1.getX() * i,
-                        vectorComboList.get(vectorComboList.size() - 2).getY() + tempVector2to1.getY() * i,
-                        vectorComboList.get(vectorComboList.size() - 2).getZ() + tempVector2to1.getZ() * i,
+                        vectorComboList.get(vectorComboList.size() - 2).getX() + tempVector2to1.getX()/tempVector2to1.modulus() * i,
+                        vectorComboList.get(vectorComboList.size() - 2).getY() + tempVector2to1.getY()/tempVector2to1.modulus() * i,
+                        vectorComboList.get(vectorComboList.size() - 2).getZ() + tempVector2to1.getZ()/tempVector2to1.modulus() * i,
                         0, 0, 0, 0, 0
                 );
             }
