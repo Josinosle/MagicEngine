@@ -142,7 +142,7 @@ public class CastHelper {
                     }
                 }
 
-                target = "Area";
+                target = "Area (cast radius:"+runeMag+")";
                 break;
             }
         }

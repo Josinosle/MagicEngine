@@ -14,12 +14,12 @@ public class CastRune {
 
     public CastRune(){}
 
-    private void calculateCastMagnitude(ArrayList<CastVector> vectors){
+    private void calculateCastMagnitude(){
         double sum = 0;
-        for (CastVector i : vectors){
+        for (CastVector i : vectorComposition){
             sum = i.modulus();
         }
-        sum = (sum / vectors.size());
+        sum = (sum / vectorComposition.size());
 
         castMagnitude = (int)sum;
     }
@@ -81,6 +81,7 @@ public class CastRune {
      */
     public void addVectorToRune(CastVector vector){
         vectorComposition.add(vector);
+        calculateCastMagnitude();
         if(this.vectorComposition.size()>2) {
             formatRune();
             System.out.println(rune);
