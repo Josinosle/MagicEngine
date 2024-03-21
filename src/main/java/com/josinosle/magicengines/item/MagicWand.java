@@ -34,7 +34,7 @@ public class MagicWand extends Item {
             // check if casting in air is enabled
             int range = 200;
             if (isCastingInAir) {
-                range = 10;
+                range = 4;
             }
 
             // ray cast

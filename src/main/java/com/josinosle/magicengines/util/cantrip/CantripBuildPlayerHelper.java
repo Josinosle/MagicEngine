@@ -1,6 +1,7 @@
 package com.josinosle.magicengines.util.cantrip;
 
 import com.josinosle.magicengines.util.casting.CastHelper;
+import com.josinosle.magicengines.util.casting.CastRune;
 import com.josinosle.magicengines.util.casting.CastVector;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerPlayer;
@@ -13,7 +14,7 @@ import java.util.ArrayList;
  * @author josinosle
  */
 public class CantripBuildPlayerHelper {
-    private ArrayList<Integer> cantripCode = new ArrayList<>();
+    private ArrayList<CastRune> cantripCode = new ArrayList<>();
     private ServerPlayer player;
     private int cantripID;
 
@@ -23,7 +24,7 @@ public class CantripBuildPlayerHelper {
      * @param cantripCode       String array of the cantrips build code
      * @param player        ServerPlayer object of the cantrip's player
      */
-    public CantripBuildPlayerHelper(ArrayList<Integer> cantripCode, ServerPlayer player, int cantripID){
+    public CantripBuildPlayerHelper(ArrayList<CastRune> cantripCode, ServerPlayer player, int cantripID){
         this.cantripCode = cantripCode;
         this.player = player;
         this.cantripID = cantripID;
