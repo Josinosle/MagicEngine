@@ -1,6 +1,7 @@
 package com.josinosle.magicengines.spells.spellcontent.combat;
 
 import com.josinosle.magicengines.MagicEngines;
+import com.josinosle.magicengines.spells.AbstractSpell;
 import com.josinosle.magicengines.spells.spellcontent.SpellCastManaChanges;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerPlayer;
@@ -9,10 +10,13 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraftforge.fml.common.Mod;
 
-@Mod.EventBusSubscriber(modid = MagicEngines.MOD_ID)
-public class TelekeneticSlam {
-    public TelekeneticSlam(Entity entity,ServerPlayer player) {
+import java.util.ArrayList;
 
+@Mod.EventBusSubscriber(modid = MagicEngines.MOD_ID)
+public class TelekeneticSlam extends AbstractSpell {
+    public TelekeneticSlam(){};
+    @Override
+    public void triggerCast(ServerPlayer player, Entity entity, ArrayList<Entity> entityList) {
         SpellCastManaChanges logic = new SpellCastManaChanges();
         if (logic.spellCastable(player,1000)) {
 
@@ -39,6 +43,5 @@ public class TelekeneticSlam {
 
         //sub mana
         logic.subMana(player, 1000);
-
     }
 }

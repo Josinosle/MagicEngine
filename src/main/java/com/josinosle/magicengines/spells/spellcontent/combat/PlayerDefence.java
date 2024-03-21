@@ -2,6 +2,7 @@ package com.josinosle.magicengines.spells.spellcontent.combat;
 
 import com.josinosle.magicengines.MagicEngines;
 import com.josinosle.magicengines.registry.ParticleRegistry;
+import com.josinosle.magicengines.spells.AbstractSpell;
 import com.josinosle.magicengines.spells.spellcontent.SpellCastManaChanges;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
@@ -15,7 +16,7 @@ import net.minecraftforge.fml.common.Mod;
 import java.util.ArrayList;
 
 @Mod.EventBusSubscriber(modid = MagicEngines.MOD_ID)
-public class PlayerDefence {
+public class PlayerDefence extends AbstractSpell {
 
     private static ArrayList<Entity> entityList;
     private static ServerPlayer player;
@@ -23,11 +24,16 @@ public class PlayerDefence {
     private static boolean runEffect;
 
     // constructor
-    public PlayerDefence(ServerPlayer player, ArrayList<Entity> entityList) {
-            PlayerDefence.player = player;
-            PlayerDefence.entityList = entityList;
-            runEffect = true;
-            i=0;
+    public PlayerDefence() {
+    }
+
+    // trigger effect
+    @Override
+    public void triggerCast(ServerPlayer player,Entity entity, ArrayList<Entity> entityList){
+        PlayerDefence.player = player;
+        PlayerDefence.entityList = entityList;
+        runEffect = true;
+        i=0;
     }
 
     @SubscribeEvent

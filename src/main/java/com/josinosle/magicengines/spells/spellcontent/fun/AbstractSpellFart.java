@@ -3,7 +3,7 @@ package com.josinosle.magicengines.spells.spellcontent.fun;
 import com.josinosle.magicengines.MagicEngines;
 import com.josinosle.magicengines.networking.Messages;
 import com.josinosle.magicengines.networking.packet.SetDeltaMovementPacket;
-import com.josinosle.magicengines.spells.Spell;
+import com.josinosle.magicengines.spells.AbstractSpell;
 import com.josinosle.magicengines.spells.spellcontent.SpellCastManaChanges;
 import com.josinosle.magicengines.registry.ParticleRegistry;
 import com.josinosle.magicengines.registry.SoundRegistry;
@@ -19,6 +19,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.phys.AABB;
 import net.minecraftforge.fml.common.Mod;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -27,7 +28,7 @@ import java.util.List;
  * @author Florian Hirson
  */
 @Mod.EventBusSubscriber(modid = MagicEngines.MOD_ID)
-public class SpellFart extends Spell {
+public class AbstractSpellFart {
 
     /**
      * Constructor used to apply the spell actions
@@ -35,7 +36,7 @@ public class SpellFart extends Spell {
      * @param player the player that casts the spell
      * @param vector the vector used to apply an effect to the target of the spell
      */
-    public SpellFart(final ServerLevel level, final ServerPlayer player, final CastVector vector) {
+    public AbstractSpellFart(final ServerLevel level, final ServerPlayer player, final CastVector vector) {
         final SpellCastManaChanges logic = new SpellCastManaChanges();
 
         if (logic.spellCastable(player,690)) {
@@ -96,6 +97,5 @@ public class SpellFart extends Spell {
                         speed);
             }
         }
-
     }
 }

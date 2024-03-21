@@ -1,9 +1,10 @@
 package com.josinosle.magicengines.util.casting;
 
+import com.josinosle.magicengines.registry.SpellRegistry;
+import com.josinosle.magicengines.spells.spellcontent.combat.AbstractSpellDamage;
 import com.josinosle.magicengines.spells.spellcontent.combat.PlayerDefence;
-import com.josinosle.magicengines.spells.spellcontent.combat.SpellDamage;
 import com.josinosle.magicengines.spells.spellcontent.combat.TelekeneticSlam;
-import com.josinosle.magicengines.spells.spellcontent.fun.SpellFart;
+import com.josinosle.magicengines.spells.spellcontent.fun.AbstractSpellFart;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
@@ -43,7 +44,7 @@ public class CastHelper {
             if (castStackIteration.getRune() == 221) {
                 // iterate through working targets
                 for (Entity entityIteration : targetList) {
-                    new SpellDamage(entityIteration, player);
+                    SpellRegistry.UNASPECTED_DAMAGE.get().triggerCast(player,entityIteration,null);
                     player.sendSystemMessage(Component.literal("Unaspected Damage").withStyle(ChatFormatting.DARK_AQUA));
                 }
                 continue;
@@ -52,7 +53,7 @@ public class CastHelper {
             // protection spell
             if (castStackIteration.getRune() == 324) {
                 // iterate through working targets
-                new PlayerDefence(player, targetList);
+                SpellRegistry.DEFENCE.get().triggerCast(player,null,targetList);
                 player.sendSystemMessage(Component.literal("Protective Barrier").withStyle(ChatFormatting.DARK_AQUA));
 
                 continue;
@@ -62,7 +63,7 @@ public class CastHelper {
             if (castStackIteration.getRune() == 312) {
                 // iterate through working targets
                 for (Entity entityIteration : targetList) {
-                    new TelekeneticSlam(entityIteration, player);
+                    SpellRegistry.THROW.get().triggerCast(player,entityIteration,null);
                     player.sendSystemMessage(Component.literal("Telekinetic Slam").withStyle(ChatFormatting.DARK_AQUA));
                 }
                 continue;
@@ -70,7 +71,7 @@ public class CastHelper {
 
             // force flatulence
             if (castStackIteration.getRune() == 1312) {
-                new SpellFart(level, player, position);
+                new AbstractSpellFart(level, player, position);
                 player.sendSystemMessage(Component.literal("Force Flatulence ").withStyle(ChatFormatting.DARK_AQUA));
                 continue;
             }
