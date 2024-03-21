@@ -1,6 +1,6 @@
 package com.josinosle.magicengines.spells;
 
-import com.josinosle.magicengines.util.castgeometry.CastVector;
+import com.josinosle.magicengines.util.casting.CastVector;
 import net.minecraft.core.particles.ParticleType;
 import net.minecraft.world.level.Level;
 

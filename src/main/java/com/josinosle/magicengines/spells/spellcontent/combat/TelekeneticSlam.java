@@ -2,16 +2,12 @@ package com.josinosle.magicengines.spells.spellcontent.combat;
 
 import com.josinosle.magicengines.MagicEngines;
 import com.josinosle.magicengines.spells.spellcontent.SpellCastManaChanges;
-import com.josinosle.magicengines.util.castgeometry.CastVector;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.phys.AABB;
 import net.minecraftforge.fml.common.Mod;
-
-import java.util.List;
 
 @Mod.EventBusSubscriber(modid = MagicEngines.MOD_ID)
 public class TelekeneticSlam {

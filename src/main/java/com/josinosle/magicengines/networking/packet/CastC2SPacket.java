@@ -1,7 +1,7 @@
 package com.josinosle.magicengines.networking.packet;
 
-import com.josinosle.magicengines.util.castgeometry.CastVector;
-import com.josinosle.magicengines.util.castgeometry.NetworkCastLogicHandling;
+import com.josinosle.magicengines.util.casting.CastVector;
+import com.josinosle.magicengines.util.casting.NetworkCastLogicHandling;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.level.Level;

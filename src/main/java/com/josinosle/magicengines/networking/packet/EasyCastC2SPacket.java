@@ -1,7 +1,7 @@
 package com.josinosle.magicengines.networking.packet;
 
 import com.josinosle.magicengines.spells.spellcontent.fun.SpellFart;
-import com.josinosle.magicengines.util.castgeometry.CastVector;
+import com.josinosle.magicengines.util.casting.CastVector;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;

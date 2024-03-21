@@ -1,4 +1,4 @@
-package com.josinosle.magicengines.util.castgeometry;
+package com.josinosle.magicengines.util.casting;
 
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.level.Level;

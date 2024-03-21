@@ -1,4 +1,4 @@
-package com.josinosle.magicengines.util.castgeometry;
+package com.josinosle.magicengines.util.casting;
 
 import com.josinosle.magicengines.spells.spellcontent.combat.PlayerDefence;
 import com.josinosle.magicengines.spells.spellcontent.combat.SpellDamage;
@@ -13,7 +13,6 @@ import net.minecraft.world.phys.AABB;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 /**
  * A class to turn a casting list array into an effect output
@@ -29,19 +28,19 @@ public class CastHelper {
      * @param level         the level upon which casting effects occur
      * @param player        the player responsible for the casting logic
      */
-    public static void castSpell(ArrayList<String> castStack, CastVector position, ServerLevel level, ServerPlayer player){
+    public static void castSpell(ArrayList<Integer> castStack, CastVector position, ServerLevel level, ServerPlayer player){
         player.sendSystemMessage(Component.literal("Cast Stack").withStyle(ChatFormatting.GOLD));
 
         // spell targets
         ArrayList<Entity> targetList = castTarget(castStack, player,position);
 
-        for (String castStackIteration : castStack){
+        for (int castStackIteration : castStack){
 
             // print current rune effect
             System.out.println(castStackIteration);
 
             // unaspected damage spell
-            if (Objects.equals(castStackIteration, "BBA")){
+            if (castStackIteration == 221){
                 // iterate through working targets
                 for (Entity entityIteration : targetList) {
                     new SpellDamage(entityIteration, player);
@@ -51,7 +50,7 @@ public class CastHelper {
             }
 
             // protection spell
-            if (Objects.equals(castStackIteration, "CBD")){
+            if (castStackIteration == 324){
                 // iterate through working targets
                 new PlayerDefence(player, targetList);
                 player.sendSystemMessage(Component.literal("Protective Barrier").withStyle(ChatFormatting.DARK_AQUA));
@@ -60,7 +59,7 @@ public class CastHelper {
             }
 
             // telekenetic slam
-            if (Objects.equals(castStackIteration, "CAB")){
+            if (castStackIteration == 312){
                 // iterate through working targets
                 for (Entity entityIteration : targetList) {
                     new TelekeneticSlam(entityIteration, player);
@@ -70,16 +69,14 @@ public class CastHelper {
             }
 
             // force flatulence
-            if(Objects.equals(castStackIteration, "ACAB")) {
+            if(castStackIteration == 1312) {
                 new SpellFart(level, player, position);
                 player.sendSystemMessage(Component.literal("Force Flatulence ").withStyle(ChatFormatting.DARK_AQUA));
                 continue;
             }
 
-            if(!(castStackIteration.length()==1)) {
-                // null rune error message
-                player.sendSystemMessage(Component.literal("Invalid Rune:" + castStackIteration).withStyle(ChatFormatting.DARK_RED));
-            }
+            // chat output for an erroneous rune
+            player.sendSystemMessage(Component.literal("Invalid Rune").withStyle(ChatFormatting.DARK_RED));
         }
     }
 
@@ -91,23 +88,23 @@ public class CastHelper {
      * @param vector        the vector on which logic acts upon
      * @return  an array list containing the entities targeted
      */
-    private static ArrayList<Entity> castTarget(ArrayList<String> castStack, ServerPlayer player, CastVector vector){
+    private static ArrayList<Entity> castTarget(ArrayList<Integer> castStack, ServerPlayer player, CastVector vector){
 
         // define temp entity list
         ArrayList<Entity> entities = new ArrayList<>();
         String target = "None";
 
-        for (String castStackIteration : castStack){
+        for (int castStackIteration : castStack){
 
             // self condition
-            if (Objects.equals(castStackIteration, "B")){
+            if (castStackIteration == 2){
                 entities.add(player);
                 target = "Self";
                 break;
             }
 
             // single target condition
-            if (Objects.equals(castStackIteration, "C")){
+            if (castStackIteration == 3){
                 target = "Target";
 
                 // define a bounding box for a single block radius
@@ -126,7 +123,7 @@ public class CastHelper {
             }
 
             // entities in area condition
-            if (Objects.equals(castStackIteration, "D")){
+            if (castStackIteration == 4){
 
                 // define a bounding box
                 AABB boundBox = new AABB(vector.getX() - 5, vector.getY() - 5, vector.getZ() - 5, vector.getX() + 5, vector.getY() + 5, vector.getZ() + 5);

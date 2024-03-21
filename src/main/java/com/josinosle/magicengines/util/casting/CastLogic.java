@@ -1,4 +1,4 @@
-package com.josinosle.magicengines.util.castgeometry;
+package com.josinosle.magicengines.util.casting;
 
 import com.josinosle.magicengines.registry.ParticleRegistry;
 import net.minecraft.ChatFormatting;
@@ -18,9 +18,9 @@ import java.util.ArrayList;
  */
 public class CastLogic {
 
-    private final ArrayList<String> castingStack = new ArrayList<>();
+    private final ArrayList<Integer> castingStack = new ArrayList<>();
     private final ArrayList<CastVector> vectorComboList = new ArrayList<>();
-    private final ArrayList<String> currentlyDrawnRune = new ArrayList<>();
+    private final ArrayList<Integer> currentlyDrawnRune = new ArrayList<>();
     private final ServerPlayer playerIdentifier;
     private boolean spellCast;
 
@@ -123,14 +123,18 @@ public class CastLogic {
         }
 
         // play rune condition
-        if (String.join("", currentlyDrawnRune).equals("A")) {
+        if (isCastingRune(currentlyDrawnRune)) {
             spellCast = true;
         }
 
         // add current rune to casting stack
         if (!spellCast) {
-            castingStack.add(String.join("", currentlyDrawnRune));
-            System.out.println(currentlyDrawnRune);
+            // clever loop for concatenating an int like a string
+            int codeToAdd = 0;
+            for (int i : currentlyDrawnRune){
+                codeToAdd = 10*codeToAdd + i;
+            }
+            castingStack.add(codeToAdd);
         }
 
         // clear non-applicable lists
@@ -146,7 +150,7 @@ public class CastLogic {
      * @param vectorOrigin  the origin point for the logical vectors
      * @return a string variable containing the alphabetic character represented by the dot product
      */
-    private static String dotProduct(CastVector vector1, CastVector vector2, CastVector vectorOrigin) {
+    private static int dotProduct(CastVector vector1, CastVector vector2, CastVector vectorOrigin) {
 
         // calculate 2 working vectors
         CastVector calcVector1 = vector1.vectorDifference(vectorOrigin);
@@ -159,10 +163,23 @@ public class CastLogic {
         float dotProduct = (xProd + yProd + zProd) / (calcVector1.modulus() * calcVector2.modulus());
 
         // return a character
-        if (dotProduct <= -0.85) return "A";
-        if (dotProduct <= -0.15) return "D";
-        if (dotProduct <= 0.15) return "C";
-        if (dotProduct <= 0.85) return "B";
-        return "A";
+        if (dotProduct <= -0.85) return 1;
+        if (dotProduct <= -0.15) return 4;
+        if (dotProduct <= 0.15) return 3;
+        if (dotProduct <= 0.85) return 2;
+        return 1;
+    }
+
+    /**
+     * Method to check rune is the cast rune
+     * @param currentlyDrawnRune        the integer array list of the current rune
+     * @return      boolean of if the rune is correct
+     */
+    private static boolean isCastingRune(ArrayList<Integer> currentlyDrawnRune){
+        int sum = 0;
+        for (int i : currentlyDrawnRune){
+            sum += i;
+        }
+        return sum == 1;
     }
 }
