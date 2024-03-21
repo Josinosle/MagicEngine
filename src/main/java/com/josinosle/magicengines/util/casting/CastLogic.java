@@ -18,7 +18,7 @@ import java.util.ArrayList;
  */
 public class CastLogic {
 
-    private final ArrayList<Integer> castingStack = new ArrayList<>();
+    private final ArrayList<CastRune> castingStack = new ArrayList<>();
     private CastRune rune = new CastRune();
     private final ServerPlayer playerIdentifier;
     private boolean spellCast;
@@ -119,7 +119,7 @@ public class CastLogic {
 
         // add current rune to casting stack
         if (!spellCast) {
-            castingStack.add(rune.getRune());
+            castingStack.add(rune);
         }
 
         // clear non-applicable lists

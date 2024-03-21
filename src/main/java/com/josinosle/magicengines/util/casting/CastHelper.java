@@ -28,19 +28,19 @@ public class CastHelper {
      * @param level         the level upon which casting effects occur
      * @param player        the player responsible for the casting logic
      */
-    public static void castSpell(ArrayList<Integer> castStack, CastVector position, ServerLevel level, ServerPlayer player){
+    public static void castSpell(ArrayList<CastRune> castStack, CastVector position, ServerLevel level, ServerPlayer player){
         player.sendSystemMessage(Component.literal("Cast Stack").withStyle(ChatFormatting.GOLD));
 
         // spell targets
         ArrayList<Entity> targetList = castTarget(castStack, player,position);
 
-        for (int castStackIteration : castStack){
+        for (CastRune castStackIteration : castStack) {
 
             // print current rune effect
             System.out.println(castStackIteration);
 
             // unaspected damage spell
-            if (castStackIteration == 221){
+            if (castStackIteration.getRune() == 221) {
                 // iterate through working targets
                 for (Entity entityIteration : targetList) {
                     new SpellDamage(entityIteration, player);
@@ -50,7 +50,7 @@ public class CastHelper {
             }
 
             // protection spell
-            if (castStackIteration == 324){
+            if (castStackIteration.getRune() == 324) {
                 // iterate through working targets
                 new PlayerDefence(player, targetList);
                 player.sendSystemMessage(Component.literal("Protective Barrier").withStyle(ChatFormatting.DARK_AQUA));
@@ -59,7 +59,7 @@ public class CastHelper {
             }
 
             // telekenetic slam
-            if (castStackIteration == 312){
+            if (castStackIteration.getRune() == 312) {
                 // iterate through working targets
                 for (Entity entityIteration : targetList) {
                     new TelekeneticSlam(entityIteration, player);
@@ -69,14 +69,16 @@ public class CastHelper {
             }
 
             // force flatulence
-            if(castStackIteration == 1312) {
+            if (castStackIteration.getRune() == 1312) {
                 new SpellFart(level, player, position);
                 player.sendSystemMessage(Component.literal("Force Flatulence ").withStyle(ChatFormatting.DARK_AQUA));
                 continue;
             }
 
             // chat output for an erroneous rune
-            player.sendSystemMessage(Component.literal("Invalid Rune").withStyle(ChatFormatting.DARK_RED));
+            if (castStackIteration.getRune() > 4) {
+                player.sendSystemMessage(Component.literal("Invalid Rune: " + castStackIteration.getRune()).withStyle(ChatFormatting.DARK_RED));
+            }
         }
     }
 
@@ -88,24 +90,24 @@ public class CastHelper {
      * @param vector        the vector on which logic acts upon
      * @return  an array list containing the entities targeted
      */
-    private static ArrayList<Entity> castTarget(ArrayList<Integer> castStack, ServerPlayer player, CastVector vector){
+    private static ArrayList<Entity> castTarget(ArrayList<CastRune> castStack, ServerPlayer player, CastVector vector){
 
         // define temp entity list
         ArrayList<Entity> entities = new ArrayList<>();
         String target = "None";
 
-        for (int castStackIteration : castStack){
+        for (CastRune castStackIteration : castStack){
 
             // self condition
-            if (castStackIteration == 2){
+            if (castStackIteration.getRune() == 2){
                 entities.add(player);
                 target = "Self";
                 break;
             }
 
             // single target condition
-            if (castStackIteration == 3){
-                target = "Target";
+            if (castStackIteration.getRune() == 3){
+                target = "Single Target";
 
                 // define a bounding box for a single block radius
                 AABB boundBox = new AABB(vector.getX() - 1, vector.getY() - 1, vector.getZ() - 1, vector.getX() + 1, vector.getY() + 1, vector.getZ() + 1);
@@ -123,10 +125,14 @@ public class CastHelper {
             }
 
             // entities in area condition
-            if (castStackIteration == 4){
+            if (castStackIteration.getRune() == 4){
+
+                // find rune's magnitude
+                int runeMag = castStackIteration.getCastMagnitude()*2;
+                System.out.println(runeMag);
 
                 // define a bounding box
-                AABB boundBox = new AABB(vector.getX() - 5, vector.getY() - 5, vector.getZ() - 5, vector.getX() + 5, vector.getY() + 5, vector.getZ() + 5);
+                AABB boundBox = new AABB(vector.getX() - runeMag, vector.getY() - runeMag, vector.getZ() - runeMag, vector.getX() + runeMag, vector.getY() + runeMag, vector.getZ() + runeMag);
 
                 // add entities in a bounding box to working list
                 List<Entity> entToDamage = player.getLevel().getEntities(null, boundBox);
