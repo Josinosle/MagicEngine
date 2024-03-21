@@ -58,14 +58,6 @@ public class CastLogic {
                 level.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.BLAZE_SHOOT, SoundSource.PLAYERS, 1.0F, 0.2F);
             }
 
-            // casting on block particles
-            player.getLevel().sendParticles(ParticleRegistry.CAST_PARTICLES.get(),
-                    rune.getCastVector(-1).getX(),
-                    rune.getCastVector(-1).getY(),
-                    rune.getCastVector(-1).getZ(),
-                    0, 0, 0, 0, 0
-            );
-
             // create temp difference vector
             CastVector tempVector2to1 = new CastVector(
                     rune.getCastVector(-1).getX() - rune.getCastVector(-2).getX(),
@@ -75,14 +67,18 @@ public class CastLogic {
             );
 
             // casting particle filler loop
-            for (float i = 0; i < tempVector2to1.modulus(); i += 0.1F) {
+            for (double i = -0.3; i < tempVector2to1.modulus() - 0.3; i += 0.3F) {
                 //Spawn Particle
 
                 player.getLevel().sendParticles(ParticleRegistry.CAST_PARTICLES.get(),
                         rune.getCastVector(-2).getX() + tempVector2to1.getX()/tempVector2to1.modulus() * i,
                         rune.getCastVector(-2).getY() + tempVector2to1.getY()/tempVector2to1.modulus() * i,
                         rune.getCastVector(-2).getZ() + tempVector2to1.getZ()/tempVector2to1.modulus() * i,
-                        0, 0, 0, 0, 0
+                        0,
+                        tempVector2to1.getX()/tempVector2to1.modulus(),
+                        tempVector2to1.getY()/tempVector2to1.modulus(),
+                        tempVector2to1.getZ()/tempVector2to1.modulus(),
+                        0.1
                 );
             }
 

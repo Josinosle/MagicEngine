@@ -57,9 +57,9 @@ public class PlayerDefence {
                                 event.getEntity().getZ(),
                                 1,
                                 0.75 * Math.cos(k),
-                                0.05,
+                                0,
                                 0.75 * Math.sin(k),
-                                0);
+                                0.1);
                     }
                 }
 

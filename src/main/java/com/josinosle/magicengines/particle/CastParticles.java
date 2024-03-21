@@ -32,7 +32,7 @@ public class CastParticles extends TextureSheetParticle {
     }
 
     private void fade() {
-        this.alpha = (-(1/(float) lifetime) * age + 1);
+        this.alpha = (1 - (1/(float) lifetime) * age);
     }
 
     @Override
