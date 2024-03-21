@@ -60,8 +60,6 @@ public class SpellFart extends Spell {
                     final MobEffectInstance mobEffectInstance = new MobEffectInstance(MobEffects.CONFUSION, duration);
                     livingEntity.addEffect(mobEffectInstance);
 
-
-
                     //add jump effect
                     if(livingEntity instanceof Player playerInAreaOfSpell) {
                         Messages.sendToPlayer(new SetDeltaMovementPacket(), (ServerPlayer) level.getPlayerByUUID(playerInAreaOfSpell.getUUID()));
