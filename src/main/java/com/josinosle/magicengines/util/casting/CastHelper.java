@@ -1,9 +1,6 @@
 package com.josinosle.magicengines.util.casting;
 
 import com.josinosle.magicengines.registry.SpellRegistry;
-import com.josinosle.magicengines.spells.spellcontent.combat.AbstractSpellDamage;
-import com.josinosle.magicengines.spells.spellcontent.combat.PlayerDefence;
-import com.josinosle.magicengines.spells.spellcontent.combat.TelekeneticSlam;
 import com.josinosle.magicengines.spells.spellcontent.fun.AbstractSpellFart;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -46,7 +43,7 @@ public class CastHelper {
                 continue;
             }
 
-            // add targetting condition
+            // add targeting condition
             if (targetList.isEmpty()) {
                 targetList = castTarget(castStackIteration,player,position);
                 if (targetList.isEmpty()) {
@@ -55,17 +52,17 @@ public class CastHelper {
                 }
             }
 
-            // unaspected damage spell
+            // abstract damage effect
             if (castStackIteration.getRune() == 221) {
                 // iterate through working targets
                 for (Entity entityIteration : targetList) {
                     SpellRegistry.UNASPECTED_DAMAGE.get().triggerCast(player,entityIteration,null);
-                    player.sendSystemMessage(Component.literal("Unaspected Damage").withStyle(ChatFormatting.DARK_AQUA));
+                    player.sendSystemMessage(Component.literal("Abstract Damage").withStyle(ChatFormatting.DARK_AQUA));
                 }
                 continue;
             }
 
-            // protection spell
+            // protection effect
             if (castStackIteration.getRune() == 324) {
                 // iterate through working targets
                 SpellRegistry.DEFENCE.get().triggerCast(player,null,targetList);
@@ -74,17 +71,17 @@ public class CastHelper {
                 continue;
             }
 
-            // telekenetic slam
+            // push effect
             if (castStackIteration.getRune() == 312) {
                 // iterate through working targets
                 for (Entity entityIteration : targetList) {
                     SpellRegistry.THROW.get().triggerCast(player,entityIteration,null);
-                    player.sendSystemMessage(Component.literal("Telekinetic Slam").withStyle(ChatFormatting.DARK_AQUA));
+                    player.sendSystemMessage(Component.literal("Push").withStyle(ChatFormatting.DARK_AQUA));
                 }
                 continue;
             }
 
-            // force flatulence
+            // flatulence effect
             if (castStackIteration.getRune() == 1312) {
                 new AbstractSpellFart(level, player, position);
                 player.sendSystemMessage(Component.literal("Force Flatulence ").withStyle(ChatFormatting.DARK_AQUA));
@@ -94,6 +91,7 @@ public class CastHelper {
             // chat output for an erroneous rune
             if (castStackIteration.getRune() > 4) {
                 player.sendSystemMessage(Component.literal("Invalid Rune: " + castStackIteration.getRune()).withStyle(ChatFormatting.DARK_RED));
+                break;
             }
         }
     }
