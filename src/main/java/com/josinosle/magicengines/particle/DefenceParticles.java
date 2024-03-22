@@ -7,6 +7,8 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.NotNull;
 
+import static java.lang.Math.abs;
+
 public class DefenceParticles extends TextureSheetParticle {
     protected DefenceParticles(ClientLevel level, double x, double y, double z, SpriteSet spriteSet, double xd, double yd, double zd){
         super(level, x, y, z, xd, yd, zd);
@@ -16,7 +18,7 @@ public class DefenceParticles extends TextureSheetParticle {
         this.yd = yd;
         this.zd = zd;
         this.quadSize *= 0.85F;
-        this.lifetime = 4;
+        this.lifetime = 20;
         this.setSpriteFromAge(spriteSet);
 
         this.rCol = 1f;
@@ -32,7 +34,16 @@ public class DefenceParticles extends TextureSheetParticle {
     }
 
     private void fade() {
-        this.alpha = (-(1/(float) lifetime) * age + 1);
+        //this.alpha = (-(1/(float) lifetime) * age + 1);
+
+        if (age<12) {
+            this.alpha = 1;
+        } else if (age>12 && age<lifetime) {
+            this.alpha = (float) ((3/4) * abs(Math.cos(((double) age /3) * Math.PI)) + 1/4);
+        }
+        else {
+            this.alpha = 0;
+        }
     }
 
     @Override
