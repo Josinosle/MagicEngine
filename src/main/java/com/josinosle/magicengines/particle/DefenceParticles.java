@@ -7,8 +7,6 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.NotNull;
 
-import static java.lang.Math.abs;
-
 public class DefenceParticles extends TextureSheetParticle {
     protected DefenceParticles(ClientLevel level, double x, double y, double z, SpriteSet spriteSet, double xd, double yd, double zd){
         super(level, x, y, z, xd, yd, zd);
@@ -39,7 +37,11 @@ public class DefenceParticles extends TextureSheetParticle {
         if (age<12) {
             this.alpha = 1;
         } else if (age>12 && age<lifetime) {
-            this.alpha = (float) ((3/4) * abs(Math.cos(((double) age /3) * Math.PI)) + 1/4);
+            this.alpha =  (0.75F) * (float)(Math.abs(Math.cos(age  * Math.PI/3)) + (0.25F));
+
+
+            System.out.println(this.alpha);
+            System.out.println((0.75F) * (float)(Math.abs(Math.cos(age  * Math.PI/3)) + (0.25F)));
         }
         else {
             this.alpha = 0;

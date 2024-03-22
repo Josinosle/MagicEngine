@@ -109,7 +109,7 @@ public class CastLogic {
         }
 
         // play rune condition
-        if (rune.getRune() == 1){
+        if (rune.getRune() == 11){
             spellCast = true;
         }
 
