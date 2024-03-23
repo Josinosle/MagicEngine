@@ -16,8 +16,8 @@ public class ParticleRegistry {
     public static final RegistryObject<SimpleParticleType> CAST_PARTICLES =
             PARTICLE_TYPES.register("cast_particles", () -> new SimpleParticleType(true));
 
-    public static final RegistryObject<SimpleParticleType> DEFENCE_PARTICLES =
-            PARTICLE_TYPES.register("defence_particles", () -> new SimpleParticleType(true));
+    public static final RegistryObject<SimpleParticleType> DEFENSE_PARTICLES =
+            PARTICLE_TYPES.register("defense_particles", () -> new SimpleParticleType(true));
 
     public static final RegistryObject<SimpleParticleType> STINKY_PARTICLES =
             PARTICLE_TYPES.register("stinky_particles", () -> new SimpleParticleType(true));

@@ -1,12 +1,17 @@
 package com.josinosle.magicengines.networking.packet;
 
+import com.josinosle.magicengines.registry.SpellRegistry;
 import com.josinosle.magicengines.spells.spellcontent.fun.AbstractSpellFart;
 import com.josinosle.magicengines.util.casting.CastVector;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.phys.AABB;
 import net.minecraftforge.network.NetworkEvent;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.function.Supplier;
 
 public class EasyCastC2SPacket {
@@ -29,13 +34,17 @@ public class EasyCastC2SPacket {
 
     public void handle(Supplier<NetworkEvent.Context> supplier){
         System.out.println("Bean wand handle server side");
-        NetworkEvent.Context context = supplier.get();
+        final NetworkEvent.Context context = supplier.get();
         context.enqueueWork(() -> {
            final ServerPlayer player = context.getSender();
            if( player != null) {
-               ServerLevel level = player.getLevel();
+               final CastVector vector = new CastVector(x,y,z, player);
+               final AABB boundBox = new AABB(vector.getX() - 1, vector.getY() - 1, vector.getZ() - 1, vector.getX() + 1, vector.getY() + 1, vector.getZ() + 1);
 
-               new AbstractSpellFart(level, player, new CastVector(x,y,z, player));
+               // add entities in a bounding box to working list
+               final ArrayList<Entity> entToDamage = new ArrayList<>(player.getLevel().getEntities(null, boundBox));
+
+               SpellRegistry.FART.get().triggerCast(player,null, entToDamage);
            }
         });
     }

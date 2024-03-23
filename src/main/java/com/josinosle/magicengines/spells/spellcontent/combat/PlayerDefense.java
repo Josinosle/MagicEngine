@@ -1,6 +1,7 @@
 package com.josinosle.magicengines.spells.spellcontent.combat;
 
 import com.josinosle.magicengines.MagicEngines;
+import com.josinosle.magicengines.config.ServerConfigs;
 import com.josinosle.magicengines.registry.ParticleRegistry;
 import com.josinosle.magicengines.spells.AbstractSpell;
 import com.josinosle.magicengines.spells.spellcontent.SpellCastManaChanges;
@@ -16,7 +17,7 @@ import net.minecraftforge.fml.common.Mod;
 import java.util.ArrayList;
 
 @Mod.EventBusSubscriber(modid = MagicEngines.MOD_ID)
-public class PlayerDefence extends AbstractSpell {
+public class PlayerDefense extends AbstractSpell {
 
     private static ArrayList<Entity> entityList;
     private static ServerPlayer player;
@@ -24,14 +25,15 @@ public class PlayerDefence extends AbstractSpell {
     private static boolean runEffect;
 
     // constructor
-    public PlayerDefence() {
+    public PlayerDefense() {
+        super();
     }
 
     // trigger effect
     @Override
     public void triggerCast(ServerPlayer player,Entity entity, ArrayList<Entity> entityList){
-        PlayerDefence.player = player;
-        PlayerDefence.entityList = entityList;
+        PlayerDefense.player = player;
+        PlayerDefense.entityList = entityList;
         runEffect = true;
         i=0;
     }
@@ -43,8 +45,10 @@ public class PlayerDefence extends AbstractSpell {
                 event.getSource() != DamageSource.STARVE ||
                 event.getSource() != DamageSource.LAVA)) {
 
-            SpellCastManaChanges logic = new SpellCastManaChanges();
-            if(logic.spellCastable(player,1000) && event.getAmount()<=20) {
+            final SpellCastManaChanges logic = new SpellCastManaChanges();
+            final int manaAmount = ServerConfigs.PLAYER_DEFENSE_REQUIRED_MANA_AMOUNT.get();
+
+            if(logic.spellCastable(player, manaAmount) && event.getAmount()<=20) {
 
                 // cancel damage event
                 event.setCanceled(true);
@@ -57,7 +61,7 @@ public class PlayerDefence extends AbstractSpell {
 
                         // send spawn particle
                         player.getLevel().sendParticles(
-                                ParticleRegistry.DEFENCE_PARTICLES.get(),
+                                ParticleRegistry.DEFENSE_PARTICLES.get(),
                                 event.getEntity().getX(),
                                 event.getEntity().getY() + j,
                                 event.getEntity().getZ(),
@@ -71,7 +75,7 @@ public class PlayerDefence extends AbstractSpell {
 
                 // sound effect
                 event.getEntity().getLevel().playSound(null, event.getEntity().getX(), event.getEntity().getY(), event.getEntity().getZ(), SoundEvents.AMETHYST_CLUSTER_BREAK, SoundSource.PLAYERS, 5.0F, 0.5F);
-                logic.subMana(player,1000);
+                logic.subMana(player, manaAmount);
             }
             if(event.getAmount()>20){
                 runEffect = false;

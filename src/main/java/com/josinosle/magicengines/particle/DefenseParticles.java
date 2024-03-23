@@ -9,8 +9,8 @@ import org.jetbrains.annotations.NotNull;
 
 import static java.lang.Math.abs;
 
-public class DefenceParticles extends TextureSheetParticle {
-    protected DefenceParticles(ClientLevel level, double x, double y, double z, SpriteSet spriteSet, double xd, double yd, double zd){
+public class DefenseParticles extends TextureSheetParticle {
+    protected DefenseParticles(ClientLevel level, double x, double y, double z, SpriteSet spriteSet, double xd, double yd, double zd){
         super(level, x, y, z, xd, yd, zd);
 
         this.friction = 0.8F;
@@ -61,7 +61,7 @@ public class DefenceParticles extends TextureSheetParticle {
 
 
         public Particle createParticle(@NotNull SimpleParticleType particleType, @NotNull ClientLevel level, double x, double y, double z, double dx, double dy, double dz) {
-            return new DefenceParticles(level, x, y, z, this.sprites, dx, dy, dz);
+            return new DefenseParticles(level, x, y, z, this.sprites, dx, dy, dz);
         }
     }
 }

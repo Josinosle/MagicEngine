@@ -1,9 +1,6 @@
 package com.josinosle.magicengines.util.casting;
 
 import com.josinosle.magicengines.registry.SpellRegistry;
-import com.josinosle.magicengines.spells.spellcontent.combat.AbstractSpellDamage;
-import com.josinosle.magicengines.spells.spellcontent.combat.PlayerDefence;
-import com.josinosle.magicengines.spells.spellcontent.combat.TelekeneticSlam;
 import com.josinosle.magicengines.spells.spellcontent.fun.AbstractSpellFart;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -53,7 +50,7 @@ public class CastHelper {
             // protection spell
             if (castStackIteration.getRune() == 324) {
                 // iterate through working targets
-                SpellRegistry.DEFENCE.get().triggerCast(player,null,targetList);
+                SpellRegistry.DEFENSE.get().triggerCast(player,null,targetList);
                 player.sendSystemMessage(Component.literal("Protective Barrier").withStyle(ChatFormatting.DARK_AQUA));
 
                 continue;
@@ -71,7 +68,7 @@ public class CastHelper {
 
             // force flatulence
             if (castStackIteration.getRune() == 1312) {
-                new AbstractSpellFart(level, player, position);
+                SpellRegistry.FART.get().triggerCast(player,null, targetList);
                 player.sendSystemMessage(Component.literal("Force Flatulence ").withStyle(ChatFormatting.DARK_AQUA));
                 continue;
             }

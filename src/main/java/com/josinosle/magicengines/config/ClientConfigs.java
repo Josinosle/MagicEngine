@@ -19,7 +19,7 @@ public class ClientConfigs {
         BUILDER.push("ManaBar");
         BUILDER.comment("By default (Contextual), the mana bar only appears when you are holding a magic item or are not at max mana.");
         MANA_BAR_DISPLAY = BUILDER.defineEnum("manaBarDisplay", ManaBarOverlay.Display.CONTEXTUAL);
-        BUILDER.comment("Used to adjust mana bar's position (11 is one full hunger bar up).");
+        BUILDER.comment("Used to adjust mana bar's position.");
         MANA_BAR_Y_OFFSET = BUILDER.define("manaBarYOffset", 0);
         MANA_BAR_X_OFFSET = BUILDER.define("manaBarXOffset", 0);
         MANA_BAR_TEXT_VISIBLE = BUILDER.define("manaBarTextVisible", true);

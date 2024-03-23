@@ -1,13 +1,13 @@
 package com.josinosle.magicengines.spells.spellcontent.fun;
 
 import com.josinosle.magicengines.MagicEngines;
+import com.josinosle.magicengines.config.ServerConfigs;
 import com.josinosle.magicengines.networking.Messages;
 import com.josinosle.magicengines.networking.packet.SetDeltaMovementPacket;
-import com.josinosle.magicengines.spells.AbstractSpell;
-import com.josinosle.magicengines.spells.spellcontent.SpellCastManaChanges;
 import com.josinosle.magicengines.registry.ParticleRegistry;
 import com.josinosle.magicengines.registry.SoundRegistry;
-import com.josinosle.magicengines.util.casting.CastVector;
+import com.josinosle.magicengines.spells.AbstractSpell;
+import com.josinosle.magicengines.spells.spellcontent.SpellCastManaChanges;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
@@ -16,11 +16,9 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.phys.AABB;
 import net.minecraftforge.fml.common.Mod;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Class to apply the fart spell effects
@@ -28,52 +26,10 @@ import java.util.List;
  * @author Florian Hirson
  */
 @Mod.EventBusSubscriber(modid = MagicEngines.MOD_ID)
-public class AbstractSpellFart {
+public class AbstractSpellFart  extends AbstractSpell{
 
-    /**
-     * Constructor used to apply the spell actions
-     *
-     * @param player the player that casts the spell
-     * @param vector the vector used to apply an effect to the target of the spell
-     */
-    public AbstractSpellFart(final ServerLevel level, final ServerPlayer player, final CastVector vector) {
-        final SpellCastManaChanges logic = new SpellCastManaChanges();
+    public AbstractSpellFart() {
 
-        if (logic.spellCastable(player,690)) {
-            //Area of effect
-            final AABB boundBox = new AABB(vector.getX() - 3, vector.getY() - 3, vector.getZ() - 3, vector.getX() + 3, vector.getY() + 3, vector.getZ() + 3);
-
-            //get the entities in the area to apply the spell effects
-            //first arg is null because we don't want to ignore an entity
-            List<Entity> entitiesInTheAreaOfSpell = player.getLevel().getEntities(null, boundBox);
-
-            for(Entity entity: entitiesInTheAreaOfSpell) {
-                if(entity instanceof LivingEntity livingEntity) {
-                    //play fart sound
-                    entity.getLevel().playSound(null, entity.getX(), entity.getY(), entity.getZ(),
-                            SoundRegistry.REVERB_FART.get(), SoundSource.PLAYERS, Long.MAX_VALUE, Long.MIN_VALUE);
-
-                    spawnStinkyParticles(level, entity);
-
-                    //set nausea effect for 400 ticks aka 20 seconds
-                    final int duration = 400;
-                    final MobEffectInstance mobEffectInstance = new MobEffectInstance(MobEffects.CONFUSION, duration);
-                    livingEntity.addEffect(mobEffectInstance);
-
-                    //add jump effect
-                    if(livingEntity instanceof Player playerInAreaOfSpell) {
-                        Messages.sendToPlayer(new SetDeltaMovementPacket(), (ServerPlayer) level.getPlayerByUUID(playerInAreaOfSpell.getUUID()));
-                    } else {
-                        livingEntity.setDeltaMovement(livingEntity.getDeltaMovement().add(0, 1, 0));
-                    }
-
-
-                }
-
-            }
-
-            logic.subMana(player,690);
-        }
     }
 
     private void spawnStinkyParticles(final ServerLevel level, final Entity entity) {
@@ -96,6 +52,42 @@ public class AbstractSpellFart {
                         deltaZ,
                         speed);
             }
+        }
+    }
+
+    @Override
+    public void triggerCast(ServerPlayer player, Entity entity, ArrayList<Entity> entityList) {
+        final SpellCastManaChanges logic = new SpellCastManaChanges();
+        final int manaAmount = ServerConfigs.FART_REQUIRED_MANA_AMOUNT.get();
+
+        if (logic.spellCastable(player, manaAmount)) {
+
+            for(Entity entityInTheAreaOfSpell: entityList) {
+                if(entityInTheAreaOfSpell instanceof LivingEntity livingEntity) {
+                    //play fart sound
+                    livingEntity.getLevel().playSound(null, livingEntity.getX(), livingEntity.getY(), livingEntity.getZ(),
+                            SoundRegistry.REVERB_FART.get(), SoundSource.PLAYERS, Long.MAX_VALUE, Long.MIN_VALUE);
+
+                    spawnStinkyParticles(player.getLevel(), livingEntity);
+
+                    //set nausea effect for 400 ticks aka 20 seconds
+                    final int duration = 400;
+                    final MobEffectInstance mobEffectInstance = new MobEffectInstance(MobEffects.CONFUSION, duration);
+                    livingEntity.addEffect(mobEffectInstance);
+
+                    //add jump effect
+                    if(livingEntity instanceof Player playerInAreaOfSpell) {
+                        Messages.sendToPlayer(new SetDeltaMovementPacket(), (ServerPlayer) player.getLevel().getPlayerByUUID(playerInAreaOfSpell.getUUID()));
+                    } else {
+                        livingEntity.setDeltaMovement(livingEntity.getDeltaMovement().add(0, 1, 0));
+                    }
+
+
+                }
+
+            }
+
+            logic.subMana(player, manaAmount);
         }
     }
 }

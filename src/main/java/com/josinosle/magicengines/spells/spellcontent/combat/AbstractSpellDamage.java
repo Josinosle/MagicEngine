@@ -1,5 +1,6 @@
 package com.josinosle.magicengines.spells.spellcontent.combat;
 
+import com.josinosle.magicengines.config.ServerConfigs;
 import com.josinosle.magicengines.spells.AbstractSpell;
 import com.josinosle.magicengines.spells.spellcontent.SpellCastManaChanges;
 import net.minecraft.server.level.ServerPlayer;
@@ -13,10 +14,12 @@ public class AbstractSpellDamage extends AbstractSpell {
 
     @Override
     public void triggerCast(ServerPlayer player, Entity entity, ArrayList<Entity> entityList) {
-        SpellCastManaChanges logic = new SpellCastManaChanges();
-        if (logic.spellCastable(player, 1500)) {
+        final SpellCastManaChanges logic = new SpellCastManaChanges();
+        final int manaAmount = ServerConfigs.ABSTRACT_SPELL_DAMAGE_REQUIRED_MANA_AMOUNT.get();
+
+        if (logic.spellCastable(player, manaAmount)) {
             entity.hurt(DamageSource.MAGIC, 10);
-            logic.subMana(player, 1500);
+            logic.subMana(player, manaAmount);
         }
     }
 }

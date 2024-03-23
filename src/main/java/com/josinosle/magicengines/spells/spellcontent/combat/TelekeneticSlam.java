@@ -1,6 +1,7 @@
 package com.josinosle.magicengines.spells.spellcontent.combat;
 
 import com.josinosle.magicengines.MagicEngines;
+import com.josinosle.magicengines.config.ServerConfigs;
 import com.josinosle.magicengines.spells.AbstractSpell;
 import com.josinosle.magicengines.spells.spellcontent.SpellCastManaChanges;
 import net.minecraft.core.particles.ParticleTypes;
@@ -14,11 +15,15 @@ import java.util.ArrayList;
 
 @Mod.EventBusSubscriber(modid = MagicEngines.MOD_ID)
 public class TelekeneticSlam extends AbstractSpell {
-    public TelekeneticSlam(){};
+    public TelekeneticSlam(){
+        super();
+    };
     @Override
     public void triggerCast(ServerPlayer player, Entity entity, ArrayList<Entity> entityList) {
-        SpellCastManaChanges logic = new SpellCastManaChanges();
-        if (logic.spellCastable(player,1000)) {
+        final SpellCastManaChanges logic = new SpellCastManaChanges();
+        final int manaAmount = ServerConfigs.TELEKENETIC_SLAM_REQUIRED_MANA_AMOUNT.get();
+
+        if (logic.spellCastable(player, manaAmount)) {
 
             // change entity delta movement
             entity.setDeltaMovement(
@@ -42,6 +47,6 @@ public class TelekeneticSlam extends AbstractSpell {
         }
 
         //sub mana
-        logic.subMana(player, 1000);
+        logic.subMana(player, manaAmount);
     }
 }
