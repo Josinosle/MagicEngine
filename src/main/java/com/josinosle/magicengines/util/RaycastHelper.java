@@ -27,6 +27,11 @@ public class RaycastHelper {
         if(lookPos.getX()!=(int)vector3d1.x && lookPos.getY()!=(int)vector3d1.y && lookPos.getY()!=(int)vector3d1.y) {
             vector3d1 = new Vec3(lookPos.getX()+0.5,lookPos.getY()+0.5,lookPos.getZ()+0.5);
         }
+
+        if ((vector3d1.subtract(vector3d)).length() > 199) {
+            System.out.println((vector3d1.subtract(vector3d)).length());
+            return null;
+        }
         return vector3d1;
     }
 }

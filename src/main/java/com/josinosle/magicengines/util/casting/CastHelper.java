@@ -76,14 +76,12 @@ public class CastHelper {
                 continue;
             }
 
-            /*
             // flatulence effect
             if (castStackIteration.getRune() == 1312) {
                 SpellRegistry.FART.get().triggerCast(player,targetList);
                 player.sendSystemMessage(Component.literal("Force Flatulence ").withStyle(ChatFormatting.DARK_AQUA));
                 continue;
             }
-            */
 
             // chat output for an erroneous rune
             if (castStackIteration.getRune() > 4) {

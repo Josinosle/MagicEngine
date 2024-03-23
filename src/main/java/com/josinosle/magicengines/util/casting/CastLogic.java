@@ -3,7 +3,6 @@ package com.josinosle.magicengines.util.casting;
 import com.josinosle.magicengines.registry.ParticleRegistry;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -87,7 +86,7 @@ public class CastLogic {
         } else {
 
             // cast spell
-            CastHelper.castSpell(castingStack, vector, (ServerLevel) level, player);
+            CastHelper.castSpell(castingStack, vector, player);
             spellCast = false;
         }
     }

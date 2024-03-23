@@ -39,7 +39,7 @@ public class CantripBuildPlayerHelper {
      * @param vector        CastVector object for the casting position
      */
     public void castCantrip(CastVector vector){
-        CastHelper.castSpell(cantripCode, vector, player.getLevel(), player);
+        CastHelper.castSpell(cantripCode, vector, player);
 
     }
 
