@@ -1,5 +1,7 @@
 package com.josinosle.magicengines.util.casting;
 
+import net.minecraft.world.phys.Vec3;
+
 import java.util.ArrayList;
 
 /**
@@ -10,15 +12,15 @@ import java.util.ArrayList;
 public class CastRune {
     private int castMagnitude;
     private int rune = 0;
-    private final ArrayList<CastVector> vectorComposition = new ArrayList<>();
+    private final ArrayList<Vec3> vectorComposition = new ArrayList<>();
 
     public CastRune(){}
 
     private void calculateCastMagnitude(){
         double sum = 0;
-        CastVector previousVector = vectorComposition.get(0);
-        for (CastVector i : vectorComposition){
-            sum += (i.vectorDifference(previousVector).modulus());
+        Vec3 previousVector = vectorComposition.get(0);
+        for (Vec3 i : vectorComposition){
+            sum += (i.subtract(previousVector).length());
         }
         sum = (sum / (vectorComposition.size()-1));
 
@@ -58,7 +60,7 @@ public class CastRune {
      * @param i     Element
      * @return      A CastVector object
      */
-    public CastVector getCastVector(int i){
+    public Vec3 getCastVector(int i){
         if (i==-1) return vectorComposition.get(vectorComposition.size()-1);
         else if (i==-2) return vectorComposition.get(vectorComposition.size()-2);
         else if (i==-3) return vectorComposition.get(vectorComposition.size()-3);
@@ -78,9 +80,9 @@ public class CastRune {
      *
      * Add method for the vector composition
      *
-     * @param vector        CastVector vector to be added
+     * @param vector        Vector to be added
      */
-    public void addVectorToRune(CastVector vector){
+    public void addVectorToRune(Vec3 vector){
         vectorComposition.add(vector);
         calculateCastMagnitude();
         if(this.vectorComposition.size()>2) {
@@ -97,17 +99,17 @@ public class CastRune {
      * @param vectorOrigin  the origin point for the logical vectors
      * @return a string variable containing the alphabetic character represented by the dot product
      */
-    private static int dotProduct(CastVector vector1, CastVector vector2, CastVector vectorOrigin) {
+    private static int dotProduct(Vec3 vector1, Vec3 vector2, Vec3 vectorOrigin) {
 
         // calculate 2 working vectors
-        CastVector calcVector1 = vector1.vectorDifference(vectorOrigin);
-        CastVector calcVector2 = vector2.vectorDifference(vectorOrigin);
+        Vec3 calcVector1 = vector1.subtract(vectorOrigin);
+        Vec3 calcVector2 = vector2.subtract(vectorOrigin);
 
         // calc dot product
-        float xProd = (float) (calcVector1.getX() * calcVector2.getX());
-        float yProd = (float) (calcVector1.getY() * calcVector2.getY());
-        float zProd = (float) (calcVector1.getZ() * calcVector2.getZ());
-        float dotProduct = (xProd + yProd + zProd) / (calcVector1.modulus() * calcVector2.modulus());
+        float xProd = (float) (calcVector1.x() * calcVector2.x());
+        float yProd = (float) (calcVector1.y() * calcVector2.y());
+        float zProd = (float) (calcVector1.z() * calcVector2.z());
+        float dotProduct = (float) ((xProd + yProd + zProd) / (calcVector1.length() * calcVector2.length()));
 
         // return a character
         if (dotProduct <= -0.85) return 1;

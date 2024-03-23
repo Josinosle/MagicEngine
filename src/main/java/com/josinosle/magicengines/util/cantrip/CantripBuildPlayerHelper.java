@@ -2,9 +2,9 @@ package com.josinosle.magicengines.util.cantrip;
 
 import com.josinosle.magicengines.util.casting.CastHelper;
 import com.josinosle.magicengines.util.casting.CastRune;
-import com.josinosle.magicengines.util.casting.CastVector;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.phys.Vec3;
 
 import java.util.ArrayList;
 
@@ -38,7 +38,7 @@ public class CantripBuildPlayerHelper {
      *
      * @param vector        CastVector object for the casting position
      */
-    public void castCantrip(CastVector vector){
+    public void castCantrip(Vec3 vector){
         CastHelper.castSpell(cantripCode, vector, player);
 
     }

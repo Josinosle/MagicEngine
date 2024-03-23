@@ -2,6 +2,7 @@ package com.josinosle.magicengines.util.casting;
 
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.Vec3;
 
 import java.util.ArrayList;
 
@@ -21,7 +22,7 @@ public class NetworkCastLogicHandling {
      * @param level         the level on which the cast effect occurs
      * @param player        the player responsible for the casting logic
      */
-    public static void handlePlayerSetVectorComboList(CastVector vector,Level level, ServerPlayer player){
+    public static void handlePlayerSetVectorComboList(Vec3 vector, Level level, ServerPlayer player){
 
         // check current cast logics for player match
         for(CastLogic i : worldCasts){

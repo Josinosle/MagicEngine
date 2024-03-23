@@ -6,6 +6,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.Vec3;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +24,7 @@ public class CastHelper {
      * @param position      the position vector of the current spell logic
      * @param player        the player responsible for the casting logic
      */
-    public static void castSpell(ArrayList<CastRune> castStack, CastVector position, ServerPlayer player){
+    public static void castSpell(ArrayList<CastRune> castStack, Vec3 position, ServerPlayer player){
         player.sendSystemMessage(Component.literal("Cast Stack").withStyle(ChatFormatting.GOLD));
 
         // spell targets
@@ -99,7 +100,7 @@ public class CastHelper {
      * @param vector        the vector on which logic acts upon
      * @return  an array list containing the entities targeted
      */
-    private static ArrayList<Entity> castTarget(CastRune rune, ServerPlayer player, CastVector vector){
+    private static ArrayList<Entity> castTarget(CastRune rune, ServerPlayer player, Vec3 vector){
 
         // define temp entity list
         ArrayList<Entity> entities = new ArrayList<>();
@@ -116,7 +117,7 @@ public class CastHelper {
             target = "Ray";
 
             // define a bounding box for a single block radius
-            AABB boundBox = new AABB(vector.getX() - 1, vector.getY() - 1, vector.getZ() - 1, vector.getX() + 1, vector.getY() + 1, vector.getZ() + 1);
+            AABB boundBox = new AABB(vector.x() - 1, vector.y() - 1, vector.z() - 1, vector.x() + 1, vector.y() + 1, vector.z() + 1);
 
             // add entities in a bounding box to working list
             List<Entity> entToDamage = player.getLevel().getEntities(null, boundBox);
@@ -136,7 +137,7 @@ public class CastHelper {
             System.out.println(runeMag);
 
             // define a bounding box
-            AABB boundBox = new AABB(vector.getX() - runeMag, vector.getY() - runeMag, vector.getZ() - runeMag, vector.getX() + runeMag, vector.getY() + runeMag, vector.getZ() + runeMag);
+            AABB boundBox = new AABB(vector.x() - runeMag, vector.y() - runeMag, vector.z() - runeMag, vector.x() + runeMag, vector.y() + runeMag, vector.z() + runeMag);
 
             // add entities in a bounding box to working list
             List<Entity> entToDamage = player.getLevel().getEntities(null, boundBox);

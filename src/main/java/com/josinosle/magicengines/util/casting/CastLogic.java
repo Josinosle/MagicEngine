@@ -7,6 +7,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.Vec3;
 
 import java.util.ArrayList;
 
@@ -45,7 +46,7 @@ public class CastLogic {
      * @param level     the level to cast effects upon
      * @param player    the player entity
      */
-    public void setVectorComboList(CastVector vector, Level level, ServerPlayer player) {
+    public void setVectorComboList(Vec3 vector, Level level, ServerPlayer player) {
 
         if (!spellCast) {
 
@@ -58,25 +59,21 @@ public class CastLogic {
             }
 
             // create temp difference vector
-            CastVector tempVector2to1 = new CastVector(
-                    rune.getCastVector(-1).getX() - rune.getCastVector(-2).getX(),
-                    rune.getCastVector(-1).getY() - rune.getCastVector(-2).getY(),
-                    rune.getCastVector(-1).getZ() - rune.getCastVector(-2).getZ(),
-                    player
-            );
+
+            Vec3 tempVector2to1 = rune.getCastVector(-1).subtract(rune.getCastVector(-2));
 
             // casting particle filler loop
-            for (double i = -0.3; i < tempVector2to1.modulus() - 0.3; i += 0.3F) {
+            for (double i = -0.3; i < tempVector2to1.length() - 0.3; i += 0.3F) {
                 //Spawn Particle
 
                 player.getLevel().sendParticles(ParticleRegistry.CAST_PARTICLES.get(),
-                        rune.getCastVector(-2).getX() + tempVector2to1.getX()/tempVector2to1.modulus() * i,
-                        rune.getCastVector(-2).getY() + tempVector2to1.getY()/tempVector2to1.modulus() * i,
-                        rune.getCastVector(-2).getZ() + tempVector2to1.getZ()/tempVector2to1.modulus() * i,
+                        rune.getCastVector(-2).x() + tempVector2to1.x()/tempVector2to1.length() * i,
+                        rune.getCastVector(-2).y() + tempVector2to1.y()/tempVector2to1.length() * i,
+                        rune.getCastVector(-2).z() + tempVector2to1.z()/tempVector2to1.length() * i,
                         0,
-                        tempVector2to1.getX()/tempVector2to1.modulus(),
-                        tempVector2to1.getY()/tempVector2to1.modulus(),
-                        tempVector2to1.getZ()/tempVector2to1.modulus(),
+                        tempVector2to1.x()/tempVector2to1.length(),
+                        tempVector2to1.y()/tempVector2to1.length(),
+                        tempVector2to1.z()/tempVector2to1.length(),
                         0.1
                 );
             }
