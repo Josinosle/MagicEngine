@@ -65,11 +65,11 @@ public class PlayerDefense extends AbstractSpell {
                                 event.getEntity().getX(),
                                 event.getEntity().getY() + j,
                                 event.getEntity().getZ(),
-                                0,
+                                1,
                                 0.75 * Math.cos(k),
                                 0,
                                 0.75 * Math.sin(k),
-                                0);
+                                0.01);
                     }
                 }
 

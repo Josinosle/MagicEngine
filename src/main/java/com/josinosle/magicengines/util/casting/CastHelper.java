@@ -30,24 +30,39 @@ public class CastHelper {
         player.sendSystemMessage(Component.literal("Cast Stack").withStyle(ChatFormatting.GOLD));
 
         // spell targets
-        ArrayList<Entity> targetList = castTarget(castStack, player,position);
+        ArrayList<Entity> targetList = new ArrayList<>();
 
         for (CastRune castStackIteration : castStack) {
 
             // print current rune effect
             System.out.println(castStackIteration);
 
-            // unaspected damage spell
+            // buffer rune
+            if (castStackIteration.getRune() == 1) {
+                targetList.clear();
+                continue;
+            }
+
+            // add targeting condition
+            if (targetList.isEmpty()) {
+                targetList = castTarget(castStackIteration,player,position);
+                if (targetList.isEmpty()) {
+                    player.sendSystemMessage(Component.literal("Stack syntax error: no targets defined").withStyle(ChatFormatting.DARK_RED));
+                    break;
+                }
+            }
+
+            // abstract damage effect
             if (castStackIteration.getRune() == 221) {
                 // iterate through working targets
                 for (Entity entityIteration : targetList) {
                     SpellRegistry.UNASPECTED_DAMAGE.get().triggerCast(player,entityIteration,null);
-                    player.sendSystemMessage(Component.literal("Unaspected Damage").withStyle(ChatFormatting.DARK_AQUA));
+                    player.sendSystemMessage(Component.literal("Abstract Damage").withStyle(ChatFormatting.DARK_AQUA));
                 }
                 continue;
             }
 
-            // protection spell
+            // protection effect
             if (castStackIteration.getRune() == 324) {
                 // iterate through working targets
                 SpellRegistry.DEFENSE.get().triggerCast(player,null,targetList);
@@ -56,17 +71,17 @@ public class CastHelper {
                 continue;
             }
 
-            // telekenetic slam
+            // push effect
             if (castStackIteration.getRune() == 312) {
                 // iterate through working targets
                 for (Entity entityIteration : targetList) {
                     SpellRegistry.THROW.get().triggerCast(player,entityIteration,null);
-                    player.sendSystemMessage(Component.literal("Telekinetic Slam").withStyle(ChatFormatting.DARK_AQUA));
+                    player.sendSystemMessage(Component.literal("Push").withStyle(ChatFormatting.DARK_AQUA));
                 }
                 continue;
             }
 
-            // force flatulence
+            // flatulence effect
             if (castStackIteration.getRune() == 1312) {
                 SpellRegistry.FART.get().triggerCast(player,null, targetList);
                 player.sendSystemMessage(Component.literal("Force Flatulence ").withStyle(ChatFormatting.DARK_AQUA));
@@ -76,6 +91,7 @@ public class CastHelper {
             // chat output for an erroneous rune
             if (castStackIteration.getRune() > 4) {
                 player.sendSystemMessage(Component.literal("Invalid Rune: " + castStackIteration.getRune()).withStyle(ChatFormatting.DARK_RED));
+                break;
             }
         }
     }
@@ -83,70 +99,63 @@ public class CastHelper {
     /**
      * Method to search a casting stack to find a rune indicating a casting target
      *
-     * @param castStack     the casting stack containing all runes in the current cast
+     * @param rune      rune containing data
      * @param player        the player responsible for the cast logic
      * @param vector        the vector on which logic acts upon
      * @return  an array list containing the entities targeted
      */
-    private static ArrayList<Entity> castTarget(ArrayList<CastRune> castStack, ServerPlayer player, CastVector vector){
+    private static ArrayList<Entity> castTarget(CastRune rune, ServerPlayer player, CastVector vector){
 
         // define temp entity list
         ArrayList<Entity> entities = new ArrayList<>();
         String target = "None";
 
-        for (CastRune castStackIteration : castStack){
+        // self condition
+        if (rune.getRune() == 2){
+            entities.add(player);
+            target = "Self";
+        }
 
-            // self condition
-            if (castStackIteration.getRune() == 2){
-                entities.add(player);
-                target = "Self";
-                break;
-            }
+        // single target condition
+        if (rune.getRune() == 3){
+            target = "Ray";
 
-            // single target condition
-            if (castStackIteration.getRune() == 3){
-                target = "Single Target";
+            // define a bounding box for a single block radius
+            AABB boundBox = new AABB(vector.getX() - 1, vector.getY() - 1, vector.getZ() - 1, vector.getX() + 1, vector.getY() + 1, vector.getZ() + 1);
 
-                // define a bounding box for a single block radius
-                AABB boundBox = new AABB(vector.getX() - 1, vector.getY() - 1, vector.getZ() - 1, vector.getX() + 1, vector.getY() + 1, vector.getZ() + 1);
+            // add entities in a bounding box to working list
+            List<Entity> entToDamage = player.getLevel().getEntities(null, boundBox);
 
-                // add entities in a bounding box to working list
-                List<Entity> entToDamage = player.getLevel().getEntities(null, boundBox);
-
-                for(Entity entity : entToDamage) {
-                    if (entity.getId() != player.getId()) {
-                        entities.add(entity);
-                    }
+            for(Entity entity : entToDamage) {
+                if (entity.getId() != player.getId()) {
+                    entities.add(entity);
                 }
-
-                break;
-            }
-
-            // entities in area condition
-            if (castStackIteration.getRune() == 4){
-
-                // find rune's magnitude
-                int runeMag = castStackIteration.getCastMagnitude();
-                System.out.println(runeMag);
-
-                // define a bounding box
-                AABB boundBox = new AABB(vector.getX() - runeMag, vector.getY() - runeMag, vector.getZ() - runeMag, vector.getX() + runeMag, vector.getY() + runeMag, vector.getZ() + runeMag);
-
-                // add entities in a bounding box to working list
-                List<Entity> entToDamage = player.getLevel().getEntities(null, boundBox);
-                for(Entity entity : entToDamage) {
-                    if (entity.getId() != player.getId()) {
-                        entities.add(entity);
-                    }
-                }
-
-                target = "Area (radius: "+runeMag+")";
-                break;
             }
         }
 
+        // entities in area condition
+        if (rune.getRune() == 4){
+
+            // find rune's magnitude
+            int runeMag = rune.getCastMagnitude();
+            System.out.println(runeMag);
+
+            // define a bounding box
+            AABB boundBox = new AABB(vector.getX() - runeMag, vector.getY() - runeMag, vector.getZ() - runeMag, vector.getX() + runeMag, vector.getY() + runeMag, vector.getZ() + runeMag);
+
+            // add entities in a bounding box to working list
+            List<Entity> entToDamage = player.getLevel().getEntities(null, boundBox);
+            for(Entity entity : entToDamage) {
+                if (entity.getId() != player.getId()) {
+                    entities.add(entity);
+                }
+            }
+
+            target = "Area (radius: "+runeMag+")";
+        }
         // return the list of entities
         player.sendSystemMessage(Component.literal("Target: " + target).withStyle(ChatFormatting.WHITE));
         return entities;
     }
 }
+
