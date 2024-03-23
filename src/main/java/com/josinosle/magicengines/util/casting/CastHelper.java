@@ -1,10 +1,8 @@
 package com.josinosle.magicengines.util.casting;
 
 import com.josinosle.magicengines.registry.SpellRegistry;
-import com.josinosle.magicengines.spells.spellcontent.fun.AbstractSpellFart;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.phys.AABB;
@@ -23,10 +21,9 @@ public class CastHelper {
      *
      * @param castStack     the casting stack containing all runes in the current cast
      * @param position      the position vector of the current spell logic
-     * @param level         the level upon which casting effects occur
      * @param player        the player responsible for the casting logic
      */
-    public static void castSpell(ArrayList<CastRune> castStack, CastVector position, ServerLevel level, ServerPlayer player){
+    public static void castSpell(ArrayList<CastRune> castStack, CastVector position, ServerPlayer player){
         player.sendSystemMessage(Component.literal("Cast Stack").withStyle(ChatFormatting.GOLD));
 
         // spell targets
@@ -54,18 +51,17 @@ public class CastHelper {
 
             // abstract damage effect
             if (castStackIteration.getRune() == 221) {
-                // iterate through working targets
-                for (Entity entityIteration : targetList) {
-                    SpellRegistry.UNASPECTED_DAMAGE.get().triggerCast(player,entityIteration,null);
-                    player.sendSystemMessage(Component.literal("Abstract Damage").withStyle(ChatFormatting.DARK_AQUA));
-                }
+
+                SpellRegistry.UNASPECTED_DAMAGE.get().triggerCast(player,targetList);
+                player.sendSystemMessage(Component.literal("Abstract Damage").withStyle(ChatFormatting.DARK_AQUA));
+
                 continue;
             }
 
             // protection effect
             if (castStackIteration.getRune() == 324) {
-                // iterate through working targets
-                SpellRegistry.DEFENSE.get().triggerCast(player,null,targetList);
+
+                SpellRegistry.DEFENSE.get().triggerCast(player,targetList);
                 player.sendSystemMessage(Component.literal("Protective Barrier").withStyle(ChatFormatting.DARK_AQUA));
 
                 continue;
@@ -73,20 +69,21 @@ public class CastHelper {
 
             // push effect
             if (castStackIteration.getRune() == 312) {
-                // iterate through working targets
-                for (Entity entityIteration : targetList) {
-                    SpellRegistry.THROW.get().triggerCast(player,entityIteration,null);
-                    player.sendSystemMessage(Component.literal("Push").withStyle(ChatFormatting.DARK_AQUA));
-                }
+
+                SpellRegistry.THROW.get().triggerCast(player,targetList);
+                player.sendSystemMessage(Component.literal("Push").withStyle(ChatFormatting.DARK_AQUA));
+
                 continue;
             }
 
+            /*
             // flatulence effect
             if (castStackIteration.getRune() == 1312) {
-                SpellRegistry.FART.get().triggerCast(player,null, targetList);
+                SpellRegistry.FART.get().triggerCast(player,targetList);
                 player.sendSystemMessage(Component.literal("Force Flatulence ").withStyle(ChatFormatting.DARK_AQUA));
                 continue;
             }
+            */
 
             // chat output for an erroneous rune
             if (castStackIteration.getRune() > 4) {

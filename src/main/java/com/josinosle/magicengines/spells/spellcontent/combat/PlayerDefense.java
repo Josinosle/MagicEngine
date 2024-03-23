@@ -31,7 +31,7 @@ public class PlayerDefense extends AbstractSpell {
 
     // trigger effect
     @Override
-    public void triggerCast(ServerPlayer player,Entity entity, ArrayList<Entity> entityList){
+    public void triggerCast(ServerPlayer player, ArrayList<Entity> entityList){
         PlayerDefense.player = player;
         PlayerDefense.entityList = entityList;
         runEffect = true;

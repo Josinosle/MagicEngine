@@ -17,36 +17,39 @@ import java.util.ArrayList;
 public class TelekeneticSlam extends AbstractSpell {
     public TelekeneticSlam(){
         super();
-    };
+    }
+
     @Override
-    public void triggerCast(ServerPlayer player, Entity entity, ArrayList<Entity> entityList) {
+    public void triggerCast(ServerPlayer player, ArrayList<Entity> entityList) {
         final SpellCastManaChanges logic = new SpellCastManaChanges();
         final int manaAmount = ServerConfigs.TELEKENETIC_SLAM_REQUIRED_MANA_AMOUNT.get();
 
-        if (logic.spellCastable(player, manaAmount)) {
+        for (Entity entity : entityList) {
+            if (logic.spellCastable(player, manaAmount)) {
 
-            // change entity delta movement
-            entity.setDeltaMovement(
-                    entity.getX() - player.getX(),
-                    entity.getY() - player.getY() + 0.2,
-                    entity.getZ() - player.getZ());
+                // change entity delta movement
+                entity.setDeltaMovement(
+                        entity.getX() - player.getX(),
+                        entity.getY() - player.getY() + 0.2,
+                        entity.getZ() - player.getZ());
 
-            // send spawn particle
-            player.getLevel().sendParticles(
-                    ParticleTypes.EXPLOSION,
-                    entity.getX(),
-                    entity.getY() + 1,
-                    entity.getZ(),
-                    1,
-                    0,
-                    0.05,
-                    0,
-                    0);
+                // send spawn particle
+                player.getLevel().sendParticles(
+                        ParticleTypes.EXPLOSION,
+                        entity.getX(),
+                        entity.getY() + 1,
+                        entity.getZ(),
+                        1,
+                        0,
+                        0.05,
+                        0,
+                        0);
 
-            entity.getLevel().playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.GENERIC_EXPLODE, SoundSource.PLAYERS, 1.0F, 2.0F);
+                entity.getLevel().playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.GENERIC_EXPLODE, SoundSource.PLAYERS, 1.0F, 2.0F);
+
+                //sub mana
+                logic.subMana(player, manaAmount);
+            }
         }
-
-        //sub mana
-        logic.subMana(player, manaAmount);
     }
 }
