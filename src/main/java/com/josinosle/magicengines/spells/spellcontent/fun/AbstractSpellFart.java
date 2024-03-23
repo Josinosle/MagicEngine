@@ -56,9 +56,9 @@ public class AbstractSpellFart  extends AbstractSpell{
     }
 
     @Override
-    public void triggerCast(ServerPlayer player, ArrayList<Entity> entityList) {
+    public void triggerCast(ServerPlayer player, ArrayList<Entity> entityList,double manaMultiplier) {
         final SpellCastManaChanges logic = new SpellCastManaChanges();
-        final int manaAmount = ServerConfigs.FART_REQUIRED_MANA_AMOUNT.get();
+        final int manaAmount = (int) (ServerConfigs.FART_REQUIRED_MANA_AMOUNT.get()*manaMultiplier);
 
         if (logic.spellCastable(player, manaAmount)) {
 

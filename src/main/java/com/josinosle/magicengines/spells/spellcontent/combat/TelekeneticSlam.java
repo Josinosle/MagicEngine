@@ -20,9 +20,9 @@ public class TelekeneticSlam extends AbstractSpell {
     }
 
     @Override
-    public void triggerCast(ServerPlayer player, ArrayList<Entity> entityList) {
+    public void triggerCast(ServerPlayer player, ArrayList<Entity> entityList,double manaMultiplier) {
         final SpellCastManaChanges logic = new SpellCastManaChanges();
-        final int manaAmount = ServerConfigs.TELEKENETIC_SLAM_REQUIRED_MANA_AMOUNT.get();
+        final int manaAmount = (int) (ServerConfigs.TELEKENETIC_SLAM_REQUIRED_MANA_AMOUNT.get()*manaMultiplier);
 
         for (Entity entity : entityList) {
             if (logic.spellCastable(player, manaAmount)) {

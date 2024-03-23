@@ -11,10 +11,6 @@ public abstract class AbstractSpell {
     public AbstractSpell(){
     }
 
-    public void triggerCast(){
-
-    }
-
     // trigger effect
-    public abstract void triggerCast(ServerPlayer player, ArrayList<Entity> entityList);
+    public abstract void triggerCast(ServerPlayer player, ArrayList<Entity> entityList,double manaMultiplier);
 }

@@ -38,9 +38,8 @@ public class CantripBuildPlayerHelper {
      *
      * @param vector        CastVector object for the casting position
      */
-    public void castCantrip(Vec3 vector){
-        CastHelper.castSpell(cantripCode, vector, player);
-
+    public void castCantrip(Vec3 vector, double manaEfficiency){
+        CastHelper.castSpell(cantripCode, vector, player, manaEfficiency);
     }
 
     /**

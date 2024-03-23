@@ -13,14 +13,14 @@ public class AbstractSpellDamage extends AbstractSpell {
     public AbstractSpellDamage() {}
 
     @Override
-    public void triggerCast(ServerPlayer player, ArrayList<Entity> entityList) {
+    public void triggerCast(ServerPlayer player, ArrayList<Entity> entityList, double manaMultiplier) {
         final SpellCastManaChanges logic = new SpellCastManaChanges();
-        final int manaAmount = ServerConfigs.ABSTRACT_SPELL_DAMAGE_REQUIRED_MANA_AMOUNT.get();
+        final int manaAmount = (int) (ServerConfigs.ABSTRACT_SPELL_DAMAGE_REQUIRED_MANA_AMOUNT.get()*manaMultiplier);
 
         for (Entity entity : entityList) {
-            if (logic.spellCastable(player, manaAmount)) {
+            if (logic.spellCastable(player, (int) (manaAmount))) {
                 entity.hurt(DamageSource.MAGIC, 10);
-                logic.subMana(player, manaAmount);
+                logic.subMana(player, (int) (manaAmount));
             }
         }
     }

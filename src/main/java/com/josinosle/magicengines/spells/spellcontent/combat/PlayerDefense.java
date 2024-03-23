@@ -23,6 +23,7 @@ public class PlayerDefense extends AbstractSpell {
     private static ServerPlayer player;
     private static int i;
     private static boolean runEffect;
+    private static double manaMultiplier;
 
     // constructor
     public PlayerDefense() {
@@ -31,9 +32,10 @@ public class PlayerDefense extends AbstractSpell {
 
     // trigger effect
     @Override
-    public void triggerCast(ServerPlayer player, ArrayList<Entity> entityList){
+    public void triggerCast(ServerPlayer player, ArrayList<Entity> entityList, double manaMult){
         PlayerDefense.player = player;
         PlayerDefense.entityList = entityList;
+        PlayerDefense.manaMultiplier = manaMult;
         runEffect = true;
         i=0;
     }
@@ -46,7 +48,7 @@ public class PlayerDefense extends AbstractSpell {
                 event.getSource() != DamageSource.LAVA)) {
 
             final SpellCastManaChanges logic = new SpellCastManaChanges();
-            final int manaAmount = ServerConfigs.PLAYER_DEFENSE_REQUIRED_MANA_AMOUNT.get();
+            final int manaAmount = (int) (ServerConfigs.PLAYER_DEFENSE_REQUIRED_MANA_AMOUNT.get()* manaMultiplier);
 
             if(logic.spellCastable(player, manaAmount) && event.getAmount()<=20) {
 

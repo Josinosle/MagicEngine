@@ -52,7 +52,7 @@ public class AbstractStave extends Item {
             double z = ray.z;
 
             // send packet to server
-            Messages.sendToServer(new CastC2SPacket(x, y, z));
+            Messages.sendToServer(new CastC2SPacket(x, y, z, manaEfficiency));
         }
         return super.use(level, player, hand);
     }

@@ -24,7 +24,7 @@ public class CastHelper {
      * @param position      the position vector of the current spell logic
      * @param player        the player responsible for the casting logic
      */
-    public static void castSpell(ArrayList<CastRune> castStack, Vec3 position, ServerPlayer player){
+    public static void castSpell(ArrayList<CastRune> castStack, Vec3 position, ServerPlayer player,double manaEfficiency){
         player.sendSystemMessage(Component.literal("Cast Stack").withStyle(ChatFormatting.GOLD));
 
         // spell targets
@@ -53,7 +53,7 @@ public class CastHelper {
             // abstract damage effect
             if (castStackIteration.getRune() == 221) {
 
-                SpellRegistry.UNASPECTED_DAMAGE.get().triggerCast(player,targetList);
+                SpellRegistry.UNASPECTED_DAMAGE.get().triggerCast(player,targetList,manaEfficiency);
                 player.sendSystemMessage(Component.literal("Abstract Damage").withStyle(ChatFormatting.DARK_AQUA));
 
                 continue;
@@ -62,7 +62,7 @@ public class CastHelper {
             // protection effect
             if (castStackIteration.getRune() == 324) {
 
-                SpellRegistry.DEFENSE.get().triggerCast(player,targetList);
+                SpellRegistry.DEFENSE.get().triggerCast(player,targetList,manaEfficiency);
                 player.sendSystemMessage(Component.literal("Protective Barrier").withStyle(ChatFormatting.DARK_AQUA));
 
                 continue;
@@ -71,7 +71,7 @@ public class CastHelper {
             // push effect
             if (castStackIteration.getRune() == 312) {
 
-                SpellRegistry.THROW.get().triggerCast(player,targetList);
+                SpellRegistry.THROW.get().triggerCast(player,targetList,manaEfficiency);
                 player.sendSystemMessage(Component.literal("Push").withStyle(ChatFormatting.DARK_AQUA));
 
                 continue;
@@ -79,7 +79,7 @@ public class CastHelper {
 
             // flatulence effect
             if (castStackIteration.getRune() == 1312) {
-                SpellRegistry.FART.get().triggerCast(player,targetList);
+                SpellRegistry.FART.get().triggerCast(player,targetList,manaEfficiency);
                 player.sendSystemMessage(Component.literal("Force Flatulence ").withStyle(ChatFormatting.DARK_AQUA));
                 continue;
             }

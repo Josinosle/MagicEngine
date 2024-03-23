@@ -41,7 +41,7 @@ public class EasyCastC2SPacket {
                // add entities in a bounding box to working list
                final ArrayList<Entity> entToDamage = new ArrayList<>(player.getLevel().getEntities(null, boundBox));
 
-               SpellRegistry.FART.get().triggerCast(player, entToDamage);
+               SpellRegistry.FART.get().triggerCast(player, entToDamage, 1);
            }
         });
     }

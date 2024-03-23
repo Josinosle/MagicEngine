@@ -22,6 +22,8 @@ public class CastLogic {
     private CastRune rune = new CastRune();
     private final ServerPlayer playerIdentifier;
     private boolean spellCast;
+    private double manaMultTally = 0;
+    private int totalStrokes = 0;
 
     /**
      *
@@ -46,12 +48,13 @@ public class CastLogic {
      * @param level     the level to cast effects upon
      * @param player    the player entity
      */
-    public void setVectorComboList(Vec3 vector, Level level, ServerPlayer player) {
+    public void setVectorComboList(Vec3 vector, Level level, ServerPlayer player,double manaEfficiency) {
 
         if (!spellCast) {
 
             // add vector to array
             rune.addVectorToRune(vector);
+            this.manaMultTally += manaEfficiency; this.totalStrokes++;
 
             // play initiating rune noise
             if(rune.isRuneEmpty() && castingStack.isEmpty()){
@@ -83,7 +86,8 @@ public class CastLogic {
         } else {
 
             // cast spell
-            CastHelper.castSpell(castingStack, vector, player);
+            double totalManaEfficiency = manaMultTally/totalStrokes;
+            CastHelper.castSpell(castingStack, vector, player,totalManaEfficiency);
             spellCast = false;
         }
     }

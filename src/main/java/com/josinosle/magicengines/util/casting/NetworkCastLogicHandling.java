@@ -21,19 +21,20 @@ public class NetworkCastLogicHandling {
      * @param vector        the vector to pass on to the logical handling for casting
      * @param level         the level on which the cast effect occurs
      * @param player        the player responsible for the casting logic
+     * @param manaEfficiency        the staves mana efficiency
      */
-    public static void handlePlayerSetVectorComboList(Vec3 vector, Level level, ServerPlayer player){
+    public static void handlePlayerSetVectorComboList(Vec3 vector, Level level, ServerPlayer player,double manaEfficiency){
 
         // check current cast logics for player match
         for(CastLogic i : worldCasts){
             if(i.getPlayer().getId() == player.getId()){
-                i.setVectorComboList(vector,level,player);
+                i.setVectorComboList(vector,level,player,manaEfficiency);
                 return;
             }
         }
 
         addNewCastLogic(player);
-        handlePlayerSetVectorComboList(vector, level, player);
+        handlePlayerSetVectorComboList(vector, level, player,manaEfficiency);
     }
 
     /**
