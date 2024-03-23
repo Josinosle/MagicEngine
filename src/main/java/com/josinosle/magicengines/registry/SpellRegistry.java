@@ -6,6 +6,7 @@ import com.josinosle.magicengines.spells.spellcontent.combat.AbstractSpellDamage
 import com.josinosle.magicengines.spells.spellcontent.combat.PlayerDefense;
 import com.josinosle.magicengines.spells.spellcontent.combat.TelekeneticSlam;
 import com.josinosle.magicengines.spells.spellcontent.fun.AbstractSpellFart;
+import com.josinosle.magicengines.spells.spellcontent.fun.YeetSpell;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
@@ -26,6 +27,8 @@ public class SpellRegistry {
     public static final RegistryObject<AbstractSpell> DEFENSE = MAGIC_ENGINE_SPELLS.register("defense", PlayerDefense::new);
     public static final RegistryObject<AbstractSpell> THROW = MAGIC_ENGINE_SPELLS.register("throw", TelekeneticSlam::new);
     public static final RegistryObject<AbstractSpell> FART = MAGIC_ENGINE_SPELLS.register("fart", AbstractSpellFart::new);
+
+    public static final RegistryObject<AbstractSpell> YEET = MAGIC_ENGINE_SPELLS.register("yeet", YeetSpell::new);
 
     public static void register(IEventBus eventBus) {MAGIC_ENGINE_SPELLS.register(eventBus);
     }

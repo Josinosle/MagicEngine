@@ -6,6 +6,8 @@
   "block.magicengines.mana_filter": "Mana Filter",
 
   "key.category.magicengine.magic": "Magic Engine",
-  "key.magicengine.cast_inair": "Toggle Inair Casting",
-  "key.magicengine.cast_castcalc":"Calculate Cast"
+  "key.magicengines.cast_inair": "Toggle Inair Casting",
+  "key.magicengines.cast_castcalc":"Calculate Cast",
+
+  "effect.magicengines.testicular_torsion":"Testicular Torsion"
 }
