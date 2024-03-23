@@ -1,9 +1,22 @@
 package com.josinosle.magicengines.item;
 
+/**
+ * Abstract class for staves to follow
+ *
+ * @author josinosle
+ */
 public class MagicWand extends AbstractStave {
 
-    private static float manaEfficiency = 1;
+    /**
+     * Mana efficiency when casting using a stave, represented as a decimal mana cost multiplier
+     */
+    private static final float manaEfficiency = 1;
 
+    /**
+     * Constructor for wands
+     *
+     * @param properties        Properties for the wand item
+     */
     public MagicWand(Properties properties) {
         super(properties);
     }

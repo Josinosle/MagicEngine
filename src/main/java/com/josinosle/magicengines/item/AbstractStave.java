@@ -18,7 +18,7 @@ import static com.josinosle.magicengines.util.RaycastHelper.rayTrace;
 public class AbstractStave extends Item {
 
     public static boolean isCastingInAir;
-    private static float manaEfficiency;
+    private static final float manaEfficiency = 1;
 
     public AbstractStave(Properties properties) {
         super(properties);
