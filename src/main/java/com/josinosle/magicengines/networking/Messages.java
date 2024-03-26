@@ -45,12 +45,6 @@ public class Messages {
                 .consumerMainThread(SyncManaS2CPacket::handle)
                 .add();
 
-        net.messageBuilder(EasyCastC2SPacket.class, id(), NetworkDirection.PLAY_TO_SERVER)
-                .decoder(EasyCastC2SPacket::new)
-                .encoder(EasyCastC2SPacket::toBytes)
-                .consumerMainThread(EasyCastC2SPacket::handle)
-                .add();
-
         net.messageBuilder(SetDeltaMovementPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
                 .decoder(SetDeltaMovementPacket::new)
                 .encoder(SetDeltaMovementPacket::toBytes)

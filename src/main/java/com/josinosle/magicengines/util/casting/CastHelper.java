@@ -1,6 +1,5 @@
 package com.josinosle.magicengines.util.casting;
 
-import com.josinosle.magicengines.event.ServerPlayerFinishCastingEvent;
 import com.josinosle.magicengines.registry.SpellRegistry;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -8,8 +7,6 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.fml.LogicalSide;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -77,13 +74,6 @@ public class CastHelper {
                 SpellRegistry.THROW.get().triggerCast(player,targetList,manaEfficiency,castStackIteration.getCastMagnitude());
                 player.sendSystemMessage(Component.literal("Push (Push Power: "+castStackIteration.getCastMagnitude()+")").withStyle(ChatFormatting.DARK_AQUA));
 
-                continue;
-            }
-
-            // flatulence effect
-            if (castStackIteration.getRune() == 1312213412) {
-                SpellRegistry.FART.get().triggerCast(player,targetList,manaEfficiency,castStackIteration.getCastMagnitude());
-                player.sendSystemMessage(Component.literal("Force Flatulence ").withStyle(ChatFormatting.DARK_AQUA));
                 continue;
             }
 

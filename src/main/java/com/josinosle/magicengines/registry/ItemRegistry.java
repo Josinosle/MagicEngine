@@ -1,7 +1,7 @@
 package com.josinosle.magicengines.registry;
 
 import com.josinosle.magicengines.MagicEngines;
-import com.josinosle.magicengines.item.BeanWand;
+import com.josinosle.magicengines.item.jokeitem.BeanWand;
 import com.josinosle.magicengines.item.MagicWand;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
