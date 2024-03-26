@@ -6,10 +6,15 @@ import com.josinosle.magicengines.mana.PlayerMana;
 import com.josinosle.magicengines.mana.PlayerManaProvider;
 import com.josinosle.magicengines.networking.Messages;
 import com.josinosle.magicengines.networking.packet.SyncManaS2CPacket;
+import com.josinosle.magicengines.registry.ParticleRegistry;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.capabilities.RegisterCapabilitiesEvent;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.TickEvent;
@@ -54,12 +59,6 @@ public class ModEvents {
                     Messages.sendToPlayer(new SyncManaS2CPacket(mana.getMana()), player);
                 }
             });
-        }
-    }
-
-    @SubscribeEvent
-    public static void SeverPlayerFinishCastEvent(ServerPlayerFinishCastingEvent event) {
-        if (event.side == LogicalSide.SERVER) {
         }
     }
 }

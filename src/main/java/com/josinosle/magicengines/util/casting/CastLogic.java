@@ -1,6 +1,7 @@
 package com.josinosle.magicengines.util.casting;
 
 import com.josinosle.magicengines.event.ServerPlayerCastingEvent;
+import com.josinosle.magicengines.event.ServerPlayerFinishCastingEvent;
 import com.josinosle.magicengines.registry.ParticleRegistry;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -113,6 +114,9 @@ public class CastLogic {
 
         // play rune condition
         if (rune.getRune() == 11){
+            // post finish casting event for specific player
+            MinecraftForge.EVENT_BUS.post(new ServerPlayerFinishCastingEvent(player, player.position(), LogicalSide.SERVER));
+
             spellCast = true;
         }
 

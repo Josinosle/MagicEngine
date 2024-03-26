@@ -33,9 +33,6 @@ public class CastHelper {
         // spell targets
         ArrayList<Entity> targetList = new ArrayList<>();
 
-        // post finish casting event for specific player
-        MinecraftForge.EVENT_BUS.post(new ServerPlayerFinishCastingEvent(player, position, LogicalSide.SERVER));
-
         for (CastRune castStackIteration : castStack) {
 
             // print current rune effect
