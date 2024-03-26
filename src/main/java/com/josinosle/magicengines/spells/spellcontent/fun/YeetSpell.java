@@ -19,7 +19,7 @@ import java.util.ArrayList;
 public class YeetSpell extends AbstractSpell {
 
     @Override
-    public void triggerCast(ServerPlayer player, ArrayList<Entity> entityList) {
+    public void triggerCast(ServerPlayer player, ArrayList<Entity> entityList, double manaMultiplier, double effectValue) {
         final SpellCastManaChanges logic = new SpellCastManaChanges();
         final int manaAmount = ServerConfigs.TELEKENETIC_SLAM_REQUIRED_MANA_AMOUNT.get();
 

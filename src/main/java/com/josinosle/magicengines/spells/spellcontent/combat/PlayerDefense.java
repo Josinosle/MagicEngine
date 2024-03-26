@@ -32,7 +32,7 @@ public class PlayerDefense extends AbstractSpell {
 
     // trigger effect
     @Override
-    public void triggerCast(ServerPlayer player, ArrayList<Entity> entityList, double manaMult){
+    public void triggerCast(ServerPlayer player, ArrayList<Entity> entityList, double manaMult, double effectValue){
         PlayerDefense.player = player;
         PlayerDefense.entityList = entityList;
         PlayerDefense.manaMultiplier = manaMult;

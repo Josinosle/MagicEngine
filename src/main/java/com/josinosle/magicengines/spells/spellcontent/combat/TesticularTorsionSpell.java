@@ -13,13 +13,14 @@ import net.minecraft.world.entity.LivingEntity;
 import java.util.ArrayList;
 
 public class TesticularTorsionSpell extends AbstractSpell {
+
     @Override
-    public void triggerCast(ServerPlayer player, ArrayList<Entity> entityList) {
+    public void triggerCast(ServerPlayer player, ArrayList<Entity> entityList, double manaMultiplier, double effectValue) {
         final SpellCastManaChanges logic = new SpellCastManaChanges();
-        final int manaAmount = ServerConfigs.TESTICULAR_TORSION_REQUIRED_MANA_AMOUNT.get();
+        final int manaAmount = (int) (ServerConfigs.TESTICULAR_TORSION_REQUIRED_MANA_AMOUNT.get() * manaMultiplier);
 
         if (logic.spellCastable(player, manaAmount) && entityList != null && !entityList.isEmpty()) {
-            entityList.get(0).hurt(DamageSource.MAGIC, 10);
+            entityList.get(0).hurt(DamageSource.MAGIC, (float) effectValue);
 
             //add effects for 5 seconds aka 100 ticks
             if (entityList.get(0) instanceof LivingEntity livingEntity){

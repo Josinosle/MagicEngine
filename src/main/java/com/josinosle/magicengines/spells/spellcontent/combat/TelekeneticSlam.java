@@ -20,7 +20,7 @@ public class TelekeneticSlam extends AbstractSpell {
     }
 
     @Override
-    public void triggerCast(ServerPlayer player, ArrayList<Entity> entityList,double manaMultiplier) {
+    public void triggerCast(ServerPlayer player, ArrayList<Entity> entityList,double manaMultiplier, double effectValue) {
         final SpellCastManaChanges logic = new SpellCastManaChanges();
         final int manaAmount = (int) (ServerConfigs.TELEKENETIC_SLAM_REQUIRED_MANA_AMOUNT.get()*manaMultiplier);
 
@@ -29,9 +29,9 @@ public class TelekeneticSlam extends AbstractSpell {
 
                 // change entity delta movement
                 entity.setDeltaMovement(
-                        entity.getX() - player.getX(),
-                        entity.getY() - player.getY() + 0.2,
-                        entity.getZ() - player.getZ());
+                        (entity.getX() - player.getX())*0.1*effectValue,
+                        (entity.getY() - player.getY() + 0.2)*0.1*effectValue,
+                        (entity.getZ() - player.getZ())*0.1*effectValue);
 
                 // send spawn particle
                 player.getLevel().sendParticles(
