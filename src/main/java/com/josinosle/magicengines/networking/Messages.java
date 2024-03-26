@@ -56,7 +56,6 @@ public class Messages {
                 .encoder(SetDeltaMovementPacket::toBytes)
                 .consumerMainThread(SetDeltaMovementPacket::handle)
                 .add();
-
     }
 
     public static <MSG> void sendToServer(MSG message){

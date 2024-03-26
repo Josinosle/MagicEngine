@@ -33,6 +33,7 @@ public class MagicEngines
         BlockRegistry.BLOCKS.register(modEventBus);
         ParticleRegistry.PARTICLE_TYPES.register(modEventBus);
         SpellRegistry.MAGIC_ENGINE_SPELLS.register(modEventBus);
+        EffectRegistry.MOB_EFFECTS.register(modEventBus);
         SoundRegistry.register(modEventBus);
 
         MinecraftForge.EVENT_BUS.register(this);

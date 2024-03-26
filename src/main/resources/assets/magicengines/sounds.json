@@ -3,5 +3,10 @@
     "sounds": [
       "magicengines:reverb_fart"
     ]
+  },
+  "yeet": {
+    "sounds": [
+      "magicengines:yeet"
+    ]
   }
 }
