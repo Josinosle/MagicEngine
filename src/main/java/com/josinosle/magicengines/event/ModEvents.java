@@ -58,7 +58,8 @@ public class ModEvents {
     }
 
     @SubscribeEvent
-    public static void PlayerCastEvent(ServerPlayerCastingEvent event) {
-        System.out.println("test");
+    public static void SeverPlayerFinishCastEvent(ServerPlayerFinishCastingEvent event) {
+        if (event.side == LogicalSide.SERVER) {
+        }
     }
 }

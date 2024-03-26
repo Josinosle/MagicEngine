@@ -10,6 +10,7 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fml.LogicalSide;
 
 import java.util.ArrayList;
 
@@ -60,7 +61,7 @@ public class CastLogic {
 
             // post new cast event to forge subscriber bus
             if(rune.isRuneEmpty() && castingStack.isEmpty()){
-                MinecraftForge.EVENT_BUS.post(new ServerPlayerCastingEvent(player, vector));
+                MinecraftForge.EVENT_BUS.post(new ServerPlayerCastingEvent(player, vector, LogicalSide.SERVER));
             }
 
             // create temp difference vector

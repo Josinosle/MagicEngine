@@ -9,6 +9,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fml.LogicalSide;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,7 +34,7 @@ public class CastHelper {
         ArrayList<Entity> targetList = new ArrayList<>();
 
         // post finish casting event for specific player
-        MinecraftForge.EVENT_BUS.post(new ServerPlayerFinishCastingEvent(player, position));
+        MinecraftForge.EVENT_BUS.post(new ServerPlayerFinishCastingEvent(player, position, LogicalSide.SERVER));
 
         for (CastRune castStackIteration : castStack) {
 
