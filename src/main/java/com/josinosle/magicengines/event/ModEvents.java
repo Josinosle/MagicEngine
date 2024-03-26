@@ -56,4 +56,9 @@ public class ModEvents {
             });
         }
     }
+
+    @SubscribeEvent
+    public static void PlayerCastEvent(ServerPlayerCastingEvent event) {
+        System.out.println("test");
+    }
 }

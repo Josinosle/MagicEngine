@@ -1,5 +1,6 @@
 package com.josinosle.magicengines.util.casting;
 
+import com.josinosle.magicengines.event.ServerPlayerCastingEvent;
 import com.josinosle.magicengines.registry.ParticleRegistry;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -8,6 +9,7 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.common.MinecraftForge;
 
 import java.util.ArrayList;
 
@@ -56,9 +58,9 @@ public class CastLogic {
             rune.addVectorToRune(vector);
             this.manaMultTally += manaEfficiency; this.totalStrokes++;
 
-            // play initiating rune noise
+            // post new cast event to forge subscriber bus
             if(rune.isRuneEmpty() && castingStack.isEmpty()){
-                level.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.BLAZE_SHOOT, SoundSource.PLAYERS, 1.0F, 0.2F);
+                MinecraftForge.EVENT_BUS.post(new ServerPlayerCastingEvent(player, vector));
             }
 
             // create temp difference vector

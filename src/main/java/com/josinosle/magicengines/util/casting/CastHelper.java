@@ -1,5 +1,6 @@
 package com.josinosle.magicengines.util.casting;
 
+import com.josinosle.magicengines.event.ServerPlayerFinishCastingEvent;
 import com.josinosle.magicengines.registry.SpellRegistry;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -7,6 +8,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.common.MinecraftForge;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,6 +31,9 @@ public class CastHelper {
 
         // spell targets
         ArrayList<Entity> targetList = new ArrayList<>();
+
+        // post finish casting event for specific player
+        MinecraftForge.EVENT_BUS.post(new ServerPlayerFinishCastingEvent(player, position));
 
         for (CastRune castStackIteration : castStack) {
 

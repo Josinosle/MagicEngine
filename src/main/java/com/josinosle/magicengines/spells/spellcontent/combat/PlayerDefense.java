@@ -19,11 +19,11 @@ import java.util.ArrayList;
 @Mod.EventBusSubscriber(modid = MagicEngines.MOD_ID)
 public class PlayerDefense extends AbstractSpell {
 
-    private static ArrayList<Entity> entityList;
-    private static ServerPlayer player;
-    private static int i;
-    private static boolean runEffect;
-    private static double manaMultiplier;
+    private ArrayList<Entity> entityList;
+    private ServerPlayer player;
+    private int i;
+    private boolean runEffect;
+    private double manaMultiplier;
 
     // constructor
     public PlayerDefense() {
@@ -33,15 +33,15 @@ public class PlayerDefense extends AbstractSpell {
     // trigger effect
     @Override
     public void triggerCast(ServerPlayer player, ArrayList<Entity> entityList, double manaMult, double effectValue){
-        PlayerDefense.player = player;
-        PlayerDefense.entityList = entityList;
-        PlayerDefense.manaMultiplier = manaMult;
+        this.player = player;
+        this.entityList = entityList;
+        this.manaMultiplier = manaMult;
         runEffect = true;
         i=0;
     }
 
     @SubscribeEvent
-    public static void playerTakeDamage(LivingAttackEvent event) {
+    public void playerTakeDamage(LivingAttackEvent event) {
         if (runEffect && entityList.contains(event.getEntity()) && i<100 && (
                 event.getSource() != DamageSource.DROWN ||
                 event.getSource() != DamageSource.STARVE ||
