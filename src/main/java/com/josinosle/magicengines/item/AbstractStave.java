@@ -42,17 +42,15 @@ public class AbstractStave extends Item {
             Vec3 ray = rayTrace(level, player, range);
 
             if (ray == null) {
-                player.sendSystemMessage(Component.literal("Cast point out of range").withStyle(ChatFormatting.DARK_RED));
+                player.sendSystemMessage(Component.literal("Out of range").withStyle(ChatFormatting.DARK_RED));
                 return super.use(level, player, hand);
             }
 
-            //add coordinate to stack
-            double x = ray.x;
-            double y = ray.y;
-            double z = ray.z;
-
             // send packet to server
-            Messages.sendToServer(new CastC2SPacket(x, y, z, manaEfficiency));
+            Messages.sendToServer(new CastC2SPacket(ray.x(),
+                    ray.y(),
+                    ray.z(),
+                    manaEfficiency));
         }
         return super.use(level, player, hand);
     }
