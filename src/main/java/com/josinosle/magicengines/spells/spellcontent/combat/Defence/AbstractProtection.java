@@ -1,7 +1,7 @@
-package com.josinosle.magicengines.spells.spellcontent.combat;
+package com.josinosle.magicengines.spells.spellcontent.combat.Defence;
 
-import com.josinosle.magicengines.MagicEngines;
 import com.josinosle.magicengines.config.ServerConfigs;
+import com.josinosle.magicengines.event.ServerPlayerCastingEvent;
 import com.josinosle.magicengines.registry.ParticleRegistry;
 import com.josinosle.magicengines.spells.AbstractSpell;
 import com.josinosle.magicengines.spells.spellcontent.SpellCastManaChanges;
@@ -10,23 +10,21 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
 
 import java.util.ArrayList;
 
-@Mod.EventBusSubscriber(modid = MagicEngines.MOD_ID)
-public class PlayerDefense extends AbstractSpell {
+public class AbstractProtection extends AbstractSpell {
 
     private ArrayList<Entity> entityList;
     private ServerPlayer player;
-    private int i;
     private boolean runEffect;
     private double manaMultiplier;
 
     // constructor
-    public PlayerDefense() {
+    public AbstractProtection() {
         super();
     }
 
@@ -37,24 +35,21 @@ public class PlayerDefense extends AbstractSpell {
         this.entityList = entityList;
         this.manaMultiplier = manaMult;
         runEffect = true;
-        i=0;
+        MinecraftForge.EVENT_BUS.register(this);
     }
 
     @SubscribeEvent
     public void playerTakeDamage(LivingAttackEvent event) {
-        if (runEffect && entityList.contains(event.getEntity()) && i<100 && (
-                event.getSource() != DamageSource.DROWN ||
-                event.getSource() != DamageSource.STARVE ||
-                event.getSource() != DamageSource.LAVA)) {
+
+        if (runEffect && entityList.contains(event.getEntity()) && eventDamageInDamageSourceList(event.getSource(),damageSourcesDefendedAgainst())) {
 
             final SpellCastManaChanges logic = new SpellCastManaChanges();
-            final int manaAmount = (int) (ServerConfigs.PLAYER_DEFENSE_REQUIRED_MANA_AMOUNT.get()* manaMultiplier);
+            final int manaAmount = (int) (ServerConfigs.PLAYER_DEFENSE_REQUIRED_MANA_AMOUNT.get() * manaMultiplier * event.getAmount());
 
-            if(logic.spellCastable(player, manaAmount) && event.getAmount()<=20) {
+            if (logic.spellCastable(player, manaAmount)) {
 
                 // cancel damage event
                 event.setCanceled(true);
-
 
 
                 // particle spawning
@@ -78,11 +73,33 @@ public class PlayerDefense extends AbstractSpell {
                 // sound effect
                 event.getEntity().getLevel().playSound(null, event.getEntity().getX(), event.getEntity().getY(), event.getEntity().getZ(), SoundEvents.AMETHYST_CLUSTER_BREAK, SoundSource.PLAYERS, 5.0F, 0.5F);
                 logic.subMana(player, manaAmount);
-            }
-            if(event.getAmount()>20){
-                runEffect = false;
+            } else {
+                MinecraftForge.EVENT_BUS.unregister(this);
             }
         }
+    }
+
+    // unregister this listener if player begins a new cast
+    @SubscribeEvent
+    public void playerCasting(ServerPlayerCastingEvent event) {
+        if (event.getPlayerCasting().getId() == player.getId()) {
+            MinecraftForge.EVENT_BUS.unregister(this);
+        }
+    }
+
+    private ArrayList<DamageSource> damageSourcesDefendedAgainst () {
+        ArrayList<DamageSource> tempDamageSourceList = new ArrayList<>();
+        tempDamageSourceList.add(DamageSource.OUT_OF_WORLD);
+        return tempDamageSourceList;
+    }
+
+    private boolean eventDamageInDamageSourceList (DamageSource source , ArrayList<DamageSource> damageSourcesDefendedAgainst) {
+        for (DamageSource damageSource : damageSourcesDefendedAgainst) {
+            if (damageSource == source) {
+                return true;
+            }
+        }
+        return false;
     }
 }
 

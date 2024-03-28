@@ -47,7 +47,8 @@ public class AbstractStave extends Item {
             }
 
             // send packet to server
-            Messages.sendToServer(new CastC2SPacket(ray.x(),
+            Messages.sendToServer(new CastC2SPacket(
+                    ray.x(),
                     ray.y(),
                     ray.z(),
                     manaEfficiency));

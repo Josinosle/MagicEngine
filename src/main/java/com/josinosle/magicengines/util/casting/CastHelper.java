@@ -22,9 +22,9 @@ public class CastHelper {
      *
      * @param castStack     the casting stack containing all runes in the current cast
      * @param position      the position vector of the current spell logic
-     * @param player        the player responsible for the casting logic
      */
-    public static void castSpell(ArrayList<CastRune> castStack, Vec3 position, ServerPlayer player,double manaEfficiency){
+    public static void cast(ArrayList<CastRune> castStack, Vec3 position, ServerPlayer player, double manaEfficiency){
+
         player.sendSystemMessage(Component.literal("Cast Stack").withStyle(ChatFormatting.GOLD));
 
         // spell targets
@@ -61,7 +61,6 @@ public class CastHelper {
 
             // protection effect
             if (castStackIteration.getRune() == 324) {
-
                 SpellRegistry.DEFENSE.get().triggerCast(player,targetList,manaEfficiency,castStackIteration.getCastMagnitude());
                 player.sendSystemMessage(Component.literal("Protective Barrier").withStyle(ChatFormatting.DARK_AQUA));
 
@@ -70,7 +69,6 @@ public class CastHelper {
 
             // push effect
             if (castStackIteration.getRune() == 312) {
-
                 SpellRegistry.THROW.get().triggerCast(player,targetList,manaEfficiency,castStackIteration.getCastMagnitude());
                 player.sendSystemMessage(Component.literal("Push (Push Power: "+castStackIteration.getCastMagnitude()+")").withStyle(ChatFormatting.DARK_AQUA));
 
@@ -147,4 +145,5 @@ public class CastHelper {
         return entities;
     }
 }
+
 

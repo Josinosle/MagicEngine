@@ -38,10 +38,6 @@ public class DefenseParticles extends TextureSheetParticle {
             this.alpha = 1;
         } else if (age>12 && age<lifetime) {
             this.alpha =  (0.75F) * (float)(Math.abs(Math.cos(age  * Math.PI/3)) + (0.25F));
-
-
-            System.out.println(this.alpha);
-            System.out.println((0.75F) * (float)(Math.abs(Math.cos(age  * Math.PI/3)) + (0.25F)));
         }
         else {
             this.alpha = 0;

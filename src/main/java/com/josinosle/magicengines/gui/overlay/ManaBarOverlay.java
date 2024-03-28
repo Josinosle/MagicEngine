@@ -1,9 +1,9 @@
 package com.josinosle.magicengines.gui.overlay;
 
 import com.josinosle.magicengines.MagicEngines;
-import com.josinosle.magicengines.mana.ClientManaData;
 import com.josinosle.magicengines.config.ClientConfigs;
-import com.josinosle.magicengines.item.staves.MagicWand;
+import com.josinosle.magicengines.item.staves.AbstractStave;
+import com.josinosle.magicengines.mana.ClientManaData;
 import com.josinosle.magicengines.mana.PlayerMana;
 import com.josinosle.magicengines.mana.PlayerManaProvider;
 import com.mojang.blaze3d.systems.RenderSystem;
@@ -23,7 +23,7 @@ import java.util.Optional;
 /**
  * Class to render the mana bar
  *
- * @author Florian Hirson
+ * @author CheeseMcBaguette
  */
 public class ManaBarOverlay {
 
@@ -128,7 +128,7 @@ public class ManaBarOverlay {
             final boolean isManaFull = playerMana.get().isManaFull();
 
             return !player.isSpectator()  && !player.isCreative() && display != Display.NEVER &&
-                    (display == Display.ALWAYS || player.isHolding(itemStack -> itemStack.getItem() instanceof MagicWand || isManaFull));
+                    (display == Display.ALWAYS || player.isHolding(itemStack -> itemStack.getItem() instanceof AbstractStave || isManaFull));
         } else {
             return false;
         }

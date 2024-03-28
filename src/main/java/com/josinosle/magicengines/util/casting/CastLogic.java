@@ -70,7 +70,7 @@ public class CastLogic {
             Vec3 tempVector2to1 = rune.getCastVector(-1).subtract(rune.getCastVector(-2));
 
             // casting particle filler loop
-            for (double i = -0.3; i < tempVector2to1.length() - 0.3; i += 0.1F) {
+            for (double i = 0; i < tempVector2to1.length(); i += 0.05F) {
                 //Spawn Particle
 
                 player.getLevel().sendParticles(ParticleRegistry.CAST_PARTICLES.get(),
@@ -78,10 +78,10 @@ public class CastLogic {
                         rune.getCastVector(-2).y() + tempVector2to1.y()/tempVector2to1.length() * i,
                         rune.getCastVector(-2).z() + tempVector2to1.z()/tempVector2to1.length() * i,
                         0,
-                        tempVector2to1.x()/tempVector2to1.length(),
-                        tempVector2to1.y()/tempVector2to1.length(),
-                        tempVector2to1.z()/tempVector2to1.length(),
-                        0.1
+                        0,
+                        0,
+                        0,
+                        0
                 );
             }
 
@@ -91,7 +91,7 @@ public class CastLogic {
 
             // cast spell
             double totalManaEfficiency = manaMultTally/totalStrokes;
-            CastHelper.castSpell(castingStack, vector, player,totalManaEfficiency);
+            CastHelper.cast(castingStack,vector,player,totalManaEfficiency);
             spellCast = false;
         }
     }
