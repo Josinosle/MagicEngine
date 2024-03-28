@@ -70,7 +70,7 @@ public class CastLogic {
             Vec3 tempVector2to1 = rune.getCastVector(-1).subtract(rune.getCastVector(-2));
 
             // casting particle filler loop
-            for (double i = -0.3; i < tempVector2to1.length() - 0.3; i += 0.3F) {
+            for (double i = -0.3; i < tempVector2to1.length() - 0.3; i += 0.1F) {
                 //Spawn Particle
 
                 player.getLevel().sendParticles(ParticleRegistry.CAST_PARTICLES.get(),
