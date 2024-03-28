@@ -1,4 +1,4 @@
-package com.josinosle.magicengines.item;
+package com.josinosle.magicengines.item.staves;
 
 /**
  * Abstract class for staves to follow
@@ -10,7 +10,7 @@ public class MagicWand extends AbstractStave {
     /**
      * Mana efficiency when casting using a stave, represented as a decimal mana cost multiplier
      */
-    private static final float manaEfficiency = 1;
+    private static final float manaEfficiency = 0.1F;
 
     /**
      * Constructor for wands

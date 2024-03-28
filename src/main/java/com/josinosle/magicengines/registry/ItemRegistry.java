@@ -2,7 +2,8 @@ package com.josinosle.magicengines.registry;
 
 import com.josinosle.magicengines.MagicEngines;
 import com.josinosle.magicengines.item.jokeitem.BeanWand;
-import com.josinosle.magicengines.item.MagicWand;
+import com.josinosle.magicengines.item.staves.MagicWand;
+import com.josinosle.magicengines.item.staves.WoodenStave;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -35,7 +36,14 @@ public class ItemRegistry {
             .tab(ModCreativeTab.instance)
     ));
 
+    //bean wand init
     public static final RegistryObject<Item> BEAN_WAND = ITEMS.register("bean_wand", () -> new BeanWand(new Item.Properties()
+            .stacksTo(1)
+            .tab(ModCreativeTab.instance)
+    ));
+
+    //wooden stave init
+    public static final RegistryObject<Item> WOODEN_STAVE = ITEMS.register("wooden_stave", () -> new WoodenStave(new Item.Properties()
             .stacksTo(1)
             .tab(ModCreativeTab.instance)
     ));

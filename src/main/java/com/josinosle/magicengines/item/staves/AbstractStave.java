@@ -1,4 +1,4 @@
-package com.josinosle.magicengines.item;
+package com.josinosle.magicengines.item.staves;
 
 import com.josinosle.magicengines.networking.Messages;
 import com.josinosle.magicengines.networking.packet.CastC2SPacket;

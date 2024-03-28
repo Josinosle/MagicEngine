@@ -1,0 +1,49 @@
+{
+	"credit": "Made with Blockbench",
+	"texture_size": [32, 32],
+	"textures": {
+		"0": "magicengines:items/wooden_stave",
+		"particle": "magicengines:items/wooden_stave"
+	},
+	"elements": [
+		{
+			"from": [7, 2, 7],
+			"to": [8, 32, 8],
+			"faces": {
+				"north": {"uv": [0, 0, 0.5, 15], "texture": "#0"},
+				"east": {"uv": [0.5, 0, 1, 15], "texture": "#0"},
+				"south": {"uv": [1, 0, 1.5, 15], "texture": "#0"},
+				"west": {"uv": [1.5, 0, 2, 15], "texture": "#0"},
+				"up": {"uv": [2.5, 0.5, 2, 0], "texture": "#0"},
+				"down": {"uv": [2.5, 0.5, 2, 1], "texture": "#0"}
+			}
+		}
+	],
+	"display": {
+		"thirdperson_righthand": {
+			"translation": [0.5, -5.5, 1.75]
+		},
+		"thirdperson_lefthand": {
+			"translation": [-0.5, -5.5, 1.75]
+		},
+		"firstperson_righthand": {
+			"scale": [0.59, 0.59, 0.59]
+		},
+		"firstperson_lefthand": {
+			"scale": [0.59, 0.59, 0.59]
+		},
+		"ground": {
+			"translation": [0, 2.75, 0]
+		},
+		"gui": {
+			"rotation": [0, 0, -45],
+			"translation": [-4, -4, 0],
+			"scale": [0.59, 0.59, 0.59]
+		},
+		"fixed": {
+			"rotation": [0, 0, 45],
+			"translation": [4, -4, 0],
+			"scale": [0.59, 0.59, 0.59]
+		}
+	}
+}
