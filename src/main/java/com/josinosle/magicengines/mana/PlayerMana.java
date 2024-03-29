@@ -25,10 +25,12 @@ public class PlayerMana {
 
     public void saveNBTData(CompoundTag nbt){
         nbt.putInt("mana", mana);
+        nbt.putInt("maxMana",maxMana);
     }
 
     public void loadNBTData(CompoundTag nbt){
-        nbt.putInt("mana", mana);
+        nbt.getInt("mana");
+        nbt.getInt("maxMana");
     }
 
     public int getMaxMana() {
