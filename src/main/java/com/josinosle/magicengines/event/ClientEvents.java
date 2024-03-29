@@ -18,7 +18,7 @@ public class ClientEvents {
     @Mod.EventBusSubscriber(modid = MagicEngines.MOD_ID, value = Dist.CLIENT)
     public static class ClientForgeEvents {
         @SubscribeEvent
-        public static void onKeyInput(InputEvent.Key event){
+        public static void onKeyInput(InputEvent event){
             final LocalPlayer localPlayer = Minecraft.getInstance().player;
             if(KeyboardHelper.CAST_INAIR_KEY.consumeClick() && localPlayer != null){
                 if(MagicWand.isCastingInAir){
