@@ -14,7 +14,7 @@ public class PlayerMana {
     }
 
     public void addMana(int add){
-        this.mana = (int) (mana + (maxMana -mana)*0.05*add);
+        this.mana = (int) (mana + (maxMana -mana)*0.01*add);
     }
 
     public void subMana(int sub){
