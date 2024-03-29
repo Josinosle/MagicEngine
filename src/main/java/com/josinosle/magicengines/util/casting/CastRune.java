@@ -112,10 +112,10 @@ public class CastRune {
         float dotProduct = (float) ((xProd + yProd + zProd) / (calcVector1.length() * calcVector2.length()));
 
         // return a character
-        if (dotProduct <= -0.85) return 1;
-        if (dotProduct <= -0.15) return 4;
-        if (dotProduct <= 0.15) return 3;
-        if (dotProduct <= 0.85) return 2;
+        if (dotProduct <= -0.75) return 1;
+        if (dotProduct <= -0.25) return 4;
+        if (dotProduct <= 0.25) return 3;
+        if (dotProduct <= 0.75) return 2;
         return 1;
     }
 
