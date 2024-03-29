@@ -94,14 +94,14 @@ public class ManaBarOverlay {
                 RenderSystem.setShaderTexture(0, MANA_BAR_TEXTURE);
 
                 int spriteX = 0;
-                int spriteY = calculateSpriteY(ClientManaData.getPlayerMana(), mana.getMaxMana());
+                int spriteY = calculateSpriteY(ClientManaData.getPlayerMana(), ClientManaData.getPlayerMaxMana());
                 GuiComponent.blit(poseStack, barX, barY, spriteX, spriteY, BAR_WIDTH, IMAGE_HEIGHT, 256, 256);
-                forgeGui.blit(poseStack, barX, barY, spriteX, spriteY + IMAGE_HEIGHT - 1, (int) (BAR_WIDTH * Math.min((ClientManaData.getPlayerMana() / (double) mana.getMaxMana()), 1)), IMAGE_HEIGHT);
+                forgeGui.blit(poseStack, barX, barY, spriteX, spriteY + IMAGE_HEIGHT - 1, (int) (BAR_WIDTH * Math.min((ClientManaData.getPlayerMana() / (double) ClientManaData.getPlayerMaxMana()), 1)), IMAGE_HEIGHT);
 
                 // Text Drawing Renderer
                 if (ClientConfigs.MANA_BAR_TEXT_VISIBLE.get()) {
                     int textX, textY;
-                    String manaFraction = (ClientManaData.getPlayerMana()) + "/" + mana.getMaxMana();
+                    String manaFraction = (ClientManaData.getPlayerMana()) + "/" + ClientManaData.getPlayerMaxMana();
 
                     textX = barX + BAR_WIDTH / 2 - (int) ((("" + ClientManaData.getPlayerMana()).length() + 0.5) * CHAR_WIDTH);
                     textY = barY + ICON_ROW_HEIGHT / 3 - 10;

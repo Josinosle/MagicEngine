@@ -10,18 +10,22 @@ public class SyncManaS2CPacket {
 
 
     private final int mana;
+    private final int maxMana;
 
 
-    public SyncManaS2CPacket(int mana){
+    public SyncManaS2CPacket(int mana, int maxMana){
         this.mana = mana;
+        this.maxMana = maxMana;
     }
 
     public SyncManaS2CPacket(FriendlyByteBuf buf) {
         this.mana = buf.readInt();
+        this.maxMana = buf.readInt();
     }
 
     public void toBytes(FriendlyByteBuf buf){
         buf.writeInt(mana);
+        buf.writeInt(maxMana);
     }
 
     public void handle(Supplier<NetworkEvent.Context> supplier){
@@ -29,7 +33,8 @@ public class SyncManaS2CPacket {
         context.enqueueWork(() -> {
             //client action
 
-            ClientManaData.set(mana);
+            ClientManaData.setMana(mana);
+            ClientManaData.setMaxMana(maxMana);
         });
     }}
 
