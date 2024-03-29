@@ -1,5 +1,6 @@
 package com.josinosle.magicengines.util.casting;
 
+import net.minecraft.util.Mth;
 import net.minecraft.world.phys.Vec3;
 
 import java.util.ArrayList;
@@ -19,6 +20,8 @@ public class CastRune {
     private void calculateCastMagnitude(){
         double sum = 0;
         Vec3 previousVector = vectorComposition.get(0);
+
+        // calculate mean vector magnitudes for the vector composition
         for (Vec3 i : vectorComposition){
             sum += (i.subtract(previousVector).length());
         }
@@ -34,14 +37,14 @@ public class CastRune {
         // tail of the vector composition
         int i = vectorComposition.size()-1;
 
-        // find dot product of the 3 vectors from the tail
-        int valueToBePushed = dotProduct(
+        // find rationalised dot product of the 3 vectors from the tail
+        int valueToBePushed = rationalisedDotProduct(
                 vectorComposition.get(i),
                 vectorComposition.get(i-2),
                 vectorComposition.get(i-1)
                 );
 
-        // clever way of concatenating an integer
+        // clever way of concatenating an integer (vulnerable to overflow error)
         this.rune = this.rune*10 + valueToBePushed;
     }
 
@@ -55,7 +58,7 @@ public class CastRune {
     }
 
     /**
-     * Get method for a casting vector
+     * Get method for a casting vector with special conditions for use cases
      *
      * @param i     Element
      * @return      A CastVector object
@@ -99,19 +102,25 @@ public class CastRune {
      * @param vectorOrigin  the origin point for the logical vectors
      * @return a string variable containing the alphabetic character represented by the dot product
      */
-    private static int dotProduct(Vec3 vector1, Vec3 vector2, Vec3 vectorOrigin) {
+    private static int rationalisedDotProduct(Vec3 vector1, Vec3 vector2, Vec3 vectorOrigin) {
 
-        // calculate 2 working vectors
+        // calculate 2 temporary vectors relative to an origin point vector
         Vec3 calcVector1 = vector1.subtract(vectorOrigin);
         Vec3 calcVector2 = vector2.subtract(vectorOrigin);
 
-        // calc dot product
-        float xProd = (float) (calcVector1.x() * calcVector2.x());
-        float yProd = (float) (calcVector1.y() * calcVector2.y());
-        float zProd = (float) (calcVector1.z() * calcVector2.z());
-        float dotProduct = (float) ((xProd + yProd + zProd) / (calcVector1.length() * calcVector2.length()));
+        // calculate vector dot product
+        float xCoefficient = (float) (calcVector1.x() * calcVector2.x());
+        float yCoefficient = (float) (calcVector1.y() * calcVector2.y());
+        float zCoefficient = (float) (calcVector1.z() * calcVector2.z());
+        float dotProduct = (xCoefficient + yCoefficient + zCoefficient);
 
-        // return a character
+        // evil over engineered rationalisation
+        float rationalisationCoefficient = (float) Mth.fastInvSqrt(calcVector1.lengthSqr() * calcVector2.lengthSqr());
+
+        //multiply dot product by rationalisationCoefficient
+        dotProduct = dotProduct * rationalisationCoefficient;
+
+        // return an integer based on dot product result
         if (dotProduct <= -0.75) return 1;
         if (dotProduct <= -0.25) return 4;
         if (dotProduct <= 0.25) return 3;
