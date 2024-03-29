@@ -18,10 +18,10 @@ import java.util.ArrayList;
 
 public class AbstractProtection extends AbstractSpell {
 
-    private ArrayList<Entity> entityList;
-    private ServerPlayer player;
-    private boolean runEffect;
-    private double manaMultiplier;
+    protected ArrayList<Entity> entityList;
+    protected ServerPlayer player;
+    protected boolean runEffect;
+    protected double manaMultiplier;
 
     // constructor
     public AbstractProtection() {
@@ -87,13 +87,13 @@ public class AbstractProtection extends AbstractSpell {
         }
     }
 
-    private ArrayList<DamageSource> damageSourcesDefendedAgainst () {
+    protected ArrayList<DamageSource> damageSourcesDefendedAgainst () {
         ArrayList<DamageSource> tempDamageSourceList = new ArrayList<>();
         tempDamageSourceList.add(DamageSource.OUT_OF_WORLD);
         return tempDamageSourceList;
     }
 
-    private boolean eventDamageInDamageSourceList (DamageSource source , ArrayList<DamageSource> damageSourcesDefendedAgainst) {
+    protected boolean eventDamageInDamageSourceList (DamageSource source , ArrayList<DamageSource> damageSourcesDefendedAgainst) {
         for (DamageSource damageSource : damageSourcesDefendedAgainst) {
             if (damageSource == source) {
                 return true;

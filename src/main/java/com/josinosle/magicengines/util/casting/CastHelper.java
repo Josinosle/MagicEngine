@@ -59,9 +59,9 @@ public class CastHelper {
                 continue;
             }
 
-            // protection effect
+            // kinetic protection effect
             if (castStackIteration.getRune() == 324) {
-                SpellRegistry.DEFENSE.get().triggerCast(player,targetList,manaEfficiency,castStackIteration.getCastMagnitude());
+                SpellRegistry.KINETIC_DEFENSE.get().triggerCast(player,targetList,manaEfficiency,castStackIteration.getCastMagnitude());
                 player.sendSystemMessage(Component.literal("Protective Barrier").withStyle(ChatFormatting.DARK_AQUA));
 
                 continue;
