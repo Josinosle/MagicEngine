@@ -50,52 +50,40 @@ public class CastHelper {
                 }
             }
 
-            // abstract damage effect
-            if (castStackIteration.getRune() == 221) {
-
-                SpellRegistry.UNASPECTED_DAMAGE.get().triggerCast(player,targetList,manaEfficiency,castStackIteration.getCastMagnitude());
-                player.sendSystemMessage(Component.literal("Abstract Damage (Damage: "+castStackIteration.getCastMagnitude()+(")")).withStyle(ChatFormatting.DARK_AQUA));
-
-                continue;
-            }
-
-            // kinetic protection effect
-            if (castStackIteration.getRune() == 324) {
-                SpellRegistry.KINETIC_DEFENSE.get().triggerCast(player,targetList,manaEfficiency,castStackIteration.getCastMagnitude());
-                player.sendSystemMessage(Component.literal("Kinetic Protection").withStyle(ChatFormatting.DARK_AQUA));
-
-                continue;
-            }
-
-            // magic protection effect
-            if (castStackIteration.getRune() == 321) {
-                SpellRegistry.MAGIC_DEFENSE.get().triggerCast(player,targetList,manaEfficiency,castStackIteration.getCastMagnitude());
-                player.sendSystemMessage(Component.literal("Magic Protection").withStyle(ChatFormatting.DARK_AQUA));
-
-                continue;
-            }
-
-            // elemental protection effect
-            if (castStackIteration.getRune() == 322) {
-                SpellRegistry.ELEMENTAL_DEFENSE.get().triggerCast(player,targetList,manaEfficiency,castStackIteration.getCastMagnitude());
-                player.sendSystemMessage(Component.literal("Elemental Protection").withStyle(ChatFormatting.DARK_AQUA));
-
-                continue;
-            }
-
-            // push effect
-            if (castStackIteration.getRune() == 312) {
-                SpellRegistry.THROW.get().triggerCast(player,targetList,manaEfficiency,castStackIteration.getCastMagnitude());
-                player.sendSystemMessage(Component.literal("Push (Push Power: "+castStackIteration.getCastMagnitude()+")").withStyle(ChatFormatting.DARK_AQUA));
-
-                continue;
+            // find rune in switch statement
+            switch (castStackIteration.getRune()) {
+                case 221:
+                    SpellRegistry.UNASPECTED_DAMAGE.get().triggerCast(player, targetList, manaEfficiency, castStackIteration.getCastMagnitude());
+                    player.sendSystemMessage(Component.literal("Abstract Damage (Damage: " + castStackIteration.getCastMagnitude() + (")")).withStyle(ChatFormatting.DARK_AQUA));
+                    continue;
+                    // abstract damage effect
+                case 324:
+                    SpellRegistry.KINETIC_DEFENSE.get().triggerCast(player, targetList, manaEfficiency, castStackIteration.getCastMagnitude());
+                    player.sendSystemMessage(Component.literal("Kinetic Protection").withStyle(ChatFormatting.DARK_AQUA));
+                    continue;
+                    // kinetic protection effect
+                case 321:
+                    SpellRegistry.MAGIC_DEFENSE.get().triggerCast(player, targetList, manaEfficiency, castStackIteration.getCastMagnitude());
+                    player.sendSystemMessage(Component.literal("Magic Protection").withStyle(ChatFormatting.DARK_AQUA));
+                    continue;
+                    // magic protection effect
+                case 322:
+                    SpellRegistry.ELEMENTAL_DEFENSE.get().triggerCast(player, targetList, manaEfficiency, castStackIteration.getCastMagnitude());
+                    player.sendSystemMessage(Component.literal("Elemental Protection").withStyle(ChatFormatting.DARK_AQUA));
+                    continue;
+                    // elemental protection effect
+                case 312:
+                    SpellRegistry.THROW.get().triggerCast(player, targetList, manaEfficiency, castStackIteration.getCastMagnitude());
+                    player.sendSystemMessage(Component.literal("Push (Push Power: " + castStackIteration.getCastMagnitude() + ")").withStyle(ChatFormatting.DARK_AQUA));
+                    continue;
+                    // push effect
             }
 
             // chat output for an erroneous rune
             if (castStackIteration.getRune() > 4) {
-                player.sendSystemMessage(Component.literal("Invalid Rune: " + castStackIteration.getRune()).withStyle(ChatFormatting.DARK_RED));
-                break;
-            }
+                    player.sendSystemMessage(Component.literal("Invalid Rune: " + castStackIteration.getRune()).withStyle(ChatFormatting.DARK_RED));
+                    break;
+                }
         }
     }
 
