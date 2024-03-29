@@ -3,7 +3,9 @@ package com.josinosle.magicengines.registry;
 import com.josinosle.magicengines.MagicEngines;
 import com.josinosle.magicengines.spells.AbstractSpell;
 import com.josinosle.magicengines.spells.spellcontent.combat.AbstractSpellDamage;
+import com.josinosle.magicengines.spells.spellcontent.combat.Defence.ElementalProtection;
 import com.josinosle.magicengines.spells.spellcontent.combat.Defence.KineticProtection;
+import com.josinosle.magicengines.spells.spellcontent.combat.Defence.MagicProtection;
 import com.josinosle.magicengines.spells.spellcontent.combat.TelekeneticSlam;
 import com.josinosle.magicengines.spells.spellcontent.fun.YeetSpell;
 import net.minecraft.resources.ResourceLocation;
@@ -23,7 +25,11 @@ public class SpellRegistry {
             MAGIC_ENGINE_SPELLS.makeRegistry(RegistryBuilder::new);
 
     public static final RegistryObject<AbstractSpell> UNASPECTED_DAMAGE = MAGIC_ENGINE_SPELLS.register("unaspected_damage", AbstractSpellDamage::new);
+
     public static final RegistryObject<AbstractSpell> KINETIC_DEFENSE = MAGIC_ENGINE_SPELLS.register("kinetic_defense", KineticProtection::new);
+    public static final RegistryObject<AbstractSpell> MAGIC_DEFENSE = MAGIC_ENGINE_SPELLS.register("magic_defense", MagicProtection::new);
+    public static final RegistryObject<AbstractSpell> ELEMENTAL_DEFENSE = MAGIC_ENGINE_SPELLS.register("elemental_defense", ElementalProtection::new);
+
     public static final RegistryObject<AbstractSpell> THROW = MAGIC_ENGINE_SPELLS.register("throw", TelekeneticSlam::new);
     public static final RegistryObject<AbstractSpell> YEET = MAGIC_ENGINE_SPELLS.register("yeet", YeetSpell::new);
 

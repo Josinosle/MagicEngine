@@ -62,7 +62,23 @@ public class CastHelper {
             // kinetic protection effect
             if (castStackIteration.getRune() == 324) {
                 SpellRegistry.KINETIC_DEFENSE.get().triggerCast(player,targetList,manaEfficiency,castStackIteration.getCastMagnitude());
-                player.sendSystemMessage(Component.literal("Protective Barrier").withStyle(ChatFormatting.DARK_AQUA));
+                player.sendSystemMessage(Component.literal("Kinetic Protection").withStyle(ChatFormatting.DARK_AQUA));
+
+                continue;
+            }
+
+            // magic protection effect
+            if (castStackIteration.getRune() == 321) {
+                SpellRegistry.MAGIC_DEFENSE.get().triggerCast(player,targetList,manaEfficiency,castStackIteration.getCastMagnitude());
+                player.sendSystemMessage(Component.literal("Magic Protection").withStyle(ChatFormatting.DARK_AQUA));
+
+                continue;
+            }
+
+            // elemental protection effect
+            if (castStackIteration.getRune() == 322) {
+                SpellRegistry.ELEMENTAL_DEFENSE.get().triggerCast(player,targetList,manaEfficiency,castStackIteration.getCastMagnitude());
+                player.sendSystemMessage(Component.literal("Elemental Protection").withStyle(ChatFormatting.DARK_AQUA));
 
                 continue;
             }
