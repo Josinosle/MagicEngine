@@ -31,7 +31,7 @@ public class AbstractStave extends Item {
         if (level.isClientSide) {
 
             //  cool down
-            player.getCooldowns().addCooldown(this, 5);
+            player.getCooldowns().addCooldown(this, 2);
 
             // check if casting in air is enabled
             int range = 200;
@@ -52,7 +52,8 @@ public class AbstractStave extends Item {
                     ray.x(),
                     ray.y(),
                     ray.z(),
-                    manaEfficiency));
+                    manaEfficiency,
+                    isCastingCantrip));
         }
         return super.use(level, player, hand);
     }

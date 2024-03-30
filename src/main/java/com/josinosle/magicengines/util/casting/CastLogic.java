@@ -30,7 +30,7 @@ public class CastLogic {
     private int totalStrokes = 0;
 
     /**
-     *
+     * {@link CastLogic} constructor
      * @param player    the player on which the cast logic is applicable
      */
     public CastLogic(ServerPlayer player) {
@@ -41,9 +41,7 @@ public class CastLogic {
      *
      * @return the server player
      */
-    public ServerPlayer getPlayer() {
-        return playerIdentifier;
-    }
+    public ServerPlayer getPlayer() {return playerIdentifier;}
 
     /**
      * Method used to add a new vector to a vector combo list
@@ -115,7 +113,7 @@ public class CastLogic {
         // play rune condition
         if (rune.getRune() == 11){
             // post finish casting event for specific player
-            MinecraftForge.EVENT_BUS.post(new ServerPlayerFinishCastingEvent(player, player.position(), LogicalSide.SERVER));
+            MinecraftForge.EVENT_BUS.post(new ServerPlayerFinishCastingEvent(player, player.position(), LogicalSide.SERVER, castingStack));
 
             spellCast = true;
         }

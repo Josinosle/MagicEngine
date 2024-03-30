@@ -15,12 +15,14 @@ public class CastC2SPacket {
     private final double y;
     private final double z;
     private final double manaEfficiency;
+    private final boolean isCantrip;
 
-    public CastC2SPacket(double x, double y, double z, double manaEfficiency){
+    public CastC2SPacket(double x, double y, double z, double manaEfficiency, boolean isCantrip){
         this.x = x;
         this.y = y;
         this.z = z;
         this.manaEfficiency = manaEfficiency;
+        this.isCantrip = isCantrip;
     }
 
     public CastC2SPacket(FriendlyByteBuf buf) {
@@ -28,6 +30,7 @@ public class CastC2SPacket {
         this.y = buf.readDouble();
         this.z = buf.readDouble();
         this.manaEfficiency = buf.readDouble();
+        this.isCantrip = buf.readBoolean();
     }
 
     public void toBytes(FriendlyByteBuf buf){
@@ -35,6 +38,7 @@ public class CastC2SPacket {
         buf.writeDouble(y);
         buf.writeDouble(z);
         buf.writeDouble(manaEfficiency);
+        buf.writeBoolean(isCantrip);
     }
 
     public void handle(Supplier<NetworkEvent.Context> supplier){
@@ -45,6 +49,11 @@ public class CastC2SPacket {
             assert player != null;
             Level level = player.getLevel();
 
+            if (isCantrip) {
+                // send cantrips down alternate casting pathway
+                NetworkCastLogicHandling.handleCantrip(new Vec3(x,y,z),level,player,manaEfficiency);
+                return;
+            }
             NetworkCastLogicHandling.handlePlayerSetVectorComboList(new Vec3(x,y,z),level,player,manaEfficiency);
         });
     }

@@ -1,6 +1,7 @@
 package com.josinosle.magicengines.registry;
 
 import com.josinosle.magicengines.MagicEngines;
+import com.josinosle.magicengines.item.Grimoire;
 import com.josinosle.magicengines.item.jokeitem.BeanWand;
 import com.josinosle.magicengines.item.staves.MagicWand;
 import com.josinosle.magicengines.item.staves.WoodenStave;
@@ -44,6 +45,12 @@ public class ItemRegistry {
 
     //wooden stave init
     public static final RegistryObject<Item> WOODEN_STAVE = ITEMS.register("wooden_stave", () -> new WoodenStave(new Item.Properties()
+            .stacksTo(1)
+            .tab(ModCreativeTab.instance)
+    ));
+
+    //grimoire init
+    public static final RegistryObject<Item> GRIMOIRE = ITEMS.register("grimoire", () -> new Grimoire(new Item.Properties()
             .stacksTo(1)
             .tab(ModCreativeTab.instance)
     ));

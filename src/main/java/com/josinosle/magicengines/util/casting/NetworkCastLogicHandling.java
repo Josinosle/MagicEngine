@@ -1,5 +1,6 @@
 package com.josinosle.magicengines.util.casting;
 
+import com.josinosle.magicengines.util.cantrip.CantripCastLogic;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
@@ -14,6 +15,7 @@ import java.util.ArrayList;
 public class NetworkCastLogicHandling {
 
     private static final ArrayList<CastLogic> worldCasts = new ArrayList<>();
+    private static final ArrayList<CantripCastLogic> worldCantripCasts = new ArrayList<>();
 
     /**
      * Method for handling a vector combo list addition request packet
@@ -65,6 +67,24 @@ public class NetworkCastLogicHandling {
     private static void addNewCastLogic(ServerPlayer player){
         System.out.println("New player cast logic created");
         worldCasts.add(new CastLogic(player));
+    }
+
+    private static void addNewCantripCastLogic(ServerPlayer player){
+        System.out.println("New player cast logic created");
+        worldCantripCasts.add(new CantripCastLogic(player));
+    }
+
+    public static void handleCantrip (Vec3 vector, Level level, ServerPlayer player,double manaEfficiency) {
+        // check current cast logics for player match
+        for(CantripCastLogic i : worldCantripCasts){
+            if(i.getPlayer().getId() == player.getId()){
+                i.setVectorComboList(vector,level,player,manaEfficiency);
+                return;
+            }
+        }
+
+        addNewCantripCastLogic(player);
+        handleCantrip(vector, level, player,manaEfficiency);
     }
 }
 

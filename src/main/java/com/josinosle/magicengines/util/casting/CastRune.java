@@ -17,6 +17,17 @@ public class CastRune {
 
     public CastRune(){}
 
+    /**
+     * Force a {@link CastRune} creation from occasions where a {@link Vec3} ArrayList isn't able to be provided
+     *
+     * @param magnitude the magnitude of the rune
+     * @param rune  the rune's cast code itself
+     */
+    public void forceCreateRune (int magnitude, int rune) {
+        this.castMagnitude = magnitude;
+        this.rune = rune;
+    }
+
     private void calculateCastMagnitude(){
         double sum = 0;
         Vec3 previousVector = vectorComposition.get(0);
@@ -90,7 +101,6 @@ public class CastRune {
         calculateCastMagnitude();
         if(this.vectorComposition.size()>2) {
             formatRune();
-            System.out.println(rune);
         }
     }
 
