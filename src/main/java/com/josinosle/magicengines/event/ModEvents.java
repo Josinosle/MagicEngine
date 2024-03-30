@@ -41,8 +41,11 @@ public class ModEvents {
     public static void onPlayerTick(TickEvent.PlayerTickEvent event) {
         if(event.side == LogicalSide.SERVER && event.player instanceof ServerPlayer player) {
             player.getCapability(PlayerManaProvider.PLAYER_MANA).ifPresent(mana -> {
-                    mana.addMana(1);
-                    Messages.sendToPlayer(new SyncManaS2CPacket(mana.getMana(),mana.getMaxMana()), player);
+
+                // add mana to player mana
+                mana.addMana(0.002); // parameter is a balancing factor for mana regen (debugging purposes only)
+                Messages.sendToPlayer(new SyncManaS2CPacket(mana.getMana(), mana.getMaxMana()), player);
+
             });
         }
     }

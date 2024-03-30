@@ -13,8 +13,17 @@ public class PlayerMana {
         return mana;
     }
 
-    public void addMana(int add){
-        this.mana = (int) (mana + (maxMana - mana - 1)*0.01*add);
+    public void addMana(double add){
+        // calculate how much mana to add
+        double manaToAdd = (maxMana - mana) * add;
+
+        // check for concatonation error
+        if (!isManaFull() && manaToAdd < 1) {
+            manaToAdd = 1;
+        }
+        // add temp variable to mana
+
+        this.mana += (int) manaToAdd;
     }
 
     public void subMana(int sub){
@@ -49,6 +58,6 @@ public class PlayerMana {
     }
 
     public boolean isManaFull() {
-        return mana == maxMana;
+        return mana >= maxMana;
     }
 }
