@@ -10,7 +10,7 @@ public class MagicWand extends AbstractStave {
     /**
      * Mana efficiency when casting using a stave, represented as a decimal mana cost multiplier
      */
-    private static final float manaEfficiency = 0.1F;
+    private final float manaEfficiency = 0.1F;
 
     /**
      * Constructor for wands

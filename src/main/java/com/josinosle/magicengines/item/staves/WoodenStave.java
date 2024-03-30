@@ -10,7 +10,7 @@ public class WoodenStave extends AbstractStave {
     /**
      * Mana efficiency when casting using a stave, represented as a decimal mana cost multiplier
      */
-    private static final float manaEfficiency = 1F;
+    private final float manaEfficiency = 1F;
 
     /**
      * Constructor for wands

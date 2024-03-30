@@ -18,6 +18,7 @@ public class ClientModBusEvents {
     public static void onKeyRegister(RegisterKeyMappingsEvent event){
         event.register(KeyboardHelper.CAST_INAIR_KEY);
         event.register(KeyboardHelper.CASTCALC_KEY);
+        event.register(KeyboardHelper.CASTCANTRIP_KEY);
     }
 
     @SubscribeEvent

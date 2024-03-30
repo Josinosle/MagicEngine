@@ -20,4 +20,11 @@ public class KeyboardHelper {
 
     public static final KeyMapping CASTCALC_KEY = new KeyMapping(KEY_CAST_CASTCALC, KeyConflictContext.IN_GAME,
             InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_LEFT_ALT, KEY_CATEGORY_MAGIC_ENGINE);
+
+    // cantrip mode
+    public static final String KEY_CAST_CANTRIP = "key.magicengine.cast_cantrip";
+
+    public static final KeyMapping CASTCANTRIP_KEY = new KeyMapping(KEY_CAST_CANTRIP, KeyConflictContext.IN_GAME,
+            InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_P, KEY_CATEGORY_MAGIC_ENGINE);
+
 }
