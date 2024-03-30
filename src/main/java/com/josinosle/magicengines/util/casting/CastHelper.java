@@ -1,5 +1,6 @@
 package com.josinosle.magicengines.util.casting;
 
+import com.josinosle.magicengines.mana.PlayerManaProvider;
 import com.josinosle.magicengines.registry.SpellRegistry;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -27,6 +28,8 @@ public class CastHelper {
 
         player.sendSystemMessage(Component.literal("Cast Stack").withStyle(ChatFormatting.GOLD));
 
+        int manaCastCost = 0; // mana cost for whole cast instantiate
+
         // spell targets
         ArrayList<Entity> targetList = new ArrayList<>();
 
@@ -53,27 +56,27 @@ public class CastHelper {
             // find rune in switch statement
             switch (castStackIteration.getRune()) {
                 case 221:
-                    SpellRegistry.UNASPECTED_DAMAGE.get().triggerCast(player, targetList, manaEfficiency, castStackIteration.getCastMagnitude());
+                    manaCastCost += SpellRegistry.UNASPECTED_DAMAGE.get().triggerCast(player, targetList, manaEfficiency, castStackIteration.getCastMagnitude());
                     player.sendSystemMessage(Component.literal("Abstract Damage (Damage: " + castStackIteration.getCastMagnitude() + (")")).withStyle(ChatFormatting.DARK_AQUA));
                     continue;
                     // abstract damage effect
                 case 324:
-                    SpellRegistry.KINETIC_DEFENSE.get().triggerCast(player, targetList, manaEfficiency, castStackIteration.getCastMagnitude());
+                    manaCastCost += SpellRegistry.KINETIC_DEFENSE.get().triggerCast(player, targetList, manaEfficiency, castStackIteration.getCastMagnitude());
                     player.sendSystemMessage(Component.literal("Kinetic Protection").withStyle(ChatFormatting.DARK_AQUA));
                     continue;
                     // kinetic protection effect
                 case 321:
-                    SpellRegistry.MAGIC_DEFENSE.get().triggerCast(player, targetList, manaEfficiency, castStackIteration.getCastMagnitude());
+                    manaCastCost += SpellRegistry.MAGIC_DEFENSE.get().triggerCast(player, targetList, manaEfficiency, castStackIteration.getCastMagnitude());
                     player.sendSystemMessage(Component.literal("Magic Protection").withStyle(ChatFormatting.DARK_AQUA));
                     continue;
                     // magic protection effect
                 case 322:
-                    SpellRegistry.ELEMENTAL_DEFENSE.get().triggerCast(player, targetList, manaEfficiency, castStackIteration.getCastMagnitude());
+                    manaCastCost += SpellRegistry.ELEMENTAL_DEFENSE.get().triggerCast(player, targetList, manaEfficiency, castStackIteration.getCastMagnitude());
                     player.sendSystemMessage(Component.literal("Elemental Protection").withStyle(ChatFormatting.DARK_AQUA));
                     continue;
                     // elemental protection effect
                 case 312:
-                    SpellRegistry.THROW.get().triggerCast(player, targetList, manaEfficiency, castStackIteration.getCastMagnitude());
+                    manaCastCost += SpellRegistry.THROW.get().triggerCast(player, targetList, manaEfficiency, castStackIteration.getCastMagnitude());
                     player.sendSystemMessage(Component.literal("Push (Push Power: " + castStackIteration.getCastMagnitude() + ")").withStyle(ChatFormatting.DARK_AQUA));
                     continue;
                     // push effect
@@ -83,8 +86,16 @@ public class CastHelper {
             if (castStackIteration.getRune() > 4) {
                     player.sendSystemMessage(Component.literal("Invalid Rune: " + castStackIteration.getRune()).withStyle(ChatFormatting.DARK_RED));
                     break;
-                }
+            }
         }
+
+        // change max mana (training effect)
+        int integerToAdd = manaCastCost / 1000;
+        player.getCapability(PlayerManaProvider.PLAYER_MANA).ifPresent(mana -> {
+
+            // add integer to mana maximum
+            mana.addMaxMana(integerToAdd);
+        });
     }
 
     /**

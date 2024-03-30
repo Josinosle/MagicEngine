@@ -15,7 +15,7 @@ import java.util.ArrayList;
 public class TesticularTorsionSpell extends AbstractSpell {
 
     @Override
-    public void triggerCast(ServerPlayer player, ArrayList<Entity> entityList, double manaMultiplier, double effectValue) {
+    public int triggerCast(ServerPlayer player, ArrayList<Entity> entityList, double manaMultiplier, double effectValue) {
         final SpellCastManaChanges logic = new SpellCastManaChanges();
         final int manaAmount = (int) (ServerConfigs.TESTICULAR_TORSION_REQUIRED_MANA_AMOUNT.get() * manaMultiplier);
 
@@ -27,5 +27,6 @@ public class TesticularTorsionSpell extends AbstractSpell {
                 livingEntity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 100));
             }
         }
+        return manaAmount;
     }
 }

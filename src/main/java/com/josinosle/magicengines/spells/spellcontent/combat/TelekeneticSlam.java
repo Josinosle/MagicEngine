@@ -20,7 +20,9 @@ public class TelekeneticSlam extends AbstractSpell {
     }
 
     @Override
-    public void triggerCast(ServerPlayer player, ArrayList<Entity> entityList,double manaMultiplier, double effectValue) {
+    public int triggerCast(ServerPlayer player, ArrayList<Entity> entityList,double manaMultiplier, double effectValue) {
+        int manaSpent = 0; // total mana expenditure
+
         final SpellCastManaChanges logic = new SpellCastManaChanges();
         final int manaAmount = (int) (ServerConfigs.TELEKENETIC_SLAM_REQUIRED_MANA_AMOUNT.get()*manaMultiplier);
 
@@ -49,7 +51,11 @@ public class TelekeneticSlam extends AbstractSpell {
 
                 //sub mana
                 logic.subMana(player, manaAmount);
+
+                // sum mana
+                manaSpent += manaAmount;
             }
         }
+        return manaSpent;
     }
 }

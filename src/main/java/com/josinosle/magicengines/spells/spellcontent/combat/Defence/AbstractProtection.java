@@ -30,12 +30,13 @@ public class AbstractProtection extends AbstractSpell {
 
     // trigger effect
     @Override
-    public void triggerCast(ServerPlayer player, ArrayList<Entity> entityList, double manaMult, double effectValue){
+    public int triggerCast(ServerPlayer player, ArrayList<Entity> entityList, double manaMult, double effectValue){
         this.player = player;
         this.entityList = entityList;
         this.manaMultiplier = manaMult;
         runEffect = true;
         MinecraftForge.EVENT_BUS.register(this);
+        return (int) ServerConfigs.PLAYER_DEFENSE_REQUIRED_MANA_AMOUNT.get();
     }
 
     @SubscribeEvent
