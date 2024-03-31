@@ -11,11 +11,18 @@ public class MagicProtection extends AbstractProtection{
     }
 
     @Override
-    protected ArrayList<DamageSource> damageSourcesDefendedAgainst () {
+    protected boolean eventDamageInDamageSourceList (DamageSource source) {
+        // list of possible damage sources
         ArrayList<DamageSource> tempDamageSourceList = new ArrayList<>();
         tempDamageSourceList.add(DamageSource.OUT_OF_WORLD);
         tempDamageSourceList.add(DamageSource.MAGIC);
         tempDamageSourceList.add(DamageSource.DRAGON_BREATH);
-        return tempDamageSourceList;
+
+        for (DamageSource damageSource : tempDamageSourceList) {
+            if (damageSource == source) {
+                return true;
+            }
+        }
+        return false;
     }
 }

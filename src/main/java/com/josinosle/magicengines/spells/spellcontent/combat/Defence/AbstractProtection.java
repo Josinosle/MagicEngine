@@ -42,7 +42,7 @@ public class AbstractProtection extends AbstractSpell {
     @SubscribeEvent
     public void playerTakeDamage(LivingAttackEvent event) {
 
-        if (runEffect && entityList.contains(event.getEntity()) && eventDamageInDamageSourceList(event.getSource(),damageSourcesDefendedAgainst())) {
+        if (runEffect && entityList.contains(event.getEntity()) && eventDamageInDamageSourceList(event.getSource())) {
 
             final SpellCastManaChanges logic = new SpellCastManaChanges();
             final int manaAmount = (int) (ServerConfigs.PLAYER_DEFENSE_REQUIRED_MANA_AMOUNT.get() * manaMultiplier * event.getAmount());
@@ -88,14 +88,12 @@ public class AbstractProtection extends AbstractSpell {
         }
     }
 
-    protected ArrayList<DamageSource> damageSourcesDefendedAgainst () {
+    protected boolean eventDamageInDamageSourceList (DamageSource source) {
+        // list of possible damage sources
         ArrayList<DamageSource> tempDamageSourceList = new ArrayList<>();
         tempDamageSourceList.add(DamageSource.OUT_OF_WORLD);
-        return tempDamageSourceList;
-    }
 
-    protected boolean eventDamageInDamageSourceList (DamageSource source , ArrayList<DamageSource> damageSourcesDefendedAgainst) {
-        for (DamageSource damageSource : damageSourcesDefendedAgainst) {
+        for (DamageSource damageSource : tempDamageSourceList) {
             if (damageSource == source) {
                 return true;
             }

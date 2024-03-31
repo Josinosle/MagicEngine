@@ -11,13 +11,20 @@ public class ElementalProtection extends AbstractProtection{
     }
 
     @Override
-    protected ArrayList<DamageSource> damageSourcesDefendedAgainst () {
+    protected boolean eventDamageInDamageSourceList (DamageSource source) {
+        // list of possible damage sources
         ArrayList<DamageSource> tempDamageSourceList = new ArrayList<>();
         tempDamageSourceList.add(DamageSource.OUT_OF_WORLD);
         tempDamageSourceList.add(DamageSource.FREEZE);
         tempDamageSourceList.add(DamageSource.ON_FIRE);
         tempDamageSourceList.add(DamageSource.LIGHTNING_BOLT);
         tempDamageSourceList.add(DamageSource.IN_FIRE);
-        return tempDamageSourceList;
+
+        for (DamageSource damageSource : tempDamageSourceList) {
+            if (damageSource == source) {
+                return true;
+            }
+        }
+        return false;
     }
 }
