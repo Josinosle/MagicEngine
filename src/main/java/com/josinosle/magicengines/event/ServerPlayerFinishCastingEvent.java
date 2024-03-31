@@ -45,7 +45,7 @@ public class ServerPlayerFinishCastingEvent extends Event {
 
     /**
      * Get method for ArrayList of {@link CastRune}
-     * @return
+     * @return  {@link ArrayList} of {@link CastRune}
      */
     public ArrayList<CastRune> getCastRunes () {return castRunes;}
 }

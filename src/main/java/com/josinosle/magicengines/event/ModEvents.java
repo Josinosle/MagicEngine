@@ -43,15 +43,18 @@ public class ModEvents {
     public static void onPlayerCloned(PlayerEvent.Clone event) {
         if(event.isWasDeath()) {
 
+            event.getOriginal().reviveCaps();
             // set new mana capabilities to ones before death
             event.getOriginal().getCapability(PlayerManaProvider.PLAYER_MANA).ifPresent(oldStore ->
-                    event.getOriginal().getCapability(PlayerManaProvider.PLAYER_MANA).ifPresent(newStore ->
+                    event.getEntity().getCapability(PlayerManaProvider.PLAYER_MANA).ifPresent(newStore ->
                             newStore.copyFrom(oldStore)));
 
             // set new cantrip capabilities to ones before death
             event.getOriginal().getCapability(PlayerCantripProvider.PLAYER_CANTRIP).ifPresent(oldStore ->
-                    event.getOriginal().getCapability(PlayerCantripProvider.PLAYER_CANTRIP).ifPresent(newStore ->
+                    event.getEntity().getCapability(PlayerCantripProvider.PLAYER_CANTRIP).ifPresent(newStore ->
                             newStore.copyFrom(oldStore)));
+
+            event.getOriginal().invalidateCaps();
         }
     }
 
