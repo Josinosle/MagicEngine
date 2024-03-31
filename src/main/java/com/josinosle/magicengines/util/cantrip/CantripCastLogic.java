@@ -31,6 +31,13 @@ public class CantripCastLogic {
      */
     public ServerPlayer getPlayer() {return playerIdentifier;}
 
+    /**
+     * Method for adding runes, clone from {@link com.josinosle.magicengines.util.casting.CastLogic}
+     * @param vector    {@link Vec3} of cast
+     * @param level     {@link Level} of player casting
+     * @param player    {@link ServerPlayer} of casting player
+     * @param manaEfficiency    Mana efficiency of the stave used to cast the rune
+     */
     public void setVectorComboList(Vec3 vector, Level level, ServerPlayer player, double manaEfficiency) {
 
         if(!isCasting) {
@@ -42,14 +49,13 @@ public class CantripCastLogic {
                 MinecraftForge.EVENT_BUS.post(new ServerPlayerCastingEvent(player, vector, LogicalSide.SERVER));
             }
 
-            // create temp difference vector
+            // create temp difference vector for particle spawning
 
             Vec3 tempVector2to1 = rune.getCastVector(-1).subtract(rune.getCastVector(-2));
 
             // casting particle filler loop
             for (double i = 0; i < tempVector2to1.length(); i += 0.05F) {
-                //Spawn Particle
-
+                //Spawn Particle on level of player
                 player.getLevel().sendParticles(ParticleTypes.FLAME,
                         rune.getCastVector(-2).x() + tempVector2to1.x() / tempVector2to1.length() * i,
                         rune.getCastVector(-2).y() + tempVector2to1.y() / tempVector2to1.length() * i,
@@ -62,7 +68,7 @@ public class CantripCastLogic {
                 );
             }
 
-            // play casting sound to server
+            // play casting sound to server of experience orb pickup
             level.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.EXPERIENCE_ORB_PICKUP, SoundSource.PLAYERS, 1.0F, 0.2F);
 
             // cast spell
@@ -76,11 +82,10 @@ public class CantripCastLogic {
 
                 // cast cantrip
                 cantrip.castCantrip(vector, player, manaEfficiency, rune.getRune() - 1);
-                System.out.println("Cantrip Cast");
 
             });
-            this.rune = new CastRune();
-            isCasting = false;
+            this.rune = new CastRune(); // set a new castrune variable at the end of the cast
+            isCasting = false; // set the isCasting bool to false to prevent looping of the else statement
         }
     }
 }

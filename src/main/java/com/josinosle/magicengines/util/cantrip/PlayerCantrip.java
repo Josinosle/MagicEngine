@@ -14,12 +14,19 @@ import java.util.ArrayList;
 @AutoRegisterCapability
 public class PlayerCantrip {
 
+    // array of ArrayLists containing the cast runes (each ArrayList is a cantrip)
     private ArrayList<CastRune>[] castRunes = new ArrayList[4];
 
+    /**
+     * Cantrip set method
+     * @param castRunesImported     import a premade cantrip of {@link CastRune} objects
+     * @param index     import the index of which cantrip to override
+     */
     public void setCantrip (ArrayList<CastRune> castRunesImported, int index){
         this.castRunes[index] = castRunesImported;
     }
 
+    // copy from source method
     public void copyFrom(PlayerCantrip source){
         this.castRunes = source.castRunes;
     }
@@ -35,19 +42,23 @@ public class PlayerCantrip {
         ArrayList<Integer> runeList = new ArrayList<>();
         ArrayList<Integer> magnitudeList = new ArrayList<>();
 
+        // loop through the array of cantrips to format the important data
         for (int cantripIndex = 0; cantripIndex < 4; cantripIndex++) {
             for (int i = 0; i < 9; i++) {
+                // check the castrune is not null and that the castrune trying to call wont return a index not in range error
                 if (castRunes[cantripIndex] != null && i < castRunes[cantripIndex].size()) {
+                    // add data to saveable formats of lists
                     runeList.add(castRunes[cantripIndex].get(i).getRune());
                     magnitudeList.add(castRunes[cantripIndex].get(i).getRune());
                     continue;
                 }
+                // default value of arrays (important for delimiting the arrays)
                 runeList.add(0);
                 magnitudeList.add(0);
             }
         }
 
-        // save primitives into NBT
+        // save formatted lists into NBT
         nbt.putIntArray("runeList", runeList);
         nbt.putIntArray("magnitudeList", magnitudeList);
     }
@@ -65,6 +76,7 @@ public class PlayerCantrip {
 
         // build the CastArrays from the single array
         int cantripIndex = 0;
+        // loop through the pulled rune list to begin formatting back to a readable ArrayList
         for (int i = 0; i < pulledRuneList.length; i++) {
             if (pulledRuneList[i] != 0) {
                 // build pushable CastRune
@@ -97,11 +109,12 @@ public class PlayerCantrip {
      * @param cantripIndex index of cantrip (1-4)
      */
     public void castCantrip (Vec3 vector, ServerPlayer player, double manaEfficiecy, int cantripIndex) {
-        System.out.println(castRunes[cantripIndex]);
+        // check if the cantrip has been set by a capability
         if (castRunes[cantripIndex] == null || castRunes[cantripIndex].get(0).isRuneEmpty()) {
+            // return error message to the chat
             player.sendSystemMessage(Component.literal("No Cantrip Saved").withStyle(ChatFormatting.DARK_RED));
             return;
         }
-        CastHelper.cast(castRunes[cantripIndex], vector, player, manaEfficiecy);
+        CastHelper.cast(castRunes[cantripIndex], vector, player, manaEfficiecy); // cast the cantrip
     }
 }
