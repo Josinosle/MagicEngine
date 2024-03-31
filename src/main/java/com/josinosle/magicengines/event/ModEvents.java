@@ -7,6 +7,7 @@ import com.josinosle.magicengines.mana.PlayerManaProvider;
 import com.josinosle.magicengines.networking.Messages;
 import com.josinosle.magicengines.networking.packet.SyncManaS2CPacket;
 import com.josinosle.magicengines.util.cantrip.PlayerCantripProvider;
+import com.josinosle.magicengines.util.casting.CastRune;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
@@ -74,12 +75,17 @@ public class ModEvents {
     @SubscribeEvent
     public static void ServerPlayerFinishCasting (ServerPlayerFinishCastingEvent event) {
         if(event.side == LogicalSide.SERVER && event.getPlayerCasting().getOffhandItem().getItem() instanceof Grimoire) {
-            event.getPlayerCasting().getCapability(PlayerCantripProvider.PLAYER_CANTRIP).ifPresent(cantrip -> {
+            CastRune finalRune = event.getCastRunes().get(event.getCastRunes().size() - 1);
+            if (finalRune.getRune() < 5) {
+                int cantripIndexToOverride = finalRune.getRune() - 1; // integer index for the casting determined by the final rune on the end
 
-                // set cantrip with cast stack and index of cast
-                cantrip.setCantrip(event.getCastRunes(),0);
-            });
-            System.out.println("Cantrip Set: "+event.getCastRunes());
+                event.getPlayerCasting().getCapability(PlayerCantripProvider.PLAYER_CANTRIP).ifPresent(cantrip -> {
+
+                    // set cantrip with cast stack and index of cast
+                    cantrip.setCantrip(event.getCastRunes(), cantripIndexToOverride);
+                });
+                System.out.println("Cantrip Set: " + event.getCastRunes());
+            }
         }
     }
 }
