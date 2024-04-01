@@ -1,7 +1,8 @@
-package com.josinosle.magicengines.entity.spells;
+package com.josinosle.magicengines.entity.spells.abstractspell;
 
 import com.josinosle.magicengines.MagicEngines;
 import com.josinosle.magicengines.entity.models.AbstractSpellModel;
+import com.josinosle.magicengines.entity.models.ModModelLayers;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Matrix3f;
@@ -29,7 +30,7 @@ public class AbstractSpellRenderer extends EntityRenderer<AbstractSpellProjectil
     public AbstractSpellRenderer(EntityRendererProvider.Context pContext) {
         super(pContext);
         //this.model = new AbstractSpellModel(pContext.bakeLayer(ModelLayers.TRIDENT));
-        this.model = new AbstractSpellModel(pContext.bakeLayer(AbstractSpellModel.LAYER_LOCATION));
+        this.model = new AbstractSpellModel(pContext.bakeLayer(ModModelLayers.ABSTRACT_SPELL_LAYER));
     }
 
     protected int getBlockLightLevel(AbstractSpellProjectileEntity pEntity, BlockPos pPos) {

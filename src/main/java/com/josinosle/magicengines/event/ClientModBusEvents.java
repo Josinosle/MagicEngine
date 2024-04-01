@@ -2,7 +2,8 @@ package com.josinosle.magicengines.event;
 
 import com.josinosle.magicengines.MagicEngines;
 import com.josinosle.magicengines.entity.models.AbstractSpellModel;
-import com.josinosle.magicengines.entity.spells.AbstractSpellRenderer;
+import com.josinosle.magicengines.entity.models.ModModelLayers;
+import com.josinosle.magicengines.entity.spells.abstractspell.AbstractSpellRenderer;
 import com.josinosle.magicengines.gui.overlay.ManaBarOverlay;
 import com.josinosle.magicengines.registry.EntityRegistry;
 import com.josinosle.magicengines.util.KeyboardHelper;
@@ -38,7 +39,7 @@ public class ClientModBusEvents {
 
     @SubscribeEvent
     public static void registerLayer(EntityRenderersEvent.RegisterLayerDefinitions event) {
-        event.registerLayerDefinition(AbstractSpellModel.LAYER_LOCATION, AbstractSpellModel::createBodyLayer);
+        event.registerLayerDefinition(ModModelLayers.ABSTRACT_SPELL_LAYER, AbstractSpellModel::createBodyLayer);
     }
 
 }

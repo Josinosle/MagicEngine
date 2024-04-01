@@ -1,4 +1,4 @@
-package com.josinosle.magicengines.entity.spells;
+package com.josinosle.magicengines.entity.spells.abstractspell;
 
 import com.josinosle.magicengines.registry.EntityRegistry;
 import com.josinosle.magicengines.registry.ParticleRegistry;

@@ -1,6 +1,6 @@
 package com.josinosle.magicengines.item.staves;
 
-import com.josinosle.magicengines.entity.spells.AbstractSpellProjectileEntity;
+import com.josinosle.magicengines.entity.spells.abstractspell.AbstractSpellProjectileEntity;
 import com.josinosle.magicengines.networking.Messages;
 import com.josinosle.magicengines.networking.packet.CastC2SPacket;
 import net.minecraft.ChatFormatting;
