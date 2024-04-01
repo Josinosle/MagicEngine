@@ -35,6 +35,7 @@ public class MagicEngines
         SpellRegistry.MAGIC_ENGINE_SPELLS.register(modEventBus);
         EffectRegistry.MOB_EFFECTS.register(modEventBus);
         SoundRegistry.register(modEventBus);
+        EntityRegistry.ENTITY_TYPES.register(modEventBus);
 
         MinecraftForge.EVENT_BUS.register(this);
         Messages.register();

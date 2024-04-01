@@ -1,5 +1,6 @@
 package com.josinosle.magicengines.item.staves;
 
+import com.josinosle.magicengines.entity.spells.AbstractSpellProjectileEntity;
 import com.josinosle.magicengines.networking.Messages;
 import com.josinosle.magicengines.networking.packet.CastC2SPacket;
 import net.minecraft.ChatFormatting;
@@ -28,6 +29,14 @@ public class AbstractStave extends Item {
 
     @Override
     public @NotNull InteractionResultHolder<ItemStack> use(@NotNull Level level, @NotNull Player player, @NotNull InteractionHand hand) {
+        // server side actions
+        if (!level.isClientSide) {
+            AbstractSpellProjectileEntity AbstractSpell = new AbstractSpellProjectileEntity(level,player,0,0,0);
+            AbstractSpell.shootFromRotation(player, player.getXRot(), player.getYRot(), 0.0F, 1.5F, 1.0F);
+            level.addFreshEntity(AbstractSpell);
+        }
+
+        // client side actions
         if (level.isClientSide) {
 
             //  cool down
