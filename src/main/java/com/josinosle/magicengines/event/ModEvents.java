@@ -84,7 +84,6 @@ public class ModEvents {
                     // set cantrip with cast stack and index of cast
                     cantrip.setCantrip(event.getCastRunes(), cantripIndexToOverride);
                 });
-                System.out.println("Cantrip Set: " + event.getCastRunes());
             }
         }
     }

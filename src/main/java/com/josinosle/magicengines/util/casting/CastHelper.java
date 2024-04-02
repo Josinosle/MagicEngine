@@ -7,6 +7,7 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
@@ -45,7 +46,7 @@ public class CastHelper {
         int manaCastCost = 0; // mana cost for whole cast instantiate
 
         // spell targets
-        ArrayList<Entity> targetList = new ArrayList<>();
+        ArrayList<LivingEntity> targetList = new ArrayList<>();
 
         for (CastRune castStackIteration : castStack) {
 
@@ -105,7 +106,7 @@ public class CastHelper {
         }
 
         // change max mana (training effect)
-        int integerToAdd = manaCastCost / 1000;
+        int integerToAdd = manaCastCost / 100;
         player.getCapability(PlayerManaProvider.PLAYER_MANA).ifPresent(mana -> {
 
             // add integer to mana maximum
@@ -122,10 +123,10 @@ public class CastHelper {
      * @param vector    the vector on which logic acts upon
      * @return an array list containing the entities targeted
      */
-    private static ArrayList<Entity> castTarget(CastRune rune, ArrayList<CastRune> castStack, ServerPlayer player, Vec3 vector, double pManaEfficiency) {
+    private static ArrayList<LivingEntity> castTarget(CastRune rune, ArrayList<CastRune> castStack, ServerPlayer player, Vec3 vector, double pManaEfficiency) {
 
         // define temp entity list
-        ArrayList<Entity> entities = new ArrayList<>();
+        ArrayList<LivingEntity> entities = new ArrayList<>();
         String target = "None";
 
         // self condition
@@ -162,9 +163,15 @@ public class CastHelper {
             // define a bounding box
             AABB boundBox = new AABB(vector.x() - runeMag, vector.y() - runeMag, vector.z() - runeMag, vector.x() + runeMag, vector.y() + runeMag, vector.z() + runeMag);
 
+
+            // cast bounding box entities to living entities type
+            List<LivingEntity> entToDamage = new ArrayList<>();
+            for (Entity entity : player.getLevel().getEntities(null, boundBox)) {
+                if (entity instanceof LivingEntity) entToDamage.add((LivingEntity) entity);
+            }
+
             // add entities in a bounding box to working list
-            List<Entity> entToDamage = player.getLevel().getEntities(null, boundBox);
-            for(Entity entity : entToDamage) {
+            for(LivingEntity entity : entToDamage) {
                 if (entity.getId() != player.getId()) {
                     entities.add(entity);
                 }

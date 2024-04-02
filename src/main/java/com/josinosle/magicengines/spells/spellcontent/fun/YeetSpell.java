@@ -7,13 +7,14 @@ import com.josinosle.magicengines.spells.spellcontent.SpellCastManaChanges;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
 
 import java.util.ArrayList;
 
 public class YeetSpell extends AbstractSpell {
 
     @Override
-    public int triggerCast(ServerPlayer player, ArrayList<Entity> entityList, double manaMultiplier, double effectValue) {
+    public int triggerCast(ServerPlayer player, ArrayList<LivingEntity> entityList, double manaMultiplier, double effectValue) {
         final SpellCastManaChanges logic = new SpellCastManaChanges();
         final int manaAmount = ServerConfigs.TELEKENETIC_SLAM_REQUIRED_MANA_AMOUNT.get();
 

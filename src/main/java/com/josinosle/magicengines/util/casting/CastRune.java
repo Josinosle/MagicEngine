@@ -22,13 +22,6 @@ public class CastRune {
         this.rune = rune;
     }
 
-    /**
-     * Force a {@link CastRune} creation from occasions where a {@link Vec3} ArrayList isn't able to be provided
-     *
-     * @param magnitude the magnitude of the rune
-     * @param rune  the rune's cast code itself
-     */
-
     private void calculateCastMagnitude(){
         double sum = 0;
         Vec3 previousVector = vectorComposition.get(0);

@@ -6,6 +6,7 @@ import com.josinosle.magicengines.spells.spellcontent.SpellCastManaChanges;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
 
 import java.util.ArrayList;
 
@@ -13,7 +14,7 @@ public class AbstractSpellDamage extends AbstractSpell {
     public AbstractSpellDamage() {}
 
     @Override
-    public int triggerCast(ServerPlayer player, ArrayList<Entity> entityList, double manaMultiplier, double effectValue) {
+    public int triggerCast(ServerPlayer player, ArrayList<LivingEntity> entityList, double manaMultiplier, double effectValue) {
         int manaSpent = 0; // total mana expenditure
 
         final SpellCastManaChanges logic = new SpellCastManaChanges();

@@ -9,7 +9,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -18,7 +18,9 @@ import java.util.ArrayList;
 
 public class AbstractProtection extends AbstractSpell {
 
-    protected ArrayList<Entity> entityList;
+    protected ArrayList<LivingEntity> entityList;
+    protected ArrayList<Integer> entityListIDs = new ArrayList<>();
+
     protected ServerPlayer player;
     protected boolean runEffect;
     protected double manaMultiplier;
@@ -30,10 +32,15 @@ public class AbstractProtection extends AbstractSpell {
 
     // trigger effect
     @Override
-    public int triggerCast(ServerPlayer player, ArrayList<Entity> entityList, double manaMult, double effectValue){
-        this.player = player;
-        this.entityList = entityList;
-        this.manaMultiplier = manaMult;
+    public int triggerCast(ServerPlayer pPlayer, ArrayList<LivingEntity> pEntityList, double manaMult, double effectValue){
+        player = pPlayer;
+        entityList = pEntityList;
+
+        for (LivingEntity entity : entityList) {
+            entityListIDs.add(entity.getId());
+        }
+
+        manaMultiplier = manaMult;
         runEffect = true;
         MinecraftForge.EVENT_BUS.register(this);
         return (int) ServerConfigs.PLAYER_DEFENSE_REQUIRED_MANA_AMOUNT.get();
@@ -42,7 +49,7 @@ public class AbstractProtection extends AbstractSpell {
     @SubscribeEvent
     public void playerTakeDamage(LivingAttackEvent event) {
 
-        if (runEffect && entityList.contains(event.getEntity()) && eventDamageInDamageSourceList(event.getSource())) {
+        if (runEffect && entityListIDs.contains(event.getEntity().getId()) && eventDamageInDamageSourceList(event.getSource())) {
 
             final SpellCastManaChanges logic = new SpellCastManaChanges();
             final int manaAmount = (int) (ServerConfigs.PLAYER_DEFENSE_REQUIRED_MANA_AMOUNT.get() * manaMultiplier * event.getAmount());

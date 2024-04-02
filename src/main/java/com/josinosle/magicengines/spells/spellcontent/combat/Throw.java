@@ -9,18 +9,19 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraftforge.fml.common.Mod;
 
 import java.util.ArrayList;
 
 @Mod.EventBusSubscriber(modid = MagicEngines.MOD_ID)
-public class TelekeneticSlam extends AbstractSpell {
-    public TelekeneticSlam(){
+public class Throw extends AbstractSpell {
+    public Throw(){
         super();
     }
 
     @Override
-    public int triggerCast(ServerPlayer player, ArrayList<Entity> entityList,double manaMultiplier, double effectValue) {
+    public int triggerCast(ServerPlayer player, ArrayList<LivingEntity> entityList, double manaMultiplier, double effectValue) {
         int manaSpent = 0; // total mana expenditure
 
         final SpellCastManaChanges logic = new SpellCastManaChanges();

@@ -6,7 +6,7 @@ import com.josinosle.magicengines.spells.spellcontent.combat.AbstractSpellDamage
 import com.josinosle.magicengines.spells.spellcontent.combat.Defence.ElementalProtection;
 import com.josinosle.magicengines.spells.spellcontent.combat.Defence.KineticProtection;
 import com.josinosle.magicengines.spells.spellcontent.combat.Defence.MagicProtection;
-import com.josinosle.magicengines.spells.spellcontent.combat.TelekeneticSlam;
+import com.josinosle.magicengines.spells.spellcontent.combat.Throw;
 import com.josinosle.magicengines.spells.spellcontent.fun.YeetSpell;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -30,7 +30,7 @@ public class SpellRegistry {
     public static final RegistryObject<AbstractSpell> MAGIC_DEFENSE = MAGIC_ENGINE_SPELLS.register("magic_defense", MagicProtection::new);
     public static final RegistryObject<AbstractSpell> ELEMENTAL_DEFENSE = MAGIC_ENGINE_SPELLS.register("elemental_defense", ElementalProtection::new);
 
-    public static final RegistryObject<AbstractSpell> THROW = MAGIC_ENGINE_SPELLS.register("throw", TelekeneticSlam::new);
+    public static final RegistryObject<AbstractSpell> THROW = MAGIC_ENGINE_SPELLS.register("throw", Throw::new);
     public static final RegistryObject<AbstractSpell> YEET = MAGIC_ENGINE_SPELLS.register("yeet", YeetSpell::new);
 
     public static void register(IEventBus eventBus) {MAGIC_ENGINE_SPELLS.register(eventBus);
