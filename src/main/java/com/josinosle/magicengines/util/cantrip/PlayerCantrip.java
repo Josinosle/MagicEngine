@@ -80,11 +80,11 @@ public class PlayerCantrip {
         for (int i = 0; i < pulledRuneList.length; i++) {
             if (pulledRuneList[i] != 0) {
                 // build pushable CastRune
-                CastRune runeToPush = new CastRune();
-                runeToPush.forceCreateRune(
+                CastRune runeToPush = new CastRune(
                         pulledRuneList[i],
                         pulledMagnitudeList[i]
                 );
+
                 // if certain castRune is null then create it
                 if (castRunes[cantripIndex] == null) {
                     castRunes[cantripIndex] = new ArrayList<>();
@@ -105,16 +105,16 @@ public class PlayerCantrip {
      * Casting Logic for {@link PlayerCantrip}
      * @param vector vector where cast takes place
      * @param player player to cast upon
-     * @param manaEfficiecy mana efficiency passed down from stave
+     * @param manaEfficiency mana efficiency passed down from stave
      * @param cantripIndex index of cantrip (1-4)
      */
-    public void castCantrip (Vec3 vector, ServerPlayer player, double manaEfficiecy, int cantripIndex) {
+    public void castCantrip (Vec3 vector, ServerPlayer player, double manaEfficiency, int cantripIndex) {
         // check if the cantrip has been set by a capability
         if (castRunes[cantripIndex] == null || castRunes[cantripIndex].get(0).isRuneEmpty()) {
             // return error message to the chat
             player.sendSystemMessage(Component.literal("No Cantrip Saved").withStyle(ChatFormatting.DARK_RED));
             return;
         }
-        CastHelper.cast(castRunes[cantripIndex], vector, player, manaEfficiecy); // cast the cantrip
+        CastHelper.cast(castRunes[cantripIndex], vector, player, manaEfficiency); // cast the cantrip
     }
 }

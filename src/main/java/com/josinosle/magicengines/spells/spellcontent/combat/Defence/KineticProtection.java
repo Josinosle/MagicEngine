@@ -12,8 +12,9 @@ public class KineticProtection extends AbstractProtection{
 
     @Override
     protected boolean eventDamageInDamageSourceList (DamageSource source) {
-        // list of possible damage sources
         ArrayList<DamageSource> tempDamageSourceList = new ArrayList<>();
+
+        // list of possible damage sources
         tempDamageSourceList.add(DamageSource.OUT_OF_WORLD);
         tempDamageSourceList.add(DamageSource.FLY_INTO_WALL);
         tempDamageSourceList.add(DamageSource.FALL);
@@ -28,9 +29,6 @@ public class KineticProtection extends AbstractProtection{
         }
 
         // addition conditions
-        if (
-                source.isProjectile() && !source.isMagic()
-        ) return true;
-        return false;
+        return source.isProjectile() && !source.isMagic();
     }
 }

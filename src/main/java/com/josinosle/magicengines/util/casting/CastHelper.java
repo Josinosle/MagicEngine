@@ -1,11 +1,13 @@
 package com.josinosle.magicengines.util.casting;
 
+import com.josinosle.magicengines.entity.spells.abstractspell.AbstractSpellProjectileEntity;
 import com.josinosle.magicengines.mana.PlayerManaProvider;
 import com.josinosle.magicengines.registry.SpellRegistry;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
@@ -26,7 +28,19 @@ public class CastHelper {
      */
     public static void cast(ArrayList<CastRune> castStack, Vec3 position, ServerPlayer player, double manaEfficiency){
 
-        player.sendSystemMessage(Component.literal("Cast Stack").withStyle(ChatFormatting.GOLD));
+        boolean isRayRecursion = false;
+
+        // loop through to check if this scenario is a ray recursion
+        for (CastRune rune : castStack) {
+            if (rune.getRune() == -1) {
+                isRayRecursion = true;
+                break;
+            }
+        }
+        // print condition for ray recursion being false
+        if (!isRayRecursion) {
+            player.sendSystemMessage(Component.literal("Cast Stack").withStyle(ChatFormatting.GOLD));
+        }
 
         int manaCastCost = 0; // mana cost for whole cast instantiate
 
@@ -35,10 +49,7 @@ public class CastHelper {
 
         for (CastRune castStackIteration : castStack) {
 
-            // print current rune effect
-            System.out.println(castStackIteration);
-
-            // buffer rune
+            // buffer rune condition
             if (castStackIteration.getRune() == 1) {
                 targetList.clear();
                 continue;
@@ -46,7 +57,11 @@ public class CastHelper {
 
             // add targeting condition
             if (targetList.isEmpty()) {
-                targetList = castTarget(castStackIteration,player,position);
+                targetList = castTarget(castStackIteration, castStack, player, position, manaEfficiency);
+                // condition where list has been cleared due to ray targetting method
+                if (targetList == null) {
+                    return;
+                }
                 if (targetList.isEmpty()) {
                     player.sendSystemMessage(Component.literal("Stack syntax error: no targets defined").withStyle(ChatFormatting.DARK_RED));
                     break;
@@ -102,11 +117,12 @@ public class CastHelper {
      * Method to search a casting stack to find a rune indicating a casting target
      *
      * @param rune      rune containing data
-     * @param player        the player responsible for the cast logic
-     * @param vector        the vector on which logic acts upon
-     * @return  an array list containing the entities targeted
+     * @param castStack {@link ArrayList} of {@link CastRune} to pass onto targeting
+     * @param player    the player responsible for the cast logic
+     * @param vector    the vector on which logic acts upon
+     * @return an array list containing the entities targeted
      */
-    private static ArrayList<Entity> castTarget(CastRune rune, ServerPlayer player, Vec3 vector){
+    private static ArrayList<Entity> castTarget(CastRune rune, ArrayList<CastRune> castStack, ServerPlayer player, Vec3 vector, double pManaEfficiency) {
 
         // define temp entity list
         ArrayList<Entity> entities = new ArrayList<>();
@@ -120,27 +136,28 @@ public class CastHelper {
 
         // single target condition
         if (rune.getRune() == 3){
-            target = "Ray";
-
-            // define a bounding box for a single block radius
-            AABB boundBox = new AABB(vector.x() - 1, vector.y() - 1, vector.z() - 1, vector.x() + 1, vector.y() + 1, vector.z() + 1);
-
-            // add entities in a bounding box to working list
-            List<Entity> entToDamage = player.getLevel().getEntities(null, boundBox);
-
-            for(Entity entity : entToDamage) {
-                if (entity.getId() != player.getId()) {
-                    entities.add(entity);
-                }
+            Level level = player.getLevel();
+            if (!level.isClientSide) {
+                AbstractSpellProjectileEntity abstractSpell = new AbstractSpellProjectileEntity(level,player,castStack,pManaEfficiency,0,0,0);
+                abstractSpell.shootFromRotation(player, player.getXRot(), player.getYRot(), 0.0F, 1.5F, 1.0F);
+                level.addFreshEntity(abstractSpell);
             }
+            return null;
         }
 
         // entities in area condition
-        if (rune.getRune() == 4){
+        if (rune.getRune() == 4 || rune.getRune() == -1){
 
             // find rune's magnitude
             int runeMag = rune.getCastMagnitude();
-            System.out.println(runeMag);
+
+            target = "Area (radius: "+runeMag+")";
+
+            // conditions if originating from a ray recursion
+            if (rune.getRune() == -1) {
+                runeMag = 3;
+                target = "Ray";
+            }
 
             // define a bounding box
             AABB boundBox = new AABB(vector.x() - runeMag, vector.y() - runeMag, vector.z() - runeMag, vector.x() + runeMag, vector.y() + runeMag, vector.z() + runeMag);
@@ -152,8 +169,6 @@ public class CastHelper {
                     entities.add(entity);
                 }
             }
-
-            target = "Area (radius: "+runeMag+")";
         }
         // return the list of entities
         player.sendSystemMessage(Component.literal("Target: " + target).withStyle(ChatFormatting.WHITE));
