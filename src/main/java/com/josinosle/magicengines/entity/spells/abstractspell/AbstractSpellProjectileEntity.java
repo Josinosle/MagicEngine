@@ -65,14 +65,16 @@ public class AbstractSpellProjectileEntity extends AbstractHurtingProjectile {
 
     @Override
     public void tick() {
+
+        // for first tick adjust trajectory based on the entity eye height
         if (firstTick) {
             this.setPos(
                     this.getX(),
-                    this.getEyeHeight()+this.getY(),
+                    this.getY() + player.getEyeHeight(),
                     this.getZ()
             );
-
         }
+
         Entity entity = this.getOwner();
         if (this.level.isClientSide || (entity == null || !entity.isRemoved())) {
             super.tick();
@@ -117,6 +119,7 @@ public class AbstractSpellProjectileEntity extends AbstractHurtingProjectile {
 
     @Override
     protected void onHitEntity(@NotNull EntityHitResult pResult) {
+
         if (!this.level.isClientSide) {
             Vec3 vector = pResult.getLocation(); // get location of effected entity
 
@@ -182,7 +185,6 @@ public class AbstractSpellProjectileEntity extends AbstractHurtingProjectile {
             CastHelper.cast(tempCastStack, vector, player, manaEfficiency);
         }
         this.discard();
-
     }
 
     protected void onHit(@NotNull HitResult pResult) {
@@ -200,4 +202,3 @@ public class AbstractSpellProjectileEntity extends AbstractHurtingProjectile {
         return false;
     }
 }
-
