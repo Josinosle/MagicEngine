@@ -5,8 +5,6 @@ import com.josinosle.magicengines.entity.models.AbstractSpellModel;
 import com.josinosle.magicengines.entity.models.ModModelLayers;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.mojang.math.Matrix3f;
-import com.mojang.math.Matrix4f;
 import com.mojang.math.Vector3f;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -125,10 +123,6 @@ public class AbstractSpellBeamRenderer extends EntityRenderer<AbstractSpellEntit
         }
 
         super.render(pEntity, pEntityYaw, pPartialTicks, pMatrixStack, pBuffer, pPackedLight);
-    }
-
-    private static void vertex(VertexConsumer vertexConsumer, Matrix4f matrix4f, Matrix3f matrix3f, float pX, float pY, float pZ, float p_114851_, float p_114852_) {
-        vertexConsumer.vertex(matrix4f, pX, pY, pZ).color(255, 255, 255, 255).uv(p_114851_, p_114852_).overlayCoords(OverlayTexture.NO_OVERLAY).uv2(15728880).normal(matrix3f, 0.0F, 1.0F, 0.0F).endVertex();
     }
 
     public @NotNull ResourceLocation getTextureLocation(AbstractSpellEntity pEntity) {
