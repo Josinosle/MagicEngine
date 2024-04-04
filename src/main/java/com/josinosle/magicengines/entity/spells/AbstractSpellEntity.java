@@ -1,10 +1,12 @@
 package com.josinosle.magicengines.entity.spells;
 
 import com.josinosle.magicengines.registry.EntityRegistry;
+import com.josinosle.magicengines.registry.SoundRegistry;
 import com.josinosle.magicengines.util.casting.CastHelper;
 import com.josinosle.magicengines.util.casting.CastRune;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
@@ -44,6 +46,9 @@ public class AbstractSpellEntity extends Projectile {
         castingStack = pCastingStack;
         manaEfficiency = pManaEfficiency;
         player = (ServerPlayer) pShooter;
+
+        // sound effects
+        level.playSound(null, player.getX(), player.getY(), player.getZ(), SoundRegistry.BEAM_BOOM.get(), SoundSource.PLAYERS, 1.0F, 0.8F);
     }
 
     @Override

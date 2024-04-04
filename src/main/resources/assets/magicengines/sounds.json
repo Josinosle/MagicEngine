@@ -8,5 +8,10 @@
     "sounds": [
       "magicengines:yeet"
     ]
+  },
+  "beam_boom": {
+    "sounds": [
+      "magicengines:beam_boom"
+    ]
   }
 }

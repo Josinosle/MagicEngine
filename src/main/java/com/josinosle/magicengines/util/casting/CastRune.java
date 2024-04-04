@@ -49,6 +49,7 @@ public class CastRune {
                 vectorComposition.get(i-1)
                 );
 
+        if (valueToBePushed == 0) return;
         // clever way of concatenating an integer (vulnerable to overflow error)
         this.rune = this.rune*10 + valueToBePushed;
     }
@@ -125,7 +126,7 @@ public class CastRune {
         dotProduct = dotProduct * rationalisationCoefficient;
 
         // return an integer based on dot product result
-        if (dotProduct <= -0.75) return 1;
+        if (dotProduct <= -0.75) return 0;
         if (dotProduct <= -0.25) return 4;
         if (dotProduct <= 0.25) return 3;
         if (dotProduct <= 0.75) return 2;

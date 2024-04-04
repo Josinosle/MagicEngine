@@ -26,7 +26,7 @@ public class AbstractSpellProjectileRenderer extends EntityRenderer<AbstractSpel
 
     // values to change on renderer inheritance
     private static AbstractSpellModel MODEL;
-    private static final ResourceLocation TEXTURE_LOCATION = new ResourceLocation(MagicEngines.MOD_ID,"textures/entities/abstract_spell_projectile.png");
+    private static final ResourceLocation TEXTURE_LOCATION = new ResourceLocation(MagicEngines.MOD_ID,"textures/entities/abstract_beam.png");
     private final ModelLayerLocation MODEL_LAYER_LOCATION = ModModelLayers.ABSTRACT_SPELL_LAYER;
 
 

@@ -19,6 +19,8 @@ public class SoundRegistry {
 
     public static RegistryObject<SoundEvent> YEET = registerSoundEvent("yeet");
 
+    public static RegistryObject<SoundEvent> BEAM_BOOM = registerSoundEvent("beam_boom");
+
     private static RegistryObject<SoundEvent> registerSoundEvent(String name) {
         return SOUND_EVENTS.register(name, () -> new SoundEvent(new ResourceLocation(MagicEngines.MOD_ID, name)));
     }
