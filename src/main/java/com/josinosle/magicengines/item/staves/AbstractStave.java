@@ -3,6 +3,7 @@ package com.josinosle.magicengines.item.staves;
 import com.josinosle.magicengines.networking.Messages;
 import com.josinosle.magicengines.networking.packet.CastC2SPacket;
 import net.minecraft.ChatFormatting;
+import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
@@ -10,6 +11,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 
@@ -54,6 +56,11 @@ public class AbstractStave extends Item {
                     isCastingCantrip));
         }
         return super.use(level, player, hand);
+    }
+
+    @Override
+    public boolean canAttackBlock(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer) {
+        return false;
     }
 }
 
