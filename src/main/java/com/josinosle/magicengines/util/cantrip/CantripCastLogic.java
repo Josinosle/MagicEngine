@@ -4,8 +4,6 @@ import com.josinosle.magicengines.event.ServerPlayerCastingEvent;
 import com.josinosle.magicengines.util.casting.CastRune;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.MinecraftForge;
@@ -67,9 +65,6 @@ public class CantripCastLogic {
                         0
                 );
             }
-
-            // play casting sound to server of experience orb pickup
-            level.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.EXPERIENCE_ORB_PICKUP, SoundSource.PLAYERS, 1.0F, 0.2F);
 
             // cast spell
             if (rune.getRune() != 0) {

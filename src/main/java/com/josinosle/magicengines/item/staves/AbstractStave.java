@@ -25,15 +25,11 @@ public class AbstractStave extends Item {
         super(properties);
     }
 
-
     @Override
     public @NotNull InteractionResultHolder<ItemStack> use(@NotNull Level level, @NotNull Player player, @NotNull InteractionHand hand) {
 
         // client side actions
         if (level.isClientSide) {
-
-            //  cool down
-            player.getCooldowns().addCooldown(this, 2);
 
             // check if casting in air is enabled
             int range = 200;

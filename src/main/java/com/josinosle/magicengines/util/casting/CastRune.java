@@ -18,7 +18,7 @@ public class CastRune {
     public CastRune(){}
 
     public CastRune(int magnitude, int rune){
-        this.castMagnitude = magnitude;
+        this.castMagnitude = Math.max(magnitude, 1);
         this.rune = rune;
     }
 
@@ -49,9 +49,12 @@ public class CastRune {
                 vectorComposition.get(i-1)
                 );
 
-        if (valueToBePushed == 0) return;
+        // check if the vector is different to the previous and that the vector isnt in a straight line
+        if ( valueToBePushed == 0 || ( vectorComposition.get(i-1).subtract(vectorComposition.get(i)).length() ) < 0.05 ) return;
+
         // clever way of concatenating an integer (vulnerable to overflow error)
         this.rune = this.rune*10 + valueToBePushed;
+
     }
 
     /**

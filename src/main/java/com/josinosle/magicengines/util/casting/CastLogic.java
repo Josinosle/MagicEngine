@@ -82,10 +82,7 @@ public class CastLogic {
                         0
                 );
             }
-
-            // play casting sound to server
-            level.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.EXPERIENCE_ORB_PICKUP, SoundSource.PLAYERS, 1.0F, 0.2F);
-        } else {
+            } else {
 
             // cast spell
             double totalManaEfficiency = manaMultTally/totalStrokes;
