@@ -44,10 +44,11 @@ public class AbstractSpellBeamRenderer extends EntityRenderer<AbstractSpellEntit
         return 15;
     }
 
+
     public void render(AbstractSpellEntity pEntity, float pEntityYaw, float pPartialTicks, PoseStack pMatrixStack, MultiBufferSource pBuffer, int pPackedLight) {
 
         if (pEntity.tickCount == 3) startVec = pEntity.getPosition(pPartialTicks);
-        if (startVec == null) return;
+        if (startVec == null || pEntity.tickCount < 3) return;
 
         /*
         float $$8 = (float) pEntity.level.getGameTime() + pPartialTicks;
@@ -111,14 +112,14 @@ public class AbstractSpellBeamRenderer extends EntityRenderer<AbstractSpellEntit
  */
 
         VertexConsumer vertexConsumer = ItemRenderer.getFoilBufferDirect(pBuffer, MODEL.renderType(this.getTextureLocation(pEntity)), false, false);
-        double renderVectorLengh = pEntity.getPosition(pPartialTicks).subtract(startVec).length();
+        double renderVectorLengh = ( (pEntity.getPosition(pPartialTicks)).subtract(startVec) ).length();
 
         // render beam sections
         for (int i = 0; i <= renderVectorLengh; i++) {
             pMatrixStack.pushPose();
             pMatrixStack.mulPose(Vector3f.YP.rotationDegrees(Mth.lerp(pPartialTicks, pEntity.yRotO, pEntity.getYRot()) - 90.0F));
             pMatrixStack.mulPose(Vector3f.ZP.rotationDegrees(Mth.lerp(pPartialTicks, pEntity.xRotO, pEntity.getXRot()) + 90.0F));
-            pMatrixStack.translate(0,i,0);
+            pMatrixStack.translate(0,renderVectorLengh-i,0);
             MODEL.renderToBuffer(pMatrixStack, vertexConsumer, pPackedLight, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
             pMatrixStack.popPose();
         }
