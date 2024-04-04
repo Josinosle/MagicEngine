@@ -32,9 +32,10 @@ public class Throw extends AbstractSpell {
 
                 // change entity delta movement
                 entity.setDeltaMovement(
-                        (entity.getX() - player.getX())*0.1*effectValue,
-                        (entity.getY() - player.getY() + 0.2)*0.1*effectValue,
-                        (entity.getZ() - player.getZ())*0.1*effectValue);
+                        ((entity.position().subtract(player.getPosition(0)).normalize()).multiply(effectValue,effectValue,effectValue))
+                );
+                System.out.println(entity.getDeltaMovement().x());
+
 
                 // send spawn particle
                 player.getLevel().sendParticles(

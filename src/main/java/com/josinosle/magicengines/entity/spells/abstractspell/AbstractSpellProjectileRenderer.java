@@ -5,8 +5,6 @@ import com.josinosle.magicengines.entity.models.AbstractSpellModel;
 import com.josinosle.magicengines.entity.models.ModModelLayers;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.mojang.math.Matrix3f;
-import com.mojang.math.Matrix4f;
 import com.mojang.math.Vector3f;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -23,7 +21,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.NotNull;
 
 @OnlyIn(Dist.CLIENT)
-public class AbstractSpellRenderer extends EntityRenderer<AbstractSpellProjectileEntity> {
+public class AbstractSpellProjectileRenderer extends EntityRenderer<AbstractSpellEntity> {
 
     // values to change on renderer inheritance
     private static AbstractSpellModel MODEL;
@@ -33,17 +31,17 @@ public class AbstractSpellRenderer extends EntityRenderer<AbstractSpellProjectil
 
     protected static final RenderType RENDER_TYPE;
 
-    public AbstractSpellRenderer(EntityRendererProvider.Context pContext) {
+    public AbstractSpellProjectileRenderer(EntityRendererProvider.Context pContext) {
         super(pContext);
         //this.model = new AbstractSpellModel(pContext.bakeLayer(ModelLayers.TRIDENT));
         this.MODEL = new AbstractSpellModel(pContext.bakeLayer(MODEL_LAYER_LOCATION));
     }
 
-    protected int getBlockLightLevel(AbstractSpellProjectileEntity pEntity, BlockPos pPos) {
+    protected int getBlockLightLevel(AbstractSpellEntity pEntity, BlockPos pPos) {
         return 15;
     }
 
-    public void render(AbstractSpellProjectileEntity pEntity, float pEntityYaw, float pPartialTicks, PoseStack pMatrixStack, MultiBufferSource pBuffer, int pPackedLight) {
+    public void render(AbstractSpellEntity pEntity, float pEntityYaw, float pPartialTicks, PoseStack pMatrixStack, MultiBufferSource pBuffer, int pPackedLight) {
         pMatrixStack.pushPose();
         pMatrixStack.mulPose(Vector3f.YP.rotationDegrees(Mth.lerp(pPartialTicks, pEntity.yRotO, pEntity.getYRot()) - 90.0F));
         pMatrixStack.mulPose(Vector3f.ZP.rotationDegrees(Mth.lerp(pPartialTicks, pEntity.xRotO, pEntity.getXRot()) + 90.0F));
@@ -53,11 +51,7 @@ public class AbstractSpellRenderer extends EntityRenderer<AbstractSpellProjectil
         super.render(pEntity, pEntityYaw, pPartialTicks, pMatrixStack, pBuffer, pPackedLight);
     }
 
-    protected static void vertex(VertexConsumer p_114090_, Matrix4f p_114091_, Matrix3f p_114092_, int p_114093_, float p_114094_, int p_114095_, int p_114096_, int p_114097_) {
-        p_114090_.vertex(p_114091_, p_114094_ - 0.5F, (float)p_114095_ - 0.25F, 0.0F).color(255, 255, 255, 255).uv((float)p_114096_, (float)p_114097_).overlayCoords(OverlayTexture.NO_OVERLAY).uv2(p_114093_).normal(p_114092_, 0.0F, 1.0F, 0.0F).endVertex();
-    }
-
-    public @NotNull ResourceLocation getTextureLocation(AbstractSpellProjectileEntity pEntity) {
+    public @NotNull ResourceLocation getTextureLocation(AbstractSpellEntity pEntity) {
         return TEXTURE_LOCATION;
     }
 

@@ -49,7 +49,7 @@ public class PlayerCantrip {
                 if (castRunes[cantripIndex] != null && i < castRunes[cantripIndex].size()) {
                     // add data to saveable formats of lists
                     runeList.add(castRunes[cantripIndex].get(i).getRune());
-                    magnitudeList.add(castRunes[cantripIndex].get(i).getRune());
+                    magnitudeList.add(castRunes[cantripIndex].get(i).getCastMagnitude());
                     continue;
                 }
                 // default value of arrays (important for delimiting the arrays)

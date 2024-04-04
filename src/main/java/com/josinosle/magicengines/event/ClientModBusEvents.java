@@ -3,7 +3,8 @@ package com.josinosle.magicengines.event;
 import com.josinosle.magicengines.MagicEngines;
 import com.josinosle.magicengines.entity.models.AbstractSpellModel;
 import com.josinosle.magicengines.entity.models.ModModelLayers;
-import com.josinosle.magicengines.entity.spells.abstractspell.AbstractSpellRenderer;
+import com.josinosle.magicengines.entity.spells.abstractspell.AbstractSpellBeamRenderer;
+import com.josinosle.magicengines.entity.spells.abstractspell.AbstractSpellProjectileRenderer;
 import com.josinosle.magicengines.gui.overlay.ManaBarOverlay;
 import com.josinosle.magicengines.registry.EntityRegistry;
 import com.josinosle.magicengines.util.KeyboardHelper;
@@ -33,8 +34,8 @@ public class ClientModBusEvents {
 
     @SubscribeEvent
     public static void onRegisterEntityRenderers(EntityRenderersEvent.RegisterRenderers event) {
-
-        event.registerEntityRenderer(EntityRegistry.ABSTRACT_SPELL_PROJECTILE.get(), AbstractSpellRenderer::new);
+        event.registerEntityRenderer(EntityRegistry.ABSTRACT_SPELL.get(), AbstractSpellProjectileRenderer::new);
+        event.registerEntityRenderer(EntityRegistry.ABSTRACT_SPELL.get(), AbstractSpellBeamRenderer::new);
     }
 
     @SubscribeEvent

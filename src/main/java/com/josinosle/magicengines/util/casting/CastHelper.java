@@ -1,6 +1,6 @@
 package com.josinosle.magicengines.util.casting;
 
-import com.josinosle.magicengines.entity.spells.abstractspell.AbstractSpellProjectileEntity;
+import com.josinosle.magicengines.entity.spells.abstractspell.AbstractSpellEntity;
 import com.josinosle.magicengines.mana.PlayerManaProvider;
 import com.josinosle.magicengines.registry.SpellRegistry;
 import net.minecraft.ChatFormatting;
@@ -139,7 +139,7 @@ public class CastHelper {
         if (rune.getRune() == 3){
             Level level = player.getLevel();
             if (!level.isClientSide) {
-                AbstractSpellProjectileEntity abstractSpell = new AbstractSpellProjectileEntity(level,player,castStack,pManaEfficiency,0,0,0);
+                AbstractSpellEntity abstractSpell = new AbstractSpellEntity(level,player,castStack,pManaEfficiency);
                 abstractSpell.shootFromRotation(player, player.getXRot(), player.getYRot(), 0.0F, 1.5F, 1.0F);
                 level.addFreshEntity(abstractSpell);
             }
