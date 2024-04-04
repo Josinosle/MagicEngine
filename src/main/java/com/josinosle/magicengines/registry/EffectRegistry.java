@@ -14,6 +14,9 @@ public class EffectRegistry {
 //    public static final RegistryObject<MobEffect> TESTICULAR_TORSION = MOB_EFFECTS.register("testicular_torsion",
 //            () -> new TesticularTorsionEffect(MobEffectCategory.HARMFUL, 11141120));
 
+
+
+
     public static void register(IEventBus eventBus) {
         MOB_EFFECTS.register(eventBus);
     }

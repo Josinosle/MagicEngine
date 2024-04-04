@@ -1,6 +1,6 @@
 package com.josinosle.magicengines.util.casting;
 
-import com.josinosle.magicengines.entity.spells.abstractspell.AbstractSpellEntity;
+import com.josinosle.magicengines.entity.spells.AbstractSpellEntity;
 import com.josinosle.magicengines.mana.PlayerManaProvider;
 import com.josinosle.magicengines.registry.SpellRegistry;
 import net.minecraft.ChatFormatting;

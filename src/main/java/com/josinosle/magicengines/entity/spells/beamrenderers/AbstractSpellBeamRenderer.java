@@ -1,8 +1,9 @@
-package com.josinosle.magicengines.entity.spells.abstractspell;
+package com.josinosle.magicengines.entity.spells.beamrenderers;
 
 import com.josinosle.magicengines.MagicEngines;
 import com.josinosle.magicengines.entity.models.AbstractSpellModel;
 import com.josinosle.magicengines.entity.models.ModModelLayers;
+import com.josinosle.magicengines.entity.spells.AbstractSpellEntity;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Vector3f;

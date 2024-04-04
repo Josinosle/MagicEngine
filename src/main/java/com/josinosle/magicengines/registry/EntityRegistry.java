@@ -1,7 +1,7 @@
 package com.josinosle.magicengines.registry;
 
 import com.josinosle.magicengines.MagicEngines;
-import com.josinosle.magicengines.entity.spells.abstractspell.AbstractSpellEntity;
+import com.josinosle.magicengines.entity.spells.AbstractSpellEntity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraftforge.registries.DeferredRegister;

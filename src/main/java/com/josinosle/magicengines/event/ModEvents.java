@@ -67,7 +67,6 @@ public class ModEvents {
                 // add mana to player mana
                 mana.addMana(0.002); // parameter is a balancing factor for mana regen (debugging purposes only)
                 Messages.sendToPlayer(new SyncManaS2CPacket(mana.getMana(), mana.getMaxMana()), player);
-
             });
         }
     }
