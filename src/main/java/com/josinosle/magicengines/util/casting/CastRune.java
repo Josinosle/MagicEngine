@@ -3,7 +3,7 @@ package com.josinosle.magicengines.util.casting;
 import net.minecraft.util.Mth;
 import net.minecraft.world.phys.Vec3;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
 
 /**
  * Class for a casting rune
@@ -13,7 +13,7 @@ import java.util.ArrayList;
 public class CastRune {
     private int castMagnitude;
     private int rune = 0;
-    private final ArrayList<Vec3> vectorComposition = new ArrayList<>();
+    private final LinkedList<Vec3> vectorComposition = new LinkedList<>();
 
     public CastRune(){}
 
@@ -39,18 +39,16 @@ public class CastRune {
      * Method for formatting a rune from a set of vectors to an integer
      */
     private void formatRune(){
-        // tail of the vector composition
-        int i = vectorComposition.size()-1;
 
         // find rationalised dot product of the 3 vectors from the tail
         int valueToBePushed = rationalisedDotProduct(
-                vectorComposition.get(i),
-                vectorComposition.get(i-2),
-                vectorComposition.get(i-1)
+                vectorComposition.pop(),
+                vectorComposition.pop(),
+                vectorComposition.pop()
                 );
 
         // check if the vector is different to the previous and that the vector isnt in a straight line
-        if ( valueToBePushed == 0 || ( vectorComposition.get(i-1).subtract(vectorComposition.get(i)).length() ) < 0.05 ) return;
+        if ( valueToBePushed == 0 ) return;
 
         // clever way of concatenating an integer (vulnerable to overflow error)
         this.rune = this.rune*10 + valueToBePushed;
@@ -110,7 +108,7 @@ public class CastRune {
      * @param vectorOrigin  the origin point for the logical vectors
      * @return a string variable containing the alphabetic character represented by the dot product
      */
-    private static int rationalisedDotProduct(Vec3 vector1, Vec3 vector2, Vec3 vectorOrigin) {
+    private int rationalisedDotProduct(Vec3 vector1, Vec3 vectorOrigin, Vec3 vector2) {
 
         // calculate 2 temporary vectors relative to an origin point vector
         Vec3 calcVector1 = vector1.subtract(vectorOrigin);
@@ -127,6 +125,13 @@ public class CastRune {
 
         //multiply dot product by rationalisationCoefficient
         dotProduct = dotProduct * rationalisationCoefficient;
+
+        // condition to prevent same runes
+        if (vector1.subtract(vectorOrigin).length() < 0.05) dotProduct = 0;
+
+        // add vectors back to the casting queue
+        vectorComposition.addLast(vectorOrigin);
+        vectorComposition.addLast(vector2);
 
         // return an integer based on dot product result
         if (dotProduct <= -0.75) return 0;

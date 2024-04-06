@@ -14,9 +14,9 @@ import java.util.LinkedList;
  * @author josinosle
  */
 public class ServerPlayerFinishCastingEvent extends Event {
-    private ServerPlayer playerCasting;
-    private Vec3 castingPosition;
-    private LinkedList<CastRune> castRunes;
+    private final ServerPlayer playerCasting;
+    private final Vec3 castingPosition;
+    private final LinkedList<CastRune> castRunes;
     public LogicalSide side;
 
     /**

@@ -15,7 +15,7 @@ import java.util.LinkedList;
 public class PlayerCantrip {
 
     // array of LinkedLists containing the cast runes (each LinkedList is a cantrip)
-    private LinkedList<CastRune>[] castRunes = new LinkedList[4];
+    private LinkedList<CastRune> [] castRunes = new LinkedList [4] ;
 
     /**
      * Cantrip set method

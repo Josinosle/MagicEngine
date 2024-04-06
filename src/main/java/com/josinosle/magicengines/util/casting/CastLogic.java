@@ -116,7 +116,7 @@ public class CastLogic {
 
         // add current rune to casting stack
         if (!spellCast) {
-            castingStack.add(rune);
+            castingStack.addLast(rune);
         }
 
         // clear non-applicable lists
