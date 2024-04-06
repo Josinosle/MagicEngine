@@ -13,13 +13,14 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
  * A class to turn a casting list array into an effect output
  * @author josinosle
  */
-public class CastHelper {
+public interface CastHelper {
 
     /**
      * Method to convert a cast stack into logical inputs to trigger a spell action in the spell utility classes
@@ -27,7 +28,7 @@ public class CastHelper {
      * @param castStack     the casting stack containing all runes in the current cast
      * @param position      the position vector of the current spell logic
      */
-    public static void cast(ArrayList<CastRune> castStack, Vec3 position, ServerPlayer player, double manaEfficiency){
+    public static void cast(LinkedList<CastRune> castStack, Vec3 position, ServerPlayer player, double manaEfficiency){
 
         boolean isRayRecursion = false;
 
@@ -123,7 +124,7 @@ public class CastHelper {
      * @param vector    the vector on which logic acts upon
      * @return an array list containing the entities targeted
      */
-    private static ArrayList<LivingEntity> castTarget(CastRune rune, ArrayList<CastRune> castStack, ServerPlayer player, Vec3 vector, double pManaEfficiency) {
+    private static ArrayList<LivingEntity> castTarget(CastRune rune, LinkedList<CastRune> castStack, ServerPlayer player, Vec3 vector, double pManaEfficiency) {
 
         // define temp entity list
         ArrayList<LivingEntity> entities = new ArrayList<>();

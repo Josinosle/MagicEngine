@@ -54,7 +54,7 @@ public class CastC2SPacket {
                 NetworkCastLogicHandling.handleCantrip(new Vec3(x,y,z),level,player,manaEfficiency);
                 return;
             }
-            NetworkCastLogicHandling.handlePlayerSetVectorComboList(new Vec3(x,y,z),level,player,manaEfficiency);
+            NetworkCastLogicHandling.handlePlayerSetVectorComboList(new Vec3(x,y,z),player,manaEfficiency);
         });
     }
 }

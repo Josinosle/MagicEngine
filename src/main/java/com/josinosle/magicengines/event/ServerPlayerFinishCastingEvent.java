@@ -6,7 +6,7 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.eventbus.api.Event;
 import net.minecraftforge.fml.LogicalSide;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
 
 /**
  * Event for handling players beginning to cast
@@ -16,7 +16,7 @@ import java.util.ArrayList;
 public class ServerPlayerFinishCastingEvent extends Event {
     private ServerPlayer playerCasting;
     private Vec3 castingPosition;
-    private ArrayList<CastRune> castRunes;
+    private LinkedList<CastRune> castRunes;
     public LogicalSide side;
 
     /**
@@ -24,7 +24,7 @@ public class ServerPlayerFinishCastingEvent extends Event {
      * @param player Player casting
      * @param vec3pos Position of casting player
      */
-    public ServerPlayerFinishCastingEvent(ServerPlayer player, Vec3 vec3pos, LogicalSide side, ArrayList<CastRune> castStack) {
+    public ServerPlayerFinishCastingEvent(ServerPlayer player, Vec3 vec3pos, LogicalSide side, LinkedList<CastRune> castStack) {
         this.playerCasting = player;
         this.castingPosition = vec3pos;
         this.side = side;
@@ -44,8 +44,8 @@ public class ServerPlayerFinishCastingEvent extends Event {
     public Vec3 getCastingPosition() {return castingPosition;}
 
     /**
-     * Get method for ArrayList of {@link CastRune}
-     * @return  {@link ArrayList} of {@link CastRune}
+     * Get method for {@link LinkedList} of {@link CastRune}
+     * @return  {@link LinkedList} of {@link CastRune}
      */
-    public ArrayList<CastRune> getCastRunes () {return castRunes;}
+    public LinkedList<CastRune> getCastRunes () {return castRunes;}
 }

@@ -21,11 +21,11 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.event.ForgeEventFactory;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
 
 public class AbstractSpellEntity extends Projectile {
 
-    private ArrayList<CastRune> castingStack;
+    private LinkedList<CastRune> castingStack;
     private double manaEfficiency;
     private ServerPlayer player;
 
@@ -33,7 +33,7 @@ public class AbstractSpellEntity extends Projectile {
         super(pEntityType, pLevel);
     }
 
-    public AbstractSpellEntity(Level pLevel, LivingEntity pShooter, ArrayList<CastRune> pCastingStack, double pManaEfficiency) {
+    public AbstractSpellEntity(Level pLevel, LivingEntity pShooter, LinkedList<CastRune> pCastingStack, double pManaEfficiency) {
         this(EntityRegistry.ABSTRACT_SPELL.get(),pLevel);
 
         // parameters for entity trajectory management
@@ -113,7 +113,7 @@ public class AbstractSpellEntity extends Projectile {
     }
 
     private void castSpell (Vec3 pVector) {
-        ArrayList<CastRune> tempCastStack = new ArrayList<>();
+        LinkedList<CastRune> tempCastStack = new LinkedList<>();
 
         if (castingStack == null) {
             return;

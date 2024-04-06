@@ -17,7 +17,7 @@ import org.jetbrains.annotations.NotNull;
 
 import static com.josinosle.magicengines.util.RaycastHelper.rayTrace;
 
-public class AbstractStave extends Item {
+public abstract class AbstractStave extends Item {
 
     public boolean isCastingInAir;
     public boolean isCastingCantrip;

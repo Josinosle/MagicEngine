@@ -13,7 +13,7 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.LogicalSide;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
 
 /**
  * A class to process vector inputs and output a list of rune codes
@@ -22,7 +22,7 @@ import java.util.ArrayList;
  */
 public class CastLogic {
 
-    private final ArrayList<CastRune> castingStack = new ArrayList<>();
+    private final LinkedList<CastRune> castingStack = new LinkedList<>();
     private CastRune rune = new CastRune();
     private final ServerPlayer playerIdentifier;
     private boolean spellCast;
@@ -47,10 +47,9 @@ public class CastLogic {
      * Method used to add a new vector to a vector combo list
      *
      * @param vector    the vector input to add a casting geometry point to
-     * @param level     the level to cast effects upon
      * @param player    the player entity
      */
-    public void setVectorComboList(Vec3 vector, Level level, ServerPlayer player,double manaEfficiency) {
+    public void setVectorComboList(Vec3 vector, ServerPlayer player,double manaEfficiency) {
 
         if (!spellCast) {
 
