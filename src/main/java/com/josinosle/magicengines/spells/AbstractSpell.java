@@ -7,8 +7,6 @@ import net.minecraft.world.phys.Vec3;
 import java.util.ArrayList;
 
 public abstract class AbstractSpell {
-    private int spellEffectModulus;
-
     public AbstractSpell(){
     }
 

@@ -19,7 +19,7 @@ public class VirtualBlock extends AbstractSpell {
         final SpellCastManaChanges logic = new SpellCastManaChanges();
         final int manaAmount = (int) (ServerConfigs.VIRTUAL_BLOCK_REQUIRED_MANA_AMOUNT.get() * manaMultiplier);
 
-        int blocksSpawned = spawnBlocks(vector, player);
+        int blocksSpawned = spawnBlocks(vector, player, effectValue);
 
         int totalManaCost = blocksSpawned * manaAmount;
 
@@ -28,7 +28,7 @@ public class VirtualBlock extends AbstractSpell {
         return totalManaCost;
     }
 
-    protected int spawnBlocks (Vec3 vector, ServerPlayer player) {
+    protected int spawnBlocks (Vec3 vector, ServerPlayer player, double effectValue) {
         int blocksSpawned = 0;
 
         // create block pos variable

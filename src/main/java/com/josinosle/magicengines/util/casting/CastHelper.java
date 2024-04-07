@@ -94,7 +94,7 @@ public interface CastHelper {
                     continue;
                     // push effect
                 case 331:
-                    manaCastCost += SpellRegistry.VIRTUAL_BLOCK.get().triggerCast(player, targetList, position, manaEfficiency, castStackIteration.getCastMagnitude());
+                    manaCastCost += SpellRegistry.VIRTUAL_BLOCK_WALL.get().triggerCast(player, targetList, position, manaEfficiency, castStackIteration.getCastMagnitude());
                     player.sendSystemMessage(Component.literal("Virtual Block").withStyle(ChatFormatting.DARK_AQUA));
                     continue;
             }

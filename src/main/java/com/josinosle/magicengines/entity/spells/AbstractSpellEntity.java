@@ -52,6 +52,17 @@ public class AbstractSpellEntity extends Projectile {
     }
 
     @Override
+    public boolean shouldRenderAtSqrDistance(double pDistance) {
+        double d0 = this.getBoundingBox().getSize();
+        if (Double.isNaN(d0)) {
+            d0 = 1.0;
+        }
+
+        d0 *= 900;
+        return pDistance < d0 * d0;
+    }
+
+    @Override
     public void tick() {
         Entity entity = this.getOwner();
         if (this.level.isClientSide || (entity == null || !entity.isRemoved())) {
