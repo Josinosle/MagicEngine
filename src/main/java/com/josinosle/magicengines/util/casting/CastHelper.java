@@ -64,9 +64,6 @@ public interface CastHelper {
                 if (targetList == null) {
                     return;
                 }
-                if (targetList.isEmpty()) {
-                    player.sendSystemMessage(Component.literal("Stack syntax error: no targets defined").withStyle(ChatFormatting.DARK_RED));
-                }
             }
 
             // find rune in switch statement
