@@ -8,6 +8,7 @@ import com.josinosle.magicengines.spells.spellcontent.combat.Defence.KineticProt
 import com.josinosle.magicengines.spells.spellcontent.combat.Defence.MagicProtection;
 import com.josinosle.magicengines.spells.spellcontent.combat.Throw;
 import com.josinosle.magicengines.spells.spellcontent.fun.YeetSpell;
+import com.josinosle.magicengines.spells.spellcontent.utility.virtualblock.VirtualBlock;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
@@ -32,6 +33,8 @@ public class SpellRegistry {
 
     public static final RegistryObject<AbstractSpell> THROW = MAGIC_ENGINE_SPELLS.register("throw", Throw::new);
     public static final RegistryObject<AbstractSpell> YEET = MAGIC_ENGINE_SPELLS.register("yeet", YeetSpell::new);
+
+    public static final RegistryObject<AbstractSpell> VIRTUAL_BLOCK = MAGIC_ENGINE_SPELLS.register("virtual_block", VirtualBlock::new);
 
     public static void register(IEventBus eventBus) {MAGIC_ENGINE_SPELLS.register(eventBus);
     }

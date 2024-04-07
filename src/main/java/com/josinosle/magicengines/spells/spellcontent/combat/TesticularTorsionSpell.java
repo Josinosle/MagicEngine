@@ -2,18 +2,19 @@ package com.josinosle.magicengines.spells.spellcontent.combat;
 
 import com.josinosle.magicengines.config.ServerConfigs;
 import com.josinosle.magicengines.spells.AbstractSpell;
-import com.josinosle.magicengines.spells.spellcontent.SpellCastManaChanges;
+import com.josinosle.magicengines.spells.SpellCastManaChanges;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.phys.Vec3;
 
 import java.util.ArrayList;
 
 public class TesticularTorsionSpell extends AbstractSpell {
 
     @Override
-    public int triggerCast(ServerPlayer player, ArrayList<LivingEntity> entityList, double manaMultiplier, double effectValue) {
+    public int triggerCast(ServerPlayer player, ArrayList<LivingEntity> entityList, Vec3 vector, double manaMultiplier, double effectValue) {
         final SpellCastManaChanges logic = new SpellCastManaChanges();
         final int manaAmount = (int) (ServerConfigs.TESTICULAR_TORSION_REQUIRED_MANA_AMOUNT.get() * manaMultiplier);
 

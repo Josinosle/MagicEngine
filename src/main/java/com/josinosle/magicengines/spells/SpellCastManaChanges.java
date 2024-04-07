@@ -1,4 +1,4 @@
-package com.josinosle.magicengines.spells.spellcontent;
+package com.josinosle.magicengines.spells;
 
 import com.josinosle.magicengines.mana.PlayerManaProvider;
 import net.minecraft.server.level.ServerPlayer;

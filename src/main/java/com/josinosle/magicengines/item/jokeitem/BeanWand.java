@@ -5,7 +5,7 @@ import com.josinosle.magicengines.networking.Messages;
 import com.josinosle.magicengines.networking.packet.SetDeltaMovementPacket;
 import com.josinosle.magicengines.registry.ParticleRegistry;
 import com.josinosle.magicengines.registry.SoundRegistry;
-import com.josinosle.magicengines.spells.spellcontent.SpellCastManaChanges;
+import com.josinosle.magicengines.spells.SpellCastManaChanges;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;

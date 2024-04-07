@@ -10,8 +10,8 @@ public class ServerConfigs {
     public static final ForgeConfigSpec.ConfigValue<Integer> PLAYER_DEFENSE_REQUIRED_MANA_AMOUNT;
     public static final ForgeConfigSpec.ConfigValue<Integer> ABSTRACT_SPELL_DAMAGE_REQUIRED_MANA_AMOUNT;
     public static final ForgeConfigSpec.ConfigValue<Integer> FART_REQUIRED_MANA_AMOUNT;
-
     public static final ForgeConfigSpec.ConfigValue<Integer> TESTICULAR_TORSION_REQUIRED_MANA_AMOUNT;
+    public static final ForgeConfigSpec.ConfigValue<Integer> VIRTUAL_BLOCK_REQUIRED_MANA_AMOUNT;
 
     public static final ForgeConfigSpec SPEC;
 
@@ -23,6 +23,7 @@ public class ServerConfigs {
         ABSTRACT_SPELL_DAMAGE_REQUIRED_MANA_AMOUNT = BUILDER.define("abstractSpellDamageRequiredManaAmount", 1500);
         FART_REQUIRED_MANA_AMOUNT = BUILDER.define("fartRequiredManaAmount", 690);
         TESTICULAR_TORSION_REQUIRED_MANA_AMOUNT = BUILDER.define("testicularTorsion", 6900);
+        VIRTUAL_BLOCK_REQUIRED_MANA_AMOUNT = BUILDER.define("virtual_wall", 100);
 
         BUILDER.pop();
 

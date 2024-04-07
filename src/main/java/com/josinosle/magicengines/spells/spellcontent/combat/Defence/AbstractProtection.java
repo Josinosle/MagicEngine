@@ -4,12 +4,13 @@ import com.josinosle.magicengines.config.ServerConfigs;
 import com.josinosle.magicengines.event.ServerPlayerCastingEvent;
 import com.josinosle.magicengines.registry.ParticleRegistry;
 import com.josinosle.magicengines.spells.AbstractSpell;
-import com.josinosle.magicengines.spells.spellcontent.SpellCastManaChanges;
+import com.josinosle.magicengines.spells.SpellCastManaChanges;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -32,7 +33,7 @@ public class AbstractProtection extends AbstractSpell {
 
     // trigger effect
     @Override
-    public int triggerCast(ServerPlayer pPlayer, ArrayList<LivingEntity> pEntityList, double manaMult, double effectValue){
+    public int triggerCast(ServerPlayer pPlayer, ArrayList<LivingEntity> pEntityList, Vec3 vector, double manaMult, double effectValue){
         player = pPlayer;
         entityList = pEntityList;
 

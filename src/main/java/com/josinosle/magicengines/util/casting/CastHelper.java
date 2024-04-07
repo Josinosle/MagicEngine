@@ -66,37 +66,40 @@ public interface CastHelper {
                 }
                 if (targetList.isEmpty()) {
                     player.sendSystemMessage(Component.literal("Stack syntax error: no targets defined").withStyle(ChatFormatting.DARK_RED));
-                    break;
                 }
             }
 
             // find rune in switch statement
             switch (castStackIteration.getRune()) {
                 case 221:
-                    manaCastCost += SpellRegistry.UNASPECTED_DAMAGE.get().triggerCast(player, targetList, manaEfficiency, castStackIteration.getCastMagnitude());
+                    manaCastCost += SpellRegistry.UNASPECTED_DAMAGE.get().triggerCast(player, targetList, position, manaEfficiency, castStackIteration.getCastMagnitude());
                     player.sendSystemMessage(Component.literal("Abstract Damage (Damage: " + castStackIteration.getCastMagnitude() + (")")).withStyle(ChatFormatting.DARK_AQUA));
                     continue;
                     // abstract damage effect
                 case 324:
-                    manaCastCost += SpellRegistry.KINETIC_DEFENSE.get().triggerCast(player, targetList, manaEfficiency, castStackIteration.getCastMagnitude());
+                    manaCastCost += SpellRegistry.KINETIC_DEFENSE.get().triggerCast(player, targetList, position, manaEfficiency, castStackIteration.getCastMagnitude());
                     player.sendSystemMessage(Component.literal("Kinetic Protection").withStyle(ChatFormatting.DARK_AQUA));
                     continue;
                     // kinetic protection effect
                 case 321:
-                    manaCastCost += SpellRegistry.MAGIC_DEFENSE.get().triggerCast(player, targetList, manaEfficiency, castStackIteration.getCastMagnitude());
+                    manaCastCost += SpellRegistry.MAGIC_DEFENSE.get().triggerCast(player, targetList, position, manaEfficiency, castStackIteration.getCastMagnitude());
                     player.sendSystemMessage(Component.literal("Magic Protection").withStyle(ChatFormatting.DARK_AQUA));
                     continue;
                     // magic protection effect
                 case 322:
-                    manaCastCost += SpellRegistry.ELEMENTAL_DEFENSE.get().triggerCast(player, targetList, manaEfficiency, castStackIteration.getCastMagnitude());
+                    manaCastCost += SpellRegistry.ELEMENTAL_DEFENSE.get().triggerCast(player, targetList, position, manaEfficiency, castStackIteration.getCastMagnitude());
                     player.sendSystemMessage(Component.literal("Elemental Protection").withStyle(ChatFormatting.DARK_AQUA));
                     continue;
                     // elemental protection effect
                 case 312:
-                    manaCastCost += SpellRegistry.THROW.get().triggerCast(player, targetList, manaEfficiency, castStackIteration.getCastMagnitude());
+                    manaCastCost += SpellRegistry.THROW.get().triggerCast(player, targetList, position, manaEfficiency, castStackIteration.getCastMagnitude());
                     player.sendSystemMessage(Component.literal("Push (Push Power: " + castStackIteration.getCastMagnitude() + ")").withStyle(ChatFormatting.DARK_AQUA));
                     continue;
                     // push effect
+                case 331:
+                    manaCastCost += SpellRegistry.VIRTUAL_BLOCK.get().triggerCast(player, targetList, position, manaEfficiency, castStackIteration.getCastMagnitude());
+                    player.sendSystemMessage(Component.literal("Virtual Block").withStyle(ChatFormatting.DARK_AQUA));
+                    continue;
             }
 
             // chat output for an erroneous rune
