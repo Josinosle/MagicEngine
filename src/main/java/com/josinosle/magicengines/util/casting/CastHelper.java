@@ -28,7 +28,7 @@ public interface CastHelper {
      * @param castStack     the casting stack containing all runes in the current cast
      * @param position      the position vector of the current spell logic
      */
-    public static void cast(LinkedList<CastRune> castStack, Vec3 position, ServerPlayer player, double manaEfficiency){
+    static void cast(LinkedList<CastRune> castStack, Vec3 position, ServerPlayer player, double manaEfficiency){
 
         boolean isRayRecursion = false;
 
