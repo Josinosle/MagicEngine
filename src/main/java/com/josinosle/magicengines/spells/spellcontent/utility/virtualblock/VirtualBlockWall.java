@@ -2,6 +2,7 @@ package com.josinosle.magicengines.spells.spellcontent.utility.virtualblock;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.util.Mth;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.phys.Vec3;
 
@@ -13,7 +14,7 @@ public class VirtualBlockWall extends VirtualBlock{
 
         Vec3 castBeamVector = vector.subtract(player.position());
 
-        boolean xBias = (castBeamVector.x() > castBeamVector.z());
+        boolean xBias = (Mth.abs((float) castBeamVector.x()) > Mth.abs((float) castBeamVector.z()));
 
         int xDiff = 0;
         int yDiff = 1;
@@ -37,7 +38,7 @@ public class VirtualBlockWall extends VirtualBlock{
                 BlockPos blockPos = new BlockPos(spawnX, spawnY, spawnZ);
 
                 if (player.getLevel().getBlockState(blockPos) == Blocks.AIR.defaultBlockState()) {
-                    player.getLevel().setBlock(blockPos, Blocks.GLOWSTONE.defaultBlockState(), 2);
+                    player.getLevel().setBlock(blockPos, Blocks.AMETHYST_BLOCK.defaultBlockState(), 2);
                     blocksSpawned++;
                 }
             }
