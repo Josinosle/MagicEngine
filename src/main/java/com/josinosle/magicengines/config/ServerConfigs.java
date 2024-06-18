@@ -12,6 +12,7 @@ public class ServerConfigs {
     public static final ForgeConfigSpec.ConfigValue<Integer> FART_REQUIRED_MANA_AMOUNT;
     public static final ForgeConfigSpec.ConfigValue<Integer> TESTICULAR_TORSION_REQUIRED_MANA_AMOUNT;
     public static final ForgeConfigSpec.ConfigValue<Integer> VIRTUAL_BLOCK_REQUIRED_MANA_AMOUNT;
+    public static final ForgeConfigSpec.ConfigValue<Integer> PUNISHMENT_MANA_COST;
 
     public static final ForgeConfigSpec SPEC;
 

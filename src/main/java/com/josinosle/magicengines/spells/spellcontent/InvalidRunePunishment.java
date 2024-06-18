@@ -13,7 +13,7 @@ import java.util.ArrayList;
 
 @Mod.EventBusSubscriber(modid = MagicEngines.MOD_ID)
 public class InvalidRunePunishment extends AbstractSpell {
-    public InvalidRunePunishment{
+    public InvalidRunePunishment() {
         super();
     }
 
@@ -21,10 +21,10 @@ public class InvalidRunePunishment extends AbstractSpell {
     public int triggerCast(ServerPlayer player, ArrayList<LivingEntity> entityList, Vec3 vector, double manaMultiplier, double effectValue) {
         final SpellCastManaChanges logic = new SpellCastManaChanges();
 
-        private int manaAmount = (int) (ServerConfigs.INVALID_RUNE_PUNISHMENT.get());
+        int manaAmount = ServerConfigs.PUNISHMENT_MANA_COST.get();
 
         //sub mana
         logic.subMana(player, manaAmount);
-        return manaAmount
+        return manaAmount;
     }
 }
