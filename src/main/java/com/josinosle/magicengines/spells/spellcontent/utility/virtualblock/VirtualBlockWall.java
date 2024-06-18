@@ -15,7 +15,6 @@ public class VirtualBlockWall extends VirtualBlock{
         Vec3 castBeamVector = vector.subtract(player.position());
 
         boolean xBias = (Mth.abs((float) castBeamVector.x()) > Mth.abs((float) castBeamVector.z()));
-
         int xDiff = 0;
         int yDiff = 1;
         int zDiff = 0;

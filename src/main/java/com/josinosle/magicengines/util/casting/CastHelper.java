@@ -102,6 +102,7 @@ public interface CastHelper {
             // chat output for an erroneous rune
             if (castStackIteration.getRune() > 4) {
                     player.sendSystemMessage(Component.literal("Invalid Rune: " + castStackIteration.getRune()).withStyle(ChatFormatting.DARK_RED));
+                    manaCastCost += SpellRegistry.INVALID_RUNE_PUNISHMENT.get().triggerCast(player, targetList, position, manaEfficiency, castStackIteration.getCastMagnitude());
                     break;
             }
         }

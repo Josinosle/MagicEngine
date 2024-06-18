@@ -38,6 +38,9 @@ public class SpellRegistry {
     public static final RegistryObject<AbstractSpell> VIRTUAL_BLOCK = MAGIC_ENGINE_SPELLS.register("virtual_block", VirtualBlock::new);
     public static final RegistryObject<AbstractSpell> VIRTUAL_BLOCK_WALL = MAGIC_ENGINE_SPELLS.register("virtual_block_wall", VirtualBlockWall::new);
 
+    public static final RegistryObject<AbstractSpell> INVALID_RUNE_PUNISHMENT = MAGIC_ENGINE_SPELLS.registter("invalid_rune_punishment", InvalidRunePunishment::new)
+
+
     public static void register(IEventBus eventBus) {MAGIC_ENGINE_SPELLS.register(eventBus);
     }
 }

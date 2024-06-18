@@ -24,6 +24,7 @@ public class ServerConfigs {
         FART_REQUIRED_MANA_AMOUNT = BUILDER.define("fartRequiredManaAmount", 690);
         TESTICULAR_TORSION_REQUIRED_MANA_AMOUNT = BUILDER.define("testicularTorsion", 6900);
         VIRTUAL_BLOCK_REQUIRED_MANA_AMOUNT = BUILDER.define("virtual_wall", 100);
+        PUNISHMENT_MANA_COST = BUILDER.define("punishmentManaCost", 1000);
 
         BUILDER.pop();
 
